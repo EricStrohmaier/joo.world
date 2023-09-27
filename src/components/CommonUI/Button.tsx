@@ -4,6 +4,7 @@ interface ButtonProps {
   title: string;
   href?: string;
   style?: string;
+  onClick?: () => void;
 }
 
 export default function Button(props: ButtonProps) {
