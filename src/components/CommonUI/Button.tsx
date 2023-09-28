@@ -1,24 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface ButtonProps {
   title: string;
-  href?: string;
+  href: string;
   style?: string;
-  onClick?: () => void;
 }
 
-export default function Button(props: ButtonProps) {
-  const { title, href, style } = props;
-
+const Button: React.FC<ButtonProps> = ({ title, href, style }) => {
   return (
     <div>
-      <a href={href} className="w-fit ">
+      <Link to={href} className="w-fit">
         <button
-          className={`flex justify-center p-3 rounded-[10px] transiton duration-100 ${style}`}
+          className={`flex justify-center p-3 rounded-[10px] transition duration-100 ${style}`}
         >
           {title}
         </button>
-      </a>
+      </Link>
     </div>
   );
-}
+};
+
+export default Button;

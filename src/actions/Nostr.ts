@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import {  getPublicKey } from "nostr-tools";
+import {  getPublicKey, nip05 } from "nostr-tools";
 import { Dispatch } from "redux";
 
 
@@ -56,7 +56,7 @@ export const setLocalPublicKey = (pubkey: string): void => {
     }
   }
 };
-
+//sign out
 export const REVOKE_DEVICE_AUTH = "REVOKE_DEVICE_AUTH";
 export const revokeDeviceAuth = () => {
     return (dispatch: Dispatch) => {
@@ -223,4 +223,48 @@ export async function getPubKey() {
     // @ts-ignore
     const pubKey = await window.nostr.getPublicKey();
     return pubKey;
+  }
+
+  // export function getMetaData(pubkey: string) {
+  //   const url = `https://rbr.bio/${pubkey}/metadata.json`;
+  //   const data = fetch(url, {
+  //     method: "get",
+  //     mode: "cors",
+  //   });
+  
+  //   return data;
+  // }
+export async function getMetaData() {
+  const profile = await nip05.queryProfile("jb55.com")
+  if (profile) {
+    console.log(profile.pubkey)
+    console.log(profile.relays)
+
+  } else {
+    console.log("Profile not found");
+  }
+}
+
+
+  export async function getRelayData(relay: string) {
+    let relayNoProtocol: string;
+    let url: string;
+  
+    if (relay.startsWith("wss://")) {
+      relayNoProtocol = relay.replace(/^.{6}/, "");
+      url = `https://${relayNoProtocol}`;
+    } else {
+      relayNoProtocol = relay.replace(/^.{5}/, "");
+      url = `http://${relayNoProtocol}`;
+    }
+  
+    const data = await fetch(url, {
+      method: "get",
+      mode: "cors",
+      headers: {
+        Accept: "application/nostr+json",
+      },
+    });
+  
+    return data.json();
   }
