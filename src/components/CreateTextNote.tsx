@@ -9,8 +9,7 @@ import { useMetadata } from "../utils/nostr/use-metadata";
 interface CreateTextNoteProps {}
 
 const CreateTextNote: FC<CreateTextNoteProps> = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { connection, setConnection } = useNostrConnection();
+  const { connection } = useNostrConnection();
   const pubkey = connection?.pubkey;
   if (!pubkey) {
     console.log("No pubkey");
