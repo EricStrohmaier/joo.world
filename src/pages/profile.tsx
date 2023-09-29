@@ -21,7 +21,7 @@ const Profile: FC<ProfileProps> = () => {
 
   return (
     <div>
-      <div></div>
+      <div>{JSON.stringify(profile)}</div>
     </div>
   );
 };
