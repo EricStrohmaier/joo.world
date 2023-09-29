@@ -10,6 +10,7 @@ declare global {
 }
 
 type Nostr = {
+  nip04: unknown;
   getPublicKey(): Promise<string>;
   signEvent(event: EventTemplate): Promise<Event>;
 };

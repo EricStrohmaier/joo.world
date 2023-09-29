@@ -4,6 +4,9 @@ import "./index.css";
 
 import Profile from "./pages/profile";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RelayPoolProvider } from "./utils/nostr/use-relays-pool.tsx";
+import { NostrConnectionProvider } from "./utils/nostr/use-nostr-connection.tsx";
+import React from "react";
 
 // Define your routes
 const router = createBrowserRouter([
@@ -23,5 +26,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <RelayPoolProvider>
+      <NostrConnectionProvider>
+        <RouterProvider router={router} />
+      </NostrConnectionProvider>
+    </RelayPoolProvider>
+  </React.StrictMode>
 );

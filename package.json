@@ -10,19 +10,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nostr-connect/connect": "^0.4.0",
     "@nostr-dev-kit/ndk": "^1.3.1",
     "axios": "^1.5.1",
+    "crypto": "^1.0.1",
+    "crypto-js": "^4.1.1",
     "nostr-relaypool": "^0.6.28",
     "nostr-tools": "^1.16.0",
     "react": "^18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.16.0",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "use-debounce": "^9.0.4",
+    "use-state-persist": "^0.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "^18.15.3",
+    "@types/react-copy-to-clipboard": "^5.0.4",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
