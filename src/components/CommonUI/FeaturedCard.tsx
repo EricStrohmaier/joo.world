@@ -14,7 +14,7 @@ const FeaturedCard: FC<FeaturedCardProps> = ({
   postContent,
   profilePicUrl,
   npub,
-  featuredPost,
+  // featuredPost,
 }) => {
   return (
     <div className="w-full mx-auto">

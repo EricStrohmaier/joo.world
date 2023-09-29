@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { getProfileDataFromMetaData } from "../utils/helperFunctions";
 import { useMetadata } from "../utils/nostr/use-metadata";
 import { useNostrConnection } from "../utils/nostr/use-nostr-connection";
