@@ -1,24 +1,35 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 interface ButtonProps {
-  title: string;
-  href?: string;
+  title?: string;
+  href: string;
   style?: string;
-  onClick?: () => void;
+  url?: string;
 }
 
-export default function Button(props: ButtonProps) {
-  const { title, href, style } = props;
-
+const Button: React.FC<ButtonProps> = ({ url, title, href, style }) => {
   return (
     <div>
-      <a href={href} className="w-fit ">
-        <button
-          className={`flex justify-center p-3 rounded-[10px] transiton duration-100 ${style}`}
+      <Link to={href} className="w-fit">
+        <div
+          className={`flex justify-center rounded-[10px] transition duration-100 ${style}`}
         >
-          {title}
-        </button>
-      </a>
+          {url && (
+            <div className="w-[50px] h-[50px] border-2 border-gray-200 rounded-[10px]">
+              {" "}
+              <img
+                src={url}
+                className="w-full h-full overflow-hidden rounded-[8px] z-0"
+              />
+            </div>
+          )}
+
+          {title && <div className="text-md font-bold">{title}</div>}
+        </div>
+      </Link>
     </div>
   );
-}
+};
+
+export default Button;

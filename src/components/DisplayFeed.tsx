@@ -1,11 +1,24 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import ActionButton from "./CommonUI/ActionButton";
-import Button from "./CommonUI/Button";
 import ProfileCard from "./CommonUI/ProfileCard";
+import { getCurrentTimeIn24HourFormat } from "../utils/helperFunctions";
 
 interface DisplayFeedProps {}
 
 const DisplayFeed: FC<DisplayFeedProps> = () => {
+  const [currentTime, setCurrentTime] = useState<string>("");
+
+  useEffect(() => {
+    // Update the current time every second
+    const intervalId = setInterval(() => {
+      const formattedTime = getCurrentTimeIn24HourFormat();
+      setCurrentTime(formattedTime);
+    }, 1000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="max-w-6xl w-full p-3">
       <div className="h-full bg-gray-100 rounded-[40px] border-gray-200 border-2">
@@ -13,8 +26,10 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
           <div className="my-4 w-[90%] h-fit rounded-[20px] flex">
             <div className="w-full h-full flex justify-between">
               <ActionButton
-                title={"TIME: 12:30 "}
-                style={"bg-gray-50 hover:shadow-none shadow-none"}
+                title={`TIME: ${currentTime}`}
+                style={
+                  "pointer-events-none  bg-gray-50 hover:shadow-none shadow-none px-3"
+                }
               />
 
               <div className="flex space-x-2">
