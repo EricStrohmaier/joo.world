@@ -161,6 +161,7 @@ export const NostrConnectionProvider = (props: PropsWithChildren<object>) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useNostrConnection = () => {
   const result = useContext(NostrConnectionContext);
 

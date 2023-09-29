@@ -37,6 +37,7 @@ export const RelayPoolProvider = (props: PropsWithChildren<object>) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useRelayPool = () => {
   const result = useContext(RelayPoolContext);
 

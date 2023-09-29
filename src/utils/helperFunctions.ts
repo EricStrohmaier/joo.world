@@ -17,6 +17,7 @@ export function insertEventIntoDescendingList<T extends Event>(
   } else if (event.created_at >= sortedArray[start].created_at) {
     position = start;
   } else
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       if (end <= start + 1) {
         position = end;

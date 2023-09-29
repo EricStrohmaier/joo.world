@@ -96,7 +96,7 @@ export const loadCommunitiesIndex = () => {
 };
 
 export const subscribeToCommunity = (params: { a?: string; subscribe?: boolean }) => {
-  return async (dispatch: Dispatch, getState: () => any) => {
+  return async (_dispatch: Dispatch, getState: () => any) => {
     let event: any, atags;
 
     const { a, subscribe } = params;
