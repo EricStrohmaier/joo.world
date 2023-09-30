@@ -26,17 +26,30 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
           <div className="my-4 w-[90%] h-fit rounded-[20px] flex">
             <div className="w-full h-full flex justify-between">
               <ActionButton
-                title={`TIME: ${currentTime}`}
+                title={` : ${currentTime}`}
+                svg={"./../public/watch.svg"}
                 style={
-                  "pointer-events-none  bg-gray-50 hover:shadow-none shadow-none px-3"
+                  "pointer-events-none  bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
                 }
               />
 
               <div className="flex space-x-2">
-                <ActionButton title={"edit feed"} />
-                <ActionButton title={"edit your lists"} />
-                <ActionButton title={"your communitys"} />
-                <ActionButton title={"learn more"} />
+                <ActionButton
+                  title={"edit feed"}
+                  svg={"./../public/settings.svg"}
+                />
+                <ActionButton
+                  title={"edit your lists"}
+                  svg={"./../public/stack.svg"}
+                />
+                <ActionButton
+                  title={"your communitys"}
+                  svg={"./../public/globe.svg"}
+                />
+                <ActionButton
+                  title={"learn more"}
+                  svg={"./../public/dots.svg"}
+                />
               </div>
             </div>
           </div>
@@ -46,7 +59,7 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
                 profilePicUrl={
                   "https://avatars.githubusercontent.com/u/25105806?v=4"
                 }
-                username={"Not ERic "}
+                username={"Example User "}
                 npub={"short@handle.nothing"}
                 postContent={"Tester test mr testinger"}
                 // featuredPost={"featured post here"}
@@ -55,10 +68,12 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
                 profilePicUrl={
                   "https://avatars.githubusercontent.com/u/25105806?v=4"
                 }
-                username={"Eric Stroh"}
+                username={"Mr Testinger"}
                 npub={"nbub0x123456789"}
-                postContent={"Tester test mr testinger"}
-                featuredPost={"featured postinger @ \n\n post here"}
+                postContent={
+                  "Bitcoin is literally the best thing ever!!! -- thanks to copilot"
+                }
+                featuredPost={"featured postinger agrees"}
               />
             </div>
           </div>

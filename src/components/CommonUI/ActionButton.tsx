@@ -1,11 +1,12 @@
 interface ButtonProps {
-  title: string;
+  title?: string;
   href?: string;
   style?: string;
+  svg?: string;
 }
 
 export default function ActionButton(props: ButtonProps) {
-  const { title, href, style } = props;
+  const { title, href, style, svg } = props;
 
   return (
     <div>
@@ -13,7 +14,9 @@ export default function ActionButton(props: ButtonProps) {
         <button
           className={`flex justify-center bg-gray-50 hover:shadow-md border-2 rounded-[70px] w-fit p-1 px-2 shadow-sm transiton duration-100 ${style}`}
         >
-          {title}
+          {" "}
+          {svg && <img src={svg} className="max-w-6 max-h-6 mr-1" />}
+          {title && <p className="text-sm"> {title}</p>}
         </button>
       </a>
     </div>
