@@ -1,6 +1,7 @@
 import { FC } from "react";
 import ProfileImage from "./ProfileImage";
 import FeaturedCard from "./FeaturedCard";
+import LikeButton from "./LikeButton";
 
 interface ProfileCardProps {
   profilePicUrl: string; // URL of the profile picture
@@ -46,16 +47,11 @@ const ProfileCard: FC<ProfileCardProps> = ({
         )}
 
         {/* Action Buttons */}
-        <div className="mt-2 flex justify-start space-x-2">
-          <button className="text-xs  text-blue-500 hover:text-blue-700">
-            Like
-          </button>
-          <button className="text-xs  text-green-500 hover:text-green-700">
-            Repost
-          </button>
-          <button className="text-xs  text-gray-500 hover:text-gray-700">
-            Comment
-          </button>
+        <div className="mt-2 flex justify-start space-x-4">
+          <LikeButton svg={"./../public/heart.svg"} />
+          <LikeButton svg={"./../public/repost.svg"} />
+
+          <LikeButton svg={"./../public/comment.svg"} />
         </div>
       </div>
       {/* TODO if last divider line not displaying  */}

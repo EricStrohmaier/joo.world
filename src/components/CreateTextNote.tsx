@@ -40,8 +40,8 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
               </div>
               <div className="flex justify-between">
                 <div className="flex">
-                  <ActionButton title={"Pics"} style={"mr-2"} />
-                  <ActionButton title={"Configure Relays"} />
+                  <ActionButton svg={"./../public/image.svg"} style={"mr-2"} />
+                  <ActionButton svg={"./../public/server.svg"} />
                 </div>
                 <div className="flex">
                   <ActionButton title={"Cancel"} style={"mr-2"} />
