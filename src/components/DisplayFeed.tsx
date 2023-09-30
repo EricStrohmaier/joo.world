@@ -26,7 +26,7 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
           <div className="my-4 w-[90%] h-fit rounded-[20px] flex">
             <div className="w-full h-full flex justify-between">
               <ActionButton
-                title={` : ${currentTime}`}
+                title={`  ${currentTime}`}
                 svg={"./../public/watch.svg"}
                 style={
                   "pointer-events-none  bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
