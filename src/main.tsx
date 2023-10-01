@@ -21,6 +21,10 @@ const router = createBrowserRouter([
         path: "profile/:id",
         element: <Profile />,
       },
+      {
+        path: "profile/edit",
+        element: <Profile />,
+      },
     ],
   },
 ]);

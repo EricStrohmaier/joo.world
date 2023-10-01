@@ -52,15 +52,19 @@ export function getProfileDataFromMetaData(
   pubkey: string
 ): NostrProfile {
   const meta = metadata[pubkey];
+  console.log("meta", meta);
   if (!meta)
     return {
+      banner: "",
       pubkey,
       name: nip19.npubEncode(pubkey),
+      displayName: "",
       about: null,
       image: `https://avatars.dicebear.com/api/identicon/${pubkey}.svg`,
       lightning_address: null,
       nip05: null,
-      link: "nostr:" + nip19.npubEncode(pubkey),
+      npub: nip19.npubEncode(pubkey),
+      website: null,
     };
 
   const name = getName(metadata, pubkey);
@@ -68,16 +72,24 @@ export function getProfileDataFromMetaData(
     meta.picture && meta.picture.length ? (meta.picture as string) : null;
   const about = meta.about && meta.about.length ? (meta.about as string) : null;
   const nip05 = meta.nip05 && meta.nip05.length ? (meta.nip05 as string) : null;
-  const lud06 = meta.lud06 && meta.lud06.length ? (meta.lud06 as string) : null;
+  const lud16 = meta.lud16 && meta.lud16.length ? (meta.lud16 as string) : null;
+  const banner = meta.banner && meta.banner.length ? (meta.banner as string) : null;
+  const displayName = meta.displayName && meta.displayName.length ? (meta.displayName as string) : null;
+  const website = meta.website && meta.website.length ? (meta.website as string) : null;
+  // const lightning_address = meta.lightning_address && meta.lightning_address.length ? (meta.lightning_address as string) : null;
 
   return {
     name,
+    displayName,
     image,
+    banner,
     about,
     pubkey,
-    lightning_address: lud06,
+    lightning_address: lud16,
     nip05,
-    link: "nostr:" + nip19.npubEncode(pubkey),
+    npub:  nip19.npubEncode(pubkey),
+    website,
+    // lightningAddress: lightning_address,
   } as NostrProfile;
 }
 
