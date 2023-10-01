@@ -3,6 +3,7 @@ import ActionButton from "./CommonUI/ActionButton";
 import ProfileCard from "./CommonUI/ProfileCard";
 import { getCurrentTimeIn24HourFormat } from "../utils/helperFunctions";
 import LayoutCard from "./LayoutCard";
+import { dots, globe, settings, stack, watch } from "../public";
 
 interface DisplayFeedProps {}
 
@@ -26,23 +27,17 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
         <div className="w-full h-full flex justify-between">
           <ActionButton
             title={`${currentTime}`}
-            svg="./../public/watch.svg"
+            svg={watch}
             style={
               "pointer-events-none bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
             }
           />
 
           <div className="flex space-x-2">
-            <ActionButton title={"edit feed"} svg="./../public/settings.svg" />
-            <ActionButton
-              title={"edit your lists"}
-              svg="./../public/stack.svg"
-            />
-            <ActionButton
-              title={"your communitys"}
-              svg="./../public/globe.svg"
-            />
-            <ActionButton title={"learn more"} svg={"./../public/dots.svg"} />
+            <ActionButton title={"edit feed"} svg={settings} />
+            <ActionButton title={"edit your lists"} svg={stack} />
+            <ActionButton title={"your communitys"} svg={globe} />
+            <ActionButton title={"learn more"} svg={dots} />
           </div>
         </div>
       </div>

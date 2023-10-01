@@ -4,6 +4,7 @@ import { useMetadata } from "../utils/nostr/use-metadata";
 import { useNostrConnection } from "../utils/nostr/use-nostr-connection";
 import LayoutPage from "../components/LayoutPage";
 import { Link } from "react-router-dom";
+import { message } from "../public";
 
 interface ProfileProps {}
 
@@ -46,19 +47,14 @@ const Profile: FC<ProfileProps> = () => {
               </div>
               <div className="flex-1 justify-end items-center flex gap-2 space-x-4">
                 <div className="flex">
-                  <a
-                    // to="lightning:strohstacks@getalby.com"
-                    href={`lightning:${profile.lightning_address}`}
-                    className="btn btn-sm btn-neutral"
-                  >
-                    <img src="./../public/message.svg" alt="" />
+                  <a href={``} className="">
+                    <img src={message} alt="go to message" />
                   </a>
                 </div>
                 <div className="flex">
                   <a
-                    // to="lightning:strohstacks@getalby.com"
                     href={`lightning:${profile.lightning_address}`}
-                    className="btn btn-sm btn-neutral"
+                    className=""
                   >
                     ⚡
                   </a>
@@ -69,7 +65,7 @@ const Profile: FC<ProfileProps> = () => {
                   </Link>
                 </div>
                 <div className="relative">
-                  <button className="dropbtn btn btn-circle btn-sm btn-ghost text-neutral-500 pb-2">
+                  <button className="dropbtn btn btn-circle btn-sm btn-ghost text-neutral-500 pb-2 mr-2">
                     …
                   </button>
                 </div>
@@ -80,28 +76,23 @@ const Profile: FC<ProfileProps> = () => {
                 <span className="text-xl font-semibold mr-2">
                   <span>{profile.displayName}</span>
                 </span>
-                <small className="inline-block text-iris-green visible">
-                  strohstacks@nostrplebs.com
-                </small>
-              </div>
-
-              <div className="py-2">
-                <p className="text-sm">nostrudent</p>
-                <div className="flex flex-1 flex-row align-center justify-center mt-4">
-                  <div className="flex-1">
-                    <a
-                      href="https://eric-strohmaier.netlify.app"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link"
-                    >
-                      eric-strohmaier.netlify.app
-                    </a>
-                  </div>
+                <div className="flex text-sm space-x-3">
+                  <div>{profile.nip05}</div>
+                  <a
+                    href={profile.website?.toString()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    eric-strohmaier.netlify.app
+                  </a>
                 </div>
+              </div>
+              <div className="py-2">
+                <p className="text-sm">{profile.about}</p>
               </div>
             </div>
           </div>
+          <div className="border-[0.5px] border-black "></div>
         </div>
       </div>
     </LayoutPage>

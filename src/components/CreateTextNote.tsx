@@ -6,6 +6,7 @@ import { getProfileDataFromMetaData } from "../utils/helperFunctions";
 import { useNostrConnection } from "../utils/nostr/use-nostr-connection";
 import { useMetadata } from "../utils/nostr/use-metadata";
 import LayoutCard from "./LayoutCard";
+import { image, server } from "../public";
 
 interface CreateTextNoteProps {}
 
@@ -39,8 +40,8 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
           </div>
           <div className="flex justify-between">
             <div className="flex">
-              <ActionButton svg={"./../public/image.svg"} style={"mr-2"} />
-              <ActionButton svg={"./../public/server.svg"} />
+              <ActionButton svg={image} style={"mr-2"} />
+              <ActionButton svg={server} />
             </div>
             <div className="flex">
               <ActionButton title={"Cancel"} style={"mr-2"} />
