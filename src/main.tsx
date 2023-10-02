@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { RelayPoolProvider } from "./utils/nostr/use-relays-pool.tsx";
 import { NostrConnectionProvider } from "./utils/nostr/use-nostr-connection.tsx";
 import React from "react";
+import About from "./pages/About.tsx";
 
 // Define your routes
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "profile/edit",
         element: <Profile />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
     ],
   },

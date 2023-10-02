@@ -13,9 +13,11 @@ function App() {
         <CreateTextNote />
         {/* <CreateWorkflows /> */}
         <DisplayFeed />
+        <DisplayFeed />
       </div>
     </div>
   );
 }
 
 export default App;
+//

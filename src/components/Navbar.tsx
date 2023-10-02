@@ -50,7 +50,7 @@ const NavigationBar: FC<NavigationBarProps> = () => {
   };
 
   return (
-    <div className="w-full fixed top-0 z-50 bg-gray-50">
+    <div className="w-full  bg-white shadow-md fixed top-0 left-0 right-0 bg-opacity-50 z-[5] backdrop-filter backdrop-blur-lg">
       <div className="flex justify-center items-center z-10 px-3">
         <div className="w-full max-w-6xl flex justify-between p-2">
           <Button
