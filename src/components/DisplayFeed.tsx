@@ -26,18 +26,19 @@ const DisplayFeed: FC<DisplayFeedProps> = () => {
       <div className="my-4 w-[90%] h-fit rounded-[20px] flex">
         <div className="w-full h-full flex justify-between">
           <ActionButton
-            title={`${currentTime}`}
+            titleVisible={`${currentTime}`}
             svg={watch}
             style={
-              "pointer-events-none bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
+              "px-2 pointer-events-none bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
             }
+            textStyle={"ml-[5px]"}
           />
 
           <div className="flex space-x-2">
-            <ActionButton title={"edit feed"} svg={settings} />
-            <ActionButton title={"edit your lists"} svg={stack} />
-            <ActionButton title={"your communitys"} svg={globe} />
-            <ActionButton title={"learn more"} svg={dots} />
+            <ActionButton title={"Edit feed"} svg={settings} />
+            <ActionButton title={"Edit your lists"} svg={stack} />
+            <ActionButton title={"Your communitys"} svg={globe} />
+            <ActionButton title={"Learn more"} svg={dots} />
           </div>
         </div>
       </div>

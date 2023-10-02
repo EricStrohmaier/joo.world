@@ -82,9 +82,7 @@ const Profile: FC<ProfileProps> = () => {
                     href={profile.website?.toString()}
                     target="_blank"
                     rel="noopener noreferrer"
-                  >
-                    eric-strohmaier.netlify.app
-                  </a>
+                  ></a>
                 </div>
               </div>
               <div className="py-2">
@@ -92,7 +90,7 @@ const Profile: FC<ProfileProps> = () => {
               </div>
             </div>
           </div>
-          <div className="border-[0.5px] border-black "></div>
+          <div className="border-[0.5px]"></div>
         </div>
       </div>
     </LayoutPage>

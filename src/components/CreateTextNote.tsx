@@ -28,7 +28,10 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
         />{" "}
         <div className="w-5/6 p-2">
           <div className="flex">
-            <ActionButton title={"Choose Format"} style={"mb-2 mr-2"} />
+            <ActionButton
+              titleVisible={"Choose Format"}
+              style={"mb-2 mr-2 px-2"}
+            />
             {/* <ActionButton title={"Choose Audience"} style={"mb-2"} /> */}
           </div>
 
@@ -44,8 +47,8 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
               <ActionButton svg={server} />
             </div>
             <div className="flex">
-              <ActionButton title={"Cancel"} style={"mr-2"} />
-              <ActionButton title={"Publish"} style={"mr-2"} />
+              <ActionButton titleVisible={"Cancel"} style={"mr-2  px-2"} />
+              <ActionButton titleVisible={"Publish"} style={"mr-2 px-2"} />
             </div>
           </div>
         </div>
