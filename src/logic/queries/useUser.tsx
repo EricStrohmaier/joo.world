@@ -7,7 +7,7 @@ export const useUser = () => {
     queryKey: ["app", "user", "pubkey"],
     queryFn: () => {
       const pubkey: string | null =
-        queryClient.getQueryData(["app", "user", "pubkey"]) || null;
+        queryClient.getQueryData(["app", "user", "pubkey"]) || "";
 
       return pubkey;
     },

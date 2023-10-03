@@ -2,20 +2,38 @@ import { FC } from "react";
 import LayoutPage from "../components/LayoutPage";
 import { Link } from "react-router-dom";
 import { message } from "../public";
+import { useAuthor, useUser } from "../logic/queries";
 
 interface ProfileProps {}
 
 const Profile: FC<ProfileProps> = () => {
+  const { pubkey } = useUser();
+  // const npub = pubkey ? nip19.npubEncode(pubkey) : "#";
+  // console.log("npub", npub);
+  // const hex = pubkey ? nip19.decode(pubkey).data.toString() : undefined;
+  // console.log("hex", hex);
+  const { data: author, status } = useAuthor(pubkey);
+  const { displayName, picture, banner, nip05, about, lud16, website } =
+    author || {};
+
+  if (status == "loading") {
+    return (
+      <LayoutPage>
+        <div className="h-32 flex justify-center items-center overflow-hidden bg-white shadow-md text-xs xl:rounded-xl">
+          Loading...
+        </div>
+      </LayoutPage>
+    );
+  }
   return (
     <LayoutPage>
       <div className="max-w-full h-fit ">
         {" "}
-        profile
-        {/* <div className="w-full h-full border-black">
+        <div className="w-full h-full border-black">
           <img
             className="w-full h-32 mb-4 object-cover"
-            src={profile.banner}
-            alt={`${profile.name}'s social media banner`}
+            src={banner}
+            alt={`${displayName}'s social media banner`}
           />
         </div>
         <div>
@@ -27,7 +45,7 @@ const Profile: FC<ProfileProps> = () => {
               >
                 <div className="rounded-full aspect-square border-4 border-black">
                   <img
-                    src={profile.image}
+                    src={picture}
                     width="128"
                     height="128"
                     className="rounded-full w-full h-full object-cover"
@@ -41,10 +59,7 @@ const Profile: FC<ProfileProps> = () => {
                   </a>
                 </div>
                 <div className="flex">
-                  <a
-                    href={`lightning:${profile.lightning_address}`}
-                    className=""
-                  >
+                  <a href={`lightning:${lud16}`} className="">
                     ⚡
                   </a>
                 </div>
@@ -63,24 +78,24 @@ const Profile: FC<ProfileProps> = () => {
             <div>
               <div className="flex-1 ">
                 <span className="text-xl font-semibold mr-2">
-                  <span>{profile.displayName}</span>
+                  <span>{displayName}</span>
                 </span>
                 <div className="flex text-sm space-x-3">
-                  <div>{profile.nip05}</div>
+                  <div>{nip05}</div>
                   <a
-                    href={profile.website?.toString()}
+                    href={website?.toString()}
                     target="_blank"
                     rel="noopener noreferrer"
                   ></a>
                 </div>
               </div>
               <div className="py-2">
-                <p className="text-sm">{profile.about}</p>
+                <p className="text-sm">{about}</p>
               </div>
             </div>
           </div>
           <div className="border-[0.5px]"></div>
-        </div> */}
+        </div>
       </div>
     </LayoutPage>
   );

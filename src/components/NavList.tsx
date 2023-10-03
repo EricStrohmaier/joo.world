@@ -11,8 +11,7 @@ interface NavListProps {}
 const NavList: FC<NavListProps> = () => {
   const navstyle = " hover:bg-gray-200 p-1 px-2";
   const { pubkey, metadata } = useUser();
-  console.log("pubkey", pubkey);
-  console.log("metadata", metadata);
+  const npub = pubkey ? nip19.npubEncode(pubkey) : "#";
 
   return (
     <>
@@ -57,7 +56,7 @@ const NavList: FC<NavListProps> = () => {
                 title={metadata?.displayName}
                 // href={`/profile/`}
                 style={" hover:bg-gray-300 p-2"}
-                href={`/profile/${nip19.npubEncode(pubkey || "")}`}
+                href={`/profile/${npub}`}
               />
               <Button
                 imgUrl={logout}
