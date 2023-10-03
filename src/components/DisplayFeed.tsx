@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import ActionButton from "./CommonUI/ActionButton";
 import ProfileCard from "./CommonUI/ProfileCard";
-import { getCurrentTimeIn24HourFormat } from "../utils/helperFunctions";
+import { getCurrentTimeIn24HourFormat } from "../logic/utils/helperFunctions";
 import LayoutCard from "./LayoutCard";
 import { dots, globe, settings, stack, watch } from "../public";
 

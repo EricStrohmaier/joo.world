@@ -1,7 +1,4 @@
 import { FC } from "react";
-import { getProfileDataFromMetaData } from "../utils/helperFunctions";
-import { useMetadata } from "../utils/nostr/use-metadata";
-import { useNostrConnection } from "../utils/nostr/use-nostr-connection";
 import LayoutPage from "../components/LayoutPage";
 import { Link } from "react-router-dom";
 import { message } from "../public";
@@ -9,20 +6,12 @@ import { message } from "../public";
 interface ProfileProps {}
 
 const Profile: FC<ProfileProps> = () => {
-  const { connection: nostrConnection } = useNostrConnection();
-  if (!nostrConnection) throw new Error("Nostr Connection not found");
-  // You should have a valid `pubkey` variable defined here
-  const pubkey = nostrConnection?.pubkey || "";
-  const { metadata } = useMetadata({ pubkey });
-  const profile = getProfileDataFromMetaData(metadata, pubkey);
-
-  console.log("profile", profile);
-
   return (
     <LayoutPage>
       <div className="max-w-full h-fit ">
         {" "}
-        <div className="w-full h-full border-black">
+        profile
+        {/* <div className="w-full h-full border-black">
           <img
             className="w-full h-32 mb-4 object-cover"
             src={profile.banner}
@@ -91,7 +80,7 @@ const Profile: FC<ProfileProps> = () => {
             </div>
           </div>
           <div className="border-[0.5px]"></div>
-        </div>
+        </div> */}
       </div>
     </LayoutPage>
   );

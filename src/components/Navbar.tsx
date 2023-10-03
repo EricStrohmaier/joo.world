@@ -1,11 +1,11 @@
 import { FC } from "react";
 import Button from "./CommonUI/Button";
-import { useMetadata } from "../utils/nostr/use-metadata";
+import { useMetadata } from "../logic/utils/nostr/use-metadata";
 import {
   NostrAccountConnection,
   useNostrConnection,
-} from "../utils/nostr/use-nostr-connection";
-import { getProfileDataFromMetaData } from "../utils/helperFunctions";
+} from "../logic/utils/nostr/use-nostr-connection";
+import { getProfileDataFromMetaData } from "../logic/utils/helperFunctions";
 
 interface NavigationBarProps {}
 

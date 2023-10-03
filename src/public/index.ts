@@ -14,10 +14,23 @@ import settings from './settings.svg';
 import stack from './stack.svg';
 import trash from './trash.svg';
 import watch from './watch.svg';
+import box from './box.svg';
+import home from './home.svg';
+import email from './email.svg';
+import search from './search.svg';
+import login from './login.svg';
+import logout from './logout.svg';
+
 
 
 
 export { 
+    login,
+    logout,
+    box,
+    home,
+    email,
+    search,
     alarmClock,
     check,
     comment,

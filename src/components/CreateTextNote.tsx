@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import ActionButton from "./CommonUI/ActionButton";
 import Button from "./CommonUI/Button";
-import { getProfileDataFromMetaData } from "../utils/helperFunctions";
-import { useNostrConnection } from "../utils/nostr/use-nostr-connection";
-import { useMetadata } from "../utils/nostr/use-metadata";
+import { getProfileDataFromMetaData } from "../logic/utils/helperFunctions";
+import { useNostrConnection } from "../logic/utils/nostr/use-nostr-connection";
+import { useMetadata } from "../logic/utils/nostr/use-metadata";
 import LayoutCard from "./LayoutCard";
 import { image, server } from "../public";
 
