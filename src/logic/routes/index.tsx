@@ -3,7 +3,7 @@ import Home from "../../pages/Home";
 import About from "../../pages/About";
 import { Login } from "../../pages/Login";
 import { Logout } from "../../pages/Logout";
-import Profile from "../../pages/Profile";
+import Profile from "../../pages/Profile.tsx";
 
 export const AppRouter = () => {
   return (
