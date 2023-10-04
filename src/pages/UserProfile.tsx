@@ -1,23 +1,19 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import LayoutPage from "../components/LayoutPage";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { message } from "../public";
 import { useAuthor } from "../logic/queries";
-import { nip19 } from "nostr-tools";
 
-interface ProfileProps {}
+interface UserProfileProps {
+  pubkey: string; // Pass pubkey as a prop
+}
 
-const Profile: FC<ProfileProps> = () => {
-  const { npub } = useParams();
-
-  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-
-  const { data: author, status } = useAuthor(hex);
-
+const UserProfile: FC<UserProfileProps> = ({ pubkey }) => {
+  const { data: author, status } = useAuthor(pubkey);
   const { displayName, picture, banner, nip05, about, lud16, website } =
     author || {};
 
-  if (status == "loading") {
+  if (status === "loading") {
     return (
       <LayoutPage>
         <div className="h-32 flex justify-center items-center overflow-hidden bg-white shadow-md text-xs xl:rounded-xl">
@@ -26,6 +22,7 @@ const Profile: FC<ProfileProps> = () => {
       </LayoutPage>
     );
   }
+
   return (
     <LayoutPage>
       <div className="max-w-full h-fit ">
@@ -102,13 +99,4 @@ const Profile: FC<ProfileProps> = () => {
   );
 };
 
-export default Profile;
-// dropdown buttons ?
-{
-  /* <div className="absolute z-10 p-2 flex flex-col gap-2 right-0 w-56 rounded-md shadow-lg bg-black border-neutral-500 border-2">
-  <button className="btn btn-sm">Copy Link</button>
-  <button className="btn btn-sm">Copy User ID</button>
-  <button className="btn btn-sm">Show QR code</button>
-  <button className="btn btn-sm">Copy Raw Data</button>
-</div>; */
-}
+export default UserProfile;

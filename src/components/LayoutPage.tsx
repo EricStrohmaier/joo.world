@@ -15,7 +15,7 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
           </div>
           <div className="border-[0.5px] w-full relative bottom-11"></div>
         </div>
-        <div className="overflow-hidden w-full flex-col  bg-gray-100 bg-opacity-25  ">
+        <div className="overflow-hidden w-full flex-col bg-gray-100 bg-opacity-25">
           {" "}
           {children}
         </div>

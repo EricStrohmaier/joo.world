@@ -1,7 +1,16 @@
 import { FC } from "react";
 
 import Button from "./CommonUI/Button";
-import { box, dots, globe, home, login, logout, stack } from "../public";
+import {
+  box,
+  dots,
+  globe,
+  home,
+  login,
+  logout,
+  search,
+  stack,
+} from "../public";
 import { useUser } from "../logic/queries";
 import { nip19 } from "nostr-tools";
 import { loader } from "../logic/utils";
@@ -26,6 +35,7 @@ const NavList: FC<NavListProps> = () => {
           />
           <Button imgUrl={box} title="Focus" href={"/"} style={navstyle} />
           <Button imgUrl={dots} title="Settings" href={"/"} style={navstyle} />
+          <Button imgUrl={search} title="Search" href={"/s"} style={navstyle} />
           <Button
             imgUrl={globe}
             title="Learn stuff"
@@ -54,9 +64,8 @@ const NavList: FC<NavListProps> = () => {
                     : ""
                 }
                 title={metadata?.displayName}
-                // href={`/profile/`}
                 style={" hover:bg-gray-300 p-2"}
-                href={`/profile/${npub}`}
+                href={`/p/${npub}`}
               />
               <Button
                 imgUrl={logout}

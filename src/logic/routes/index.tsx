@@ -1,51 +1,22 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "../../pages/Home";
-import Profile from "../../pages/profile";
-import About from "../../pages/About";
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "../../pages/Home";
+import About from "../../pages/About";
 import { Login } from "../../pages/Login";
 import { Logout } from "../../pages/Logout";
-
-// Define your routes
-const router = createBrowserRouter([
-  {
-    // errorElement: <Error404 />,
-    children: [
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/logout",
-        element: <Logout />,
-      },
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "profile/:id",
-        element: <Profile />,
-      },
-      {
-        path: "profile",
-        element: <Profile />,
-      },
-      {
-        path: "about",
-        element: <About />,
-      },
-    ],
-  },
-]);
+import Profile from "../../pages/Profile";
 
 export const AppRouter = () => {
-  //   const location = useLocation();
-  //   const state = location.state as { backgroundLocation?: Location };
-
   return (
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="logout" element={<Logout />} />
+      <Route path="p/:npub" element={<Profile />} />
+      {/* <Route path="s/:" element={<Profile />} /> */}
+      <Route path="about" element={<About />} />
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 };
+
+export default AppRouter;

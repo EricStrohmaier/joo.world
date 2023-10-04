@@ -1,32 +1,24 @@
 import { FC } from "react";
 
 import ActionButton from "./CommonUI/ActionButton";
-import Button from "./CommonUI/Button";
-import { getProfileDataFromMetaData } from "../logic/utils/helperFunctions";
-import { useNostrConnection } from "../logic/utils/nostr/use-nostr-connection";
-import { useMetadata } from "../logic/utils/nostr/use-metadata";
-import LayoutCard from "./LayoutCard";
 import { image, server } from "../public";
+import LayoutCard from "./UserLayoutCard";
 
 interface CreateTextNoteProps {}
 
 const CreateTextNote: FC<CreateTextNoteProps> = () => {
-  const { connection } = useNostrConnection();
-  const pubkey = connection?.pubkey;
-  if (!pubkey) {
-    console.log("No pubkey");
-  }
-  const { metadata } = useMetadata({ pubkey: pubkey || "" });
-
   return (
     <LayoutCard>
-      <div className="p-2 w-[90%] h-[90%] flex">
-        <Button
-          url={getProfileDataFromMetaData(metadata, pubkey || "").image}
-          href={`/profile/${pubkey}`}
-          style="mt-5 "
-        />{" "}
-        <div className="w-5/6 p-2">
+      <div className=" w-[90%] h-[90%] flex">
+        {/* <div>
+          <img
+            className="w-12 h-12 rounded-full mt-2"
+            src="https://avatars.githubusercontent.com/u/122783162?v=4"
+            alt="random pic"
+          />
+        </div> */}
+        <div className="w-full p-2">
+          {/* <div className="w-5/6 p-2"> */}
           <div className="flex">
             <ActionButton
               titleVisible={"Choose Format"}
