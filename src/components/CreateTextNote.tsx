@@ -17,7 +17,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
             alt="random pic"
           />
         </div> */}
-        <div className="w-full p-2">
+        <div className="w-full">
           {/* <div className="w-5/6 p-2"> */}
           <div className="flex">
             <ActionButton

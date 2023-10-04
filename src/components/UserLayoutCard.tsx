@@ -6,7 +6,7 @@ interface LayoutCardProps {
 
 const LayoutCard: FC<LayoutCardProps> = ({ children }) => {
   return (
-    <div className="max-w-full w-full  h-full">
+    <div className=" w-full h-full">
       <div className="h-full flex justify-center">
         <div className="flex flex-col justify-center items-center w-full h-full">
           {children}
