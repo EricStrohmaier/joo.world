@@ -3,7 +3,7 @@ import LayoutPage from "../components/LayoutPage";
 
 interface AboutProps {}
 
-const About: FC<AboutProps> = () => {
+export const About: FC<AboutProps> = () => {
   return (
     <>
       <LayoutPage>
@@ -82,5 +82,3 @@ const About: FC<AboutProps> = () => {
     </>
   );
 };
-
-export default About;

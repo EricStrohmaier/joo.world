@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../../pages/Home";
-import About from "../../pages/About";
-import { Login } from "../../pages/Login";
+import { About } from "../../pages/About";
+import { Profile } from "../../pages/Profile";
 import { Logout } from "../../pages/Logout";
-import Profile from "../../pages/Profile.tsx";
+import { Login } from "../../pages/Login";
 
 export const AppRouter = () => {
   return (
@@ -17,5 +17,3 @@ export const AppRouter = () => {
     </Routes>
   );
 };
-
-export default AppRouter;

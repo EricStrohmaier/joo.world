@@ -7,7 +7,7 @@ import { nip19 } from "nostr-tools";
 
 interface ProfileProps {}
 
-const Profile: FC<ProfileProps> = () => {
+export const Profile: FC<ProfileProps> = () => {
   const { npub } = useParams();
 
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
@@ -102,7 +102,6 @@ const Profile: FC<ProfileProps> = () => {
   );
 };
 
-export default Profile;
 // dropdown buttons ?
 {
   /* <div className="absolute z-10 p-2 flex flex-col gap-2 right-0 w-56 rounded-md shadow-lg bg-black border-neutral-500 border-2">
