@@ -7,7 +7,7 @@ import { nip19 } from "nostr-tools";
 
 interface ProfileProps {}
 
-export const Profile: FC<ProfileProps> = () => {
+export const ProfileLogic: FC<ProfileProps> = () => {
   const { npub } = useParams();
 
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
