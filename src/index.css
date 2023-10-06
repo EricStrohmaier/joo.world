@@ -9,7 +9,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://image.nostr.build/da099d9e44a1742041f302aa081e5b4b36c2e2c18e35d8865829e46e8398b7d3.jpg');
+    background-color: black;
+    /* background-image: url('https://image.nostr.build/da099d9e44a1742041f302aa081e5b4b36c2e2c18e35d8865829e46e8398b7d3.jpg'); */
     background-size: cover;
     z-index: -1;
   }

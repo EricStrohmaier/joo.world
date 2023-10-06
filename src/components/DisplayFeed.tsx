@@ -1,56 +1,14 @@
-import { FC, useEffect, useState } from "react";
-import ActionButton from "./CommonUI/ActionButton";
+import { FC } from "react";
 import ProfileCard from "./CommonUI/ProfileCard";
-import { getCurrentTimeIn24HourFormat } from "../logic/utils/helperFunctions";
-import { dots, globe, settings, stack, watch } from "../public";
-import LayoutCard from "./UserLayoutCard";
+import LayoutCard from "./LayoutCard";
 
 interface DisplayFeedProps {}
 
 const DisplayFeed: FC<DisplayFeedProps> = () => {
-  const [currentTime, setCurrentTime] = useState<string>("");
-
-  useEffect(() => {
-    // Update the current time every second
-    const intervalId = setInterval(() => {
-      const formattedTime = getCurrentTimeIn24HourFormat();
-      setCurrentTime(formattedTime);
-    }, 1000);
-
-    // Clear the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []);
-
   return (
     <LayoutCard>
-      <div className="my-4 mt-7 w-[90%] h-full rounded-[20px]">
-        <div className="flex">
-          <div
-            className="w-full h-full flex justify-between"
-            style={{
-              position: "sticky", // Make the container sticky
-              top: 0, // Stick to the top of the LayoutCard
-              zIndex: 999, // Ensure it's above other content
-            }}
-          >
-            <ActionButton
-              titleVisible={`${currentTime}`}
-              svg={watch}
-              style={
-                "px-2 pointer-events-none bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
-              }
-              textStyle={"ml-[5px]"}
-            />
-
-            <div className="flex space-x-2">
-              <ActionButton title={"Edit feed"} svg={settings} />
-              <ActionButton title={"Edit your lists"} svg={stack} />
-              <ActionButton title={"Your communitys"} svg={globe} />
-              <ActionButton title={"Learn more"} svg={dots} />
-            </div>
-          </div>
-        </div>
-        <div className="p-1 my-4  w-full h-fit rounded-[20px] flex border-2 bg-gray-50">
+      <div className=" w-full h-full -my-7 rounded-[20px]">
+        <div className="p-1 w-full h-fit rounded-[20px] flex border-2 bg-gray-50">
           <div className="w-full h-fit m-2 ">
             <ProfileCard
               profilePicUrl={

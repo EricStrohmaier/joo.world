@@ -1,6 +1,6 @@
 import { FC } from "react";
 import LayoutPage from "../components/LayoutPage";
-import LayoutCard from "../components/UserLayoutCard";
+import LayoutCard from "../components/LayoutCard";
 
 interface AboutProps {}
 
@@ -9,7 +9,7 @@ export const About: FC<AboutProps> = () => {
     <>
       <LayoutPage>
         <LayoutCard>
-          <div className="m-5 flex justify-center">
+          <div className=" flex justify-center">
             <div className="text-lg space-y-4">
               <div className="font-bold text-lg">About this stuff </div>
               <p>

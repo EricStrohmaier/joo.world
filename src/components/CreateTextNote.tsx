@@ -2,14 +2,13 @@ import { FC } from "react";
 
 import ActionButton from "./CommonUI/ActionButton";
 import { image, server } from "../public";
-import LayoutCard from "./UserLayoutCard";
 
 interface CreateTextNoteProps {}
 
 const CreateTextNote: FC<CreateTextNoteProps> = () => {
   return (
-    <LayoutCard>
-      <div className=" w-[90%] h-[90%] flex">
+    <>
+      <div className="w-full ">
         {/* <div>
           <img
             className="w-12 h-12 rounded-full mt-2"
@@ -35,8 +34,12 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
           </div>
           <div className="flex justify-between">
             <div className="flex">
-              <ActionButton svg={image} style={"mr-2"} />
-              <ActionButton svg={server} />
+              <ActionButton
+                title="Upload an Image"
+                svg={image}
+                style={"mr-2"}
+              />
+              <ActionButton title="Edit Relays" svg={server} />
             </div>
             <div className="flex">
               <ActionButton titleVisible={"Cancel"} style={"mr-2  px-2"} />
@@ -45,7 +48,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
           </div>
         </div>
       </div>
-    </LayoutCard>
+    </>
   );
 };
 

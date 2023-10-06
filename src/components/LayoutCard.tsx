@@ -9,7 +9,7 @@ const LayoutCard: FC<LayoutCardProps> = ({ children }) => {
     <div className=" w-full h-full">
       <div className="h-full flex justify-center">
         <div className="flex flex-col justify-center items-center w-full h-full">
-          {children}
+          <div className=" w-[90%] h-full my-12 flex">{children}</div>
         </div>
       </div>
     </div>

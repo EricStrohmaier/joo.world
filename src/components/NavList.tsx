@@ -33,6 +33,12 @@ const NavList: FC<NavListProps> = () => {
             href={"/workflows"}
             style={navstyle}
           />
+          <Button
+            imgUrl={stack}
+            title="Create"
+            href={"/workflows/create"}
+            style={navstyle}
+          />
           <Button imgUrl={box} title="Focus" href={"/"} style={navstyle} />
           <Button imgUrl={dots} title="Settings" href={"/"} style={navstyle} />
           <Button imgUrl={search} title="Search" href={"/s"} style={navstyle} />

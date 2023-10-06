@@ -7,9 +7,8 @@ interface LayoutProps {
 
 const LayoutPage: FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="h-full w-screen background-img">
-      {/* add backgroundimg here over full bg */}
-      {/* Pseudo-element for blur */}
+    <div className="h-full w-screen ">
+      {/* <div className="h-full w-screen background-img"> */}
       <div className="flex justify-center items-center ">
         <div className="flex mx-3 my-6 max-w-7xl h-full w-full bg-gray-100 rounded-[40px] overflow-hidden">
           <div className="lg:w-1/5 border-r-2 border-gray-200 ">
