@@ -2,6 +2,7 @@ import { FC } from "react";
 import ProfileImage from "./ProfileImage";
 import FeaturedCard from "./FeaturedCard";
 import LikeButton from "./LikeButton";
+import { comment, heart, repost } from "../../public";
 
 interface ProfileCardProps {
   profilePicUrl: string; // URL of the profile picture
@@ -48,10 +49,10 @@ const ProfileCard: FC<ProfileCardProps> = ({
 
         {/* Action Buttons */}
         <div className="mt-2 flex justify-start space-x-4">
-          <LikeButton svg={"./../public/heart.svg"} />
-          <LikeButton svg={"./../public/repost.svg"} />
+          <LikeButton svg={heart} />
+          <LikeButton svg={repost} />
 
-          <LikeButton svg={"./../public/comment.svg"} />
+          <LikeButton svg={comment} />
         </div>
       </div>
       {/* TODO if last divider line not displaying  */}

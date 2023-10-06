@@ -1,21 +1,32 @@
-import "./App.css";
-import Navbar from "./components/Navbar";
-import CreateTextNote from "./components/CreateTextNote";
-import DisplayFeed from "./components/DisplayFeed";
+import { QueryClient } from "@tanstack/react-query";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { createIDBPersister } from "./logic/utils";
+import { AppRouter } from "./logic/routes";
+import { BrowserRouter } from "react-router-dom";
 
-function App() {
+const persister = createIDBPersister();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // cacheTime: 1000 * 60 * 60 * 48, // 48 hours
+      // staleTime: 1000 * 60 * 1, // 1 minute
+      cacheTime: Infinity,
+      staleTime: Infinity,
+      // refetchOnWindowFocus: false,
+    },
+  },
+});
+
+export const App = () => {
   return (
-    <div className={`app bg-background text-text w-full`}>
-      <Navbar />
-      {/* this is a spacer for the fist element under the nav bar */}
-      <div className="h-20 w-1"></div>
-      <div className="flex flex-col items-center justify-center ">
-        <CreateTextNote />
-        {/* <CreateWorkflows /> */}
-        <DisplayFeed />
-      </div>
-    </div>
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister }}
+    >
+      <BrowserRouter>
+        {" "}
+        <AppRouter />
+      </BrowserRouter>
+    </PersistQueryClientProvider>
   );
-}
-
-export default App;
+};
