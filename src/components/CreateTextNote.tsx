@@ -13,18 +13,23 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
   const [input, setInput] = useState<string>("");
   //shortForm is the kind of event
   const [selectedFormat, setSelectedFormat] = useState(1); // Default to Short Form
-  console.log(selectedFormat);
+
   const handleFormatChange = (format: SetStateAction<number>) => {
     setSelectedFormat(format);
   };
   const formats = [
-    { id: 1, name: "Short Form" },
-    { id: 30023, name: "Long Form" },
+    { id: 1, name: "Short Content" },
+    { id: 30023, name: "Long Content" },
   ];
   const publish = usePublish();
 
   const handleSend = async () => {
     // Construct the event object
+    // add longform title etc?
+    // add tags?
+    //add relays?
+    //add image?
+    // add Ai dmv?
     const baseEvent = {
       kind: selectedFormat,
       content: input,
