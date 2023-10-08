@@ -5,6 +5,8 @@ interface ButtonProps {
   style?: string;
   svg?: string;
   textStyle?: string;
+
+  onClick?: () => void;
 }
 
 export default function ActionButton(props: ButtonProps) {
