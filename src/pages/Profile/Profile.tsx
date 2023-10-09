@@ -1,10 +1,11 @@
 import { FC } from "react";
-import LayoutPage from "../components/LayoutPage";
+import LayoutPage from "../../components/LayoutPage";
 import { Link, useParams } from "react-router-dom";
-import { message } from "../public";
-import { useAuthor } from "../logic/queries";
+import { message } from "../../public";
+import { useAuthor } from "../../logic/queries";
 import { nip19 } from "nostr-tools";
-import { Spinner } from "../components/CommonUI/Spinner";
+import { Spinner } from "../../components/CommonUI/Spinner";
+import ShowRelays from "../../components/CommonUI/ShowRelays";
 // import { useRelays } from "../logic/queries/useRelays";
 
 interface ProfileProps {}
@@ -106,6 +107,9 @@ export const ProfileLogic: FC<ProfileProps> = () => {
             </div>
           </div>
           <div className="border-[0.5px]"></div>
+        </div>
+        <div>
+          <ShowRelays></ShowRelays>
         </div>
       </div>
     </LayoutPage>

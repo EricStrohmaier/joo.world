@@ -9,7 +9,6 @@ interface WorkflowProps {}
 const Workflow: FC<WorkflowProps> = () => {
   const location = useLocation();
   const currentUrl = location.pathname;
-  console.log(currentUrl);
 
   return (
     <LayoutPage>

@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../../pages/Home/Home";
 import { About } from "../../pages/About";
-import { ProfileLogic } from "../../pages/Profile";
+import { ProfileLogic } from "../../pages/Profile/Profile";
 
 import { Logout } from "../../pages/Logout";
 import { Login } from "../../pages/Login";
