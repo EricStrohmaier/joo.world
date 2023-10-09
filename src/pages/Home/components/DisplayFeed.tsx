@@ -1,6 +1,6 @@
 import { FC } from "react";
-import ProfileCard from "./CommonUI/ProfileCard";
-import LayoutCard from "./LayoutCard";
+import ProfileCard from "../../../components/CommonUI/ProfileCard";
+import LayoutCard from "../../../components/LayoutCard";
 
 interface DisplayFeedProps {}
 

@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
-import LayoutPage from "../components/LayoutPage";
-import CreateTextNote from "../components/CreateTextNote";
-import LayoutCard from "../components/LayoutCard";
+import LayoutPage from "../../components/LayoutPage";
+import CreateTextNote from "./components/CreateTextNote";
+import LayoutCard from "../../components/LayoutCard";
 
 interface WorkflowProps {}
 

@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
-import ActionButton from "./CommonUI/ActionButton";
-import { settings, stack, globe, dots, watch } from "../public";
-import { getCurrentTimeIn24HourFormat } from "../logic/utils/helperFunctions";
+import ActionButton from "../../../components/CommonUI/ActionButton";
+import { settings, stack, globe, dots, watch } from "../../../public";
+import { getCurrentTimeIn24HourFormat } from "../../../logic/utils/helperFunctions";
 
 interface FeedNavbarProps {}
 

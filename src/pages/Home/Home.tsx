@@ -1,7 +1,7 @@
 import { FC } from "react";
-import DisplayFeed from "../components/DisplayFeed";
-import LayoutPage from "../components/LayoutPage";
-import FeedNavbar from "../components/FeedNavbar";
+import DisplayFeed from "./components/DisplayFeed";
+import LayoutPage from "../../components/LayoutPage";
+import FeedNavbar from "./components/FeedNavbar";
 
 interface HomeProps {}
 
@@ -10,6 +10,7 @@ const Home: FC<HomeProps> = () => {
     <>
       <LayoutPage>
         <FeedNavbar />
+        <div className="font-bold text-xl ">ofocus</div>
         <DisplayFeed />
       </LayoutPage>
     </>

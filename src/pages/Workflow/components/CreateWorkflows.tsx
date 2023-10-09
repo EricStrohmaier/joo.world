@@ -2,7 +2,7 @@ import { FC } from "react";
 
 interface CreateWorkflowsProps {}
 
-const CreateWorkflows: FC<CreateWorkflowsProps> = ({}) => {
+const CreateWorkflows: FC<CreateWorkflowsProps> = () => {
   return (
     <div className="max-w-6xl w-full p-3">
       <div className="h-32 bg-gray-100 rounded-[40px] border-gray-200 border-2">

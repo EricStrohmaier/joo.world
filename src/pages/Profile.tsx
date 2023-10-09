@@ -5,6 +5,7 @@ import { message } from "../public";
 import { useAuthor } from "../logic/queries";
 import { nip19 } from "nostr-tools";
 import { Spinner } from "../components/CommonUI/Spinner";
+// import { useRelays } from "../logic/queries/useRelays";
 
 interface ProfileProps {}
 
@@ -17,7 +18,8 @@ export const ProfileLogic: FC<ProfileProps> = () => {
 
   const { displayName, picture, banner, nip05, about, lud16, website } =
     author || {};
-  console.log(author);
+
+  // const relays = useRelays();
 
   if (status == "loading") {
     return (
@@ -39,7 +41,7 @@ export const ProfileLogic: FC<ProfileProps> = () => {
           <img
             className="w-full h-32 mb-4 object-cover"
             src={banner ? banner : "bg-purple-500 opacity-50"}
-            alt={`${displayName}'s social media banner`}
+            alt={`${displayName}'s banner`}
           />
         </div>
         <div>
@@ -58,7 +60,7 @@ export const ProfileLogic: FC<ProfileProps> = () => {
                   />
                 </div>
               </div>
-              <div className="flex-1 justify-end items-center flex gap-2 space-x-4">
+              <div className="flex-1 justify-end items-center flex space-x-2">
                 <div className="flex">
                   <a href={``} className="">
                     <img src={message} alt="go to message" />
@@ -70,7 +72,10 @@ export const ProfileLogic: FC<ProfileProps> = () => {
                   </a>
                 </div>
                 <div>
-                  <Link to="/profile/edit" className="btn btn-sm btn-neutral">
+                  <Link
+                    to="/profile/edit"
+                    className="btn btn-sm btn-neutral text-xs md:text-lg "
+                  >
                     Edit Profile
                   </Link>
                 </div>

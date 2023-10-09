@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 // import { usePublish } from "nostr-hooks";
-import ActionButton from "./CommonUI/ActionButton";
-import { image, server } from "../public";
+import ActionButton from "../../../components/CommonUI/ActionButton";
+import { image, server } from "../../../public";
 // import { defaultRelays } from "../actions/Relays";
-import { usePublish } from "../logic/mutations";
+import { usePublish } from "../../../logic/mutations";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, SVGProps, SetStateAction } from "react";
 
