@@ -15,7 +15,7 @@ export const ProfileLogic: FC<ProfileProps> = () => {
   const { npub } = useParams();
 
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-
+  console.log("hex", hex);
   const { data: author, status } = useAuthor(hex);
 
   const { displayName, picture, banner, nip05, about, lud16, website } =

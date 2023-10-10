@@ -8,7 +8,7 @@ const ShowRelays: FC<ShowRelaysProps> = () => {
   //   console.log("ShowRelays", relays);
 
   return (
-    <div className="m-2">
+    <div className="my-2 mx-2 md:px-4 md:mx-0">
       {relays.map((relay, index) => (
         <div key={index}>
           <h3 className="inline-flex">{relay}</h3>
