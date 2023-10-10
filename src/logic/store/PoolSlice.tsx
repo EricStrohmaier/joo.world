@@ -12,7 +12,7 @@ export interface PoolSlice {
 
 const _pool = new SimplePool();
 
-const createPoolSlice: StateCreator<PoolSlice> = (set, get) => ({
+const createPoolSlice: StateCreator<PoolSlice> = (_set, get) => ({
   pool: {
     sub: (filters: Filter[]) => _pool.sub(get().relays, filters),
     list: (filters: Filter[]) => _pool.list(get().relays, filters),
