@@ -3,6 +3,7 @@ import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client
 import { createIDBPersister } from "./logic/utils";
 import { AppRouter } from "./logic/routes";
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "./logic/queries/useTheme";
 
 const persister = createIDBPersister();
 const queryClient = new QueryClient({
@@ -25,7 +26,9 @@ export const App = () => {
     >
       <BrowserRouter>
         {" "}
-        <AppRouter />
+        <ThemeProvider>
+          <AppRouter />
+        </ThemeProvider>
       </BrowserRouter>
     </PersistQueryClientProvider>
   );

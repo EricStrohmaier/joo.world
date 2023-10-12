@@ -34,7 +34,7 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
           titleVisible={`${currentTime}`}
           svg={watch}
           style={
-            "px-2  bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
+            "px-2 pointer-event-none bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
           }
           textStyle={"ml-[5px]"}
         />

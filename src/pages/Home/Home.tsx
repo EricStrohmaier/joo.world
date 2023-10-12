@@ -5,6 +5,7 @@ import FeedNavbar from "./components/FeedNavbar";
 import LayoutCard from "../../components/LayoutCard";
 import { Link } from "react-router-dom";
 import { useUser } from "../../logic/queries";
+import DisplayFeed from "./components/DisplayFeed";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = () => {
@@ -41,7 +42,7 @@ const Home: FC<HomeProps> = () => {
       </LayoutPage>
     );
   }
-  
+
   return (
     <>
       <LayoutPage>
@@ -54,7 +55,7 @@ const Home: FC<HomeProps> = () => {
               <div className="text-2xl font-extrabold mb-20">
                 This is the anti-social media app.
               </div>
-              <div className="text-base font-base flex flex-col"></div>
+              <DisplayFeed />
             </div>
           </div>
         </LayoutCard>
