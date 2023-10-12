@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 interface ButtonProps {
   title?: string;
-  href: string;
+  href?: string;
   style?: string;
   imgUrl?: string;
   imgStyles?: string;
@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <div className="w-full">
-      <Link to={href} className="">
+      <Link to={href || ""} className="">
         <div
           className={`flex justify-start items-center rounded-[10px] transition duration-100  ${style}`}
         >

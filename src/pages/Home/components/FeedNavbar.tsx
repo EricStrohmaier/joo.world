@@ -30,19 +30,22 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
     >
       <div className="w-full flex justify-between">
         <ActionButton
+          title={"Current time"}
           titleVisible={`${currentTime}`}
           svg={watch}
           style={
-            "px-2 pointer-events-none bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
+            "px-2  bg-gray-50 hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
           }
           textStyle={"ml-[5px]"}
         />
-
+        {/* <div>
+          <p>Your session duration: {sessionDuration} seconds</p>
+        </div> */}
         <div className="flex lg:space-x-3 space-x-1">
-          <ActionButton title={"Edit feed"} svg={settings} />
-          <ActionButton title={"Edit your lists"} svg={stack} />
-          <ActionButton title={"Your communitys"} svg={globe} />
-          <ActionButton title={"Learn more"} svg={dots} />
+          <ActionButton svg={settings} />
+          <ActionButton svg={stack} />
+          <ActionButton svg={globe} />
+          <ActionButton svg={dots} />
         </div>
       </div>
     </div>

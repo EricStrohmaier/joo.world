@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 interface ButtonProps {
   titleVisible?: string;
   title?: string;
@@ -14,7 +16,7 @@ export default function ActionButton(props: ButtonProps) {
 
   return (
     <div>
-      <a href={href} className="w-full">
+      <Link to={href || ""} className="w-full">
         <button
           title={title}
           className={`flex justify-center bg-gray-50 hover:shadow-md border-2 rounded-[70px] w-fit p-1 shadow-sm transiton duration-100 ${style}`}
@@ -25,7 +27,7 @@ export default function ActionButton(props: ButtonProps) {
             <p className={`text-sm ${textStyle}`}> {titleVisible}</p>
           )}
         </button>
-      </a>
+      </Link>
     </div>
   );
 }

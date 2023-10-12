@@ -5,8 +5,10 @@ import { message } from "../../public";
 import { useAuthor } from "../../logic/queries";
 import { nip19 } from "nostr-tools";
 import { Spinner } from "../../components/CommonUI/Spinner";
-import ShowRelays from "../../components/CommonUI/ShowRelays";
+// import ShowRelays from "../../components/CommonUI/ShowRelays";
 import AboutProfile from "./components/AboutProfile";
+import useProfileMetadata from "../../logic/queries/useProfileMetadata";
+import Timer from "./components/Time";
 // import { useRelays } from "../logic/queries/useRelays";
 
 interface ProfileProps {}
@@ -15,14 +17,16 @@ export const ProfileLogic: FC<ProfileProps> = () => {
   const { npub } = useParams();
 
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-  console.log("hex", hex);
+  // console.log("hex", hex);
   const { data: author, status } = useAuthor(hex);
 
   const { displayName, picture, banner, nip05, about, lud16, website } =
     author || {};
+  // console.log("author", author);
 
   // const relays = useRelays();
-
+  const metadata = useProfileMetadata(hex);
+  console.log("metadata", metadata);
   if (status == "loading") {
     return (
       <LayoutPage>
@@ -58,8 +62,8 @@ export const ProfileLogic: FC<ProfileProps> = () => {
           />
           <div className="border-[0.5px]"></div>
         </div>
-        <div>
-          <ShowRelays />
+        <div className="justify-end flex flex-col ">
+          <Timer />
         </div>
       </div>
     </LayoutPage>
