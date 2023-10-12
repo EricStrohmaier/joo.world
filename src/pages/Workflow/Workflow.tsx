@@ -1,15 +1,14 @@
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
-import LayoutPage from "../components/LayoutPage";
-import CreateTextNote from "../components/CreateTextNote";
-import LayoutCard from "../components/LayoutCard";
+import LayoutPage from "../../components/LayoutPage";
+import CreateTextNote from "./components/CreateTextNote";
+import LayoutCard from "../../components/LayoutCard";
 
 interface WorkflowProps {}
 
 const Workflow: FC<WorkflowProps> = () => {
   const location = useLocation();
   const currentUrl = location.pathname;
-  console.log(currentUrl);
 
   return (
     <LayoutPage>
