@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    margin: 0;
-    height: 100vh;
-}
+body::-webkit-scrollbar {
+    width: 0; 
+  }
+  
+  
+  body {
+    scrollbar-width: none;
+  }
+  

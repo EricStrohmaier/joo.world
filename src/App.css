@@ -1,4 +1,21 @@
-body{
-    margin: 0;
-    height: 100vh;
-}
+/* Hide the scrollbar in modern browsers */
+body::-webkit-scrollbar {
+    width: 0.5rem; /* Set the width to a small value to hide it */
+  }
+  
+  /* Style the scrollbar in modern browsers */
+  body::-webkit-scrollbar-thumb {
+    background-color: blue; /* Set the color to your desired color */
+  }
+  
+  /* Hide the scrollbar in Internet Explorer */
+  body {
+    -ms-overflow-style: none;
+  }
+  
+  /* Style the scrollbar in Firefox */
+  body {
+    scrollbar-width: thin;
+    scrollbar-color: blue transparent;
+  }
+  

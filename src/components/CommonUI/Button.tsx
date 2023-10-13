@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../logic/queries/useTheme";
 
 interface ButtonProps {
   title?: string;
@@ -16,6 +17,8 @@ const Button: React.FC<ButtonProps> = ({
   style,
   imgStyles,
 }) => {
+  const { darkMode } = useTheme();
+
   return (
     <div className="w-full">
       <Link to={href || ""} className="">
@@ -27,13 +30,14 @@ const Button: React.FC<ButtonProps> = ({
               {" "}
               <img
                 src={imgUrl}
-                className={`w-full h-full  overflow-hidden rounded-[8px] z-0 ${imgStyles}`}
+                className={`w-full h-full overflow-hidden rounded-[8px] z-0 ${imgStyles}`}
+                style={darkMode ? { filter: "invert(1)" } : {}}
               />
             </div>
           )}
 
           {title && (
-            <div className="text-md font-bold hidden h-fit w-fit lg:flex justify-center items-center text-center">
+            <div className="items-center justify-center hidden font-bold text-center text-md h-fit w-fit lg:flex">
               <div>{title}</div>
             </div>
           )}

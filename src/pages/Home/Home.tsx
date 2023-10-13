@@ -17,22 +17,22 @@ const Home: FC<HomeProps> = () => {
         <FeedNavbar />
 
         <LayoutCard>
-          <div className="w-full relative bottom-10">
-            <div className="flex items-center flex-col">
+          <div className="w-full ">
+            <div className="flex flex-col items-center">
               <div className="text-6xl font-extrabold">joooo Welcome!</div>
-              <div className="text-2xl font-extrabold mb-20">
+              <div className="mb-20 text-2xl font-extrabold">
                 This is an anti-social media app.
               </div>
-              <div className="text-base font-base flex flex-col">
+              <div className="flex flex-col text-base font-base">
                 <div>
                   Unplug from the noise, yet stay connected with the world
-                  through <span className="font-extrabold text-xl">Nostr.</span>{" "}
+                  through <span className="text-xl font-extrabold">Nostr.</span>{" "}
                 </div>
                 <div>
                   Here you'll find less distraction, more focus on productivity
                   and creativity.
                 </div>
-                <div className="mt-16 flex  justify-center text-blue-500 underline underline-offset-1">
+                <div className="flex justify-center mt-16 text-blue-500 underline underline-offset-1">
                   <Link to={"/login"}> Login to get started!</Link>{" "}
                 </div>
               </div>
@@ -49,10 +49,10 @@ const Home: FC<HomeProps> = () => {
         <FeedNavbar />
 
         <LayoutCard>
-          <div className="w-full relative bottom-10">
-            <div className="flex items-center flex-col">
+          <div className="w-full ">
+            <div className="flex flex-col items-center">
               <div className="text-6xl font-extrabold">joooo Lets gooo!</div>
-              <div className="text-2xl font-extrabold mb-20">
+              <div className="text-2xl font-extrabold mb-9">
                 This is the anti-social media app.
               </div>
               <DisplayFeed />

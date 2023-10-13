@@ -50,16 +50,8 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
   return (
     <>
       <div className="w-full ">
-        {/* <div>
-          <img
-            className="w-12 h-12 rounded-full mt-2"
-            src="https://avatars.githubusercontent.com/u/122783162?v=4"
-            alt="random pic"
-          />
-        </div> */}
-        <div className="w-full"></div>
-        <div className=" text-left mb-3">
-          <Menu as="div" className=" inline-block text-left">
+        <div className="my-3 text-left ">
+          <Menu as="div" className="inline-block text-left ">
             <div>
               <Menu.Button className="inline-flex w-full bg-gray-50 hover:shadow-md border-2 rounded-[70px] px-2 shadow-sm transiton duration-100 py-1 text-sm font-medium hover:bg-opacity-60">
                 Choose Format
@@ -74,7 +66,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute  mt-2 w-fit origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg w-fit ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="px-1 py-1 ">
                   {formats.map((format) => (
                     <Menu.Item key={format.id}>
@@ -89,7 +81,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
                         >
                           {selectedFormat === format.id ? (
                             <CheckIcon
-                              className="mr-2 h-5 w-5"
+                              className="w-5 h-5 mr-2"
                               aria-hidden="true"
                             />
                           ) : null}
@@ -108,7 +100,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full h-32 border border-gray-300 rounded-2xl p-2 focus:outline-none focus:ring focus:border-blue-400"
+            className="w-full h-32 p-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring focus:border-blue-400"
             placeholder="Dynamic Questions will be renderd here"
           />
         </div>
@@ -142,7 +134,7 @@ function CheckIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
-      className="check-circle w-6 h-6"
+      className="w-6 h-6 check-circle"
     >
       <path
         strokeLinecap="round"
