@@ -20,11 +20,13 @@ import email from './email.svg';
 import search from './search.svg';
 import login from './login.svg';
 import logout from './logout.svg';
+import sun from './sun.svg';
 
 
 
 
 export { 
+    sun,
     login,
     logout,
     box,

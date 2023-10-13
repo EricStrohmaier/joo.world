@@ -21,9 +21,10 @@ export default function ActionButton(props: ButtonProps) {
   return (
     <div>
       <Link to={href || ""} className="w-full ">
-        <button
+        <div
           title={title}
           className={`flex justify-center ${darkStyle} hover:shadow-md border-2 rounded-[70px] w-fit p-1 shadow-md transition duration-0 ${style}`}
+          onClick={props.onClick}
         >
           {" "}
           {svg && (
@@ -36,7 +37,7 @@ export default function ActionButton(props: ButtonProps) {
           {titleVisible && (
             <p className={`text-sm ${textStyle}`}> {titleVisible}</p>
           )}
-        </button>
+        </div>
       </Link>
     </div>
   );

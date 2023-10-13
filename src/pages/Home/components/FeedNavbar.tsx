@@ -1,13 +1,28 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import ActionButton from "../../../components/CommonUI/ActionButton";
-import { settings, stack, globe, dots, watch } from "../../../public";
+import { watch, server, sun, moon } from "../../../public";
 import { useTheme, useTime } from "../../../logic/queries/useTheme";
+import { useRelays } from "../../../logic/queries/useRelays";
+import { Dialog, Transition } from "@headlessui/react";
+import ShowRelays from "../../../components/CommonUI/ShowRelays";
 
 interface FeedNavbarProps {}
 
 const FeedNavbar: FC<FeedNavbarProps> = () => {
   const { darkMode, toggleDarkMode } = useTheme();
   const { currentTime } = useTime() || {};
+  const relays = useRelays();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const relay = ShowRelays(relays);
 
   return (
     <div
@@ -15,29 +30,51 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
       style={{
         position: "sticky", // Make the nav sticky to the top
         top: 0,
-        zIndex: 999,
+        zIndex: 40,
       }}
     >
       <div className="flex justify-between w-full ">
-        <ActionButton
-          title={"Current time"}
-          titleVisible={`${currentTime}`}
-          svg={watch}
-          style={
-            "px-2 pointer-event-none  hover:shadow-none shadow-none flex justify-center items-center text-md font-semibold"
-          }
-          textStyle={"ml-[5px]"}
-        />
-        <button onClick={toggleDarkMode}>
-          {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        </button>
+        <div
+          className={`flex justify-center px-2 items-center text-md font-semibold hover:shadow-md border-2 rounded-[70px] w-fit p-1 shadow-md transition duration-0 `}
+        >
+          <img
+            src={watch}
+            className="max-w-6 max-h-6"
+            style={darkMode ? { filter: "invert(1)" } : {}}
+          />
+
+          <p className={`text-sm ml-[5px]`}> {`${currentTime}`}</p>
+        </div>
+
         <div className="flex space-x-1 lg:space-x-3">
-          <ActionButton svg={settings} />
-          <ActionButton svg={stack} />
-          <ActionButton svg={globe} />
-          <ActionButton svg={dots} />
+          <ActionButton
+            title={`Show connected relay's`}
+            svg={server}
+            onClick={openModal}
+          />
+          <ActionButton
+            title="Toggle Theme"
+            {...(darkMode ? { svg: sun } : { svg: moon })}
+            onClick={toggleDarkMode}
+          />
         </div>
       </div>
+
+      <Transition show={isModalOpen}>
+        <Dialog onClose={closeModal}>
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
+
+            <div className="max-w-md lg:w-full w-4/5  p-6 bg-gray-100 rounded-lg shadow-xl z-50">
+              <Dialog.Title className="text-lg font-medium mb-4">
+                Connected to Relay's
+              </Dialog.Title>
+
+              <div className="text-sm text-gray-500">{relay}</div>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </div>
   );
 };

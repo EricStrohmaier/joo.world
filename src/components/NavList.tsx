@@ -1,10 +1,11 @@
 import { FC } from "react";
 
 import Button from "./CommonUI/Button";
-import { box, globe, home, login, logout, stack } from "../public";
+import { globe, home, login, logout, stack } from "../public";
 import { useUser } from "../logic/queries";
 import { nip19 } from "nostr-tools";
 import { loader } from "../logic/utils";
+import { Link } from "react-router-dom";
 
 interface NavListProps {}
 
@@ -24,13 +25,13 @@ const NavList: FC<NavListProps> = () => {
             href={"/workflows"}
             style={navstyle}
           />
-          <Button
+          {/* <Button
             imgUrl={stack}
             title="Create"
             href={"/workflows/create"}
             style={navstyle}
-          />
-          <Button imgUrl={box} title="Focus" href={"/"} style={navstyle} />
+          /> */}
+          {/* <Button imgUrl={box} title="Focus" href={"/"} style={navstyle} /> */}
           <Button
             imgUrl={globe}
             title="What is this?"
@@ -49,19 +50,32 @@ const NavList: FC<NavListProps> = () => {
             />
           ) : (
             <>
-              <Button
-                imgUrl={
-                  metadata?.picture
-                    ? loader(metadata?.picture, {
-                        w: 96,
-                        h: 96,
-                      })
-                    : ""
-                }
-                title={metadata?.displayName}
-                style={"hover:opacity-75 p-2"}
-                href={`/p/${npub}`}
-              />
+              <div className="w-full">
+                <Link to={`/p/${npub}`} className="">
+                  <div
+                    className={`flex justify-start items-center rounded-[10px] transition duration-100 hover:opacity-75 p-1`}
+                  >
+                    <div className="w-[40px] h-[40px] lg:mr-2 rounded-[10px] flex justify-center items-center">
+                      {" "}
+                      <img
+                        src={
+                          metadata?.picture
+                            ? loader(metadata?.picture, {
+                                w: 96,
+                                h: 96,
+                              })
+                            : ""
+                        }
+                        className={`w-full h-full overflow-hidden rounded-[8px] z-0 `}
+                      />
+                    </div>
+
+                    <div className="items-center justify-center hidden font-bold text-center text-md h-fit w-fit lg:flex">
+                      <div>{metadata?.displayName}</div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
               <Button
                 imgUrl={logout}
                 imgStyles={

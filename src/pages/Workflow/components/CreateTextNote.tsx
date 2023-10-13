@@ -1,11 +1,8 @@
 import { FC, useState } from "react";
-// import { usePublish } from "nostr-hooks";
-import ActionButton from "../../../components/CommonUI/ActionButton";
-import { image, server } from "../../../public";
-// import { defaultRelays } from "../actions/Relays";
 import { usePublish } from "../../../logic/mutations";
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, SVGProps, SetStateAction } from "react";
+import { useTheme } from "../../../logic/queries/useTheme";
 
 interface CreateTextNoteProps {}
 
@@ -13,22 +10,27 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
   const [input, setInput] = useState<string>("");
   //shortForm is the kind of event
   const [selectedFormat, setSelectedFormat] = useState(1); // Default to Short Form
+  const { darkMode } = useTheme();
+  const button = darkMode
+    ? "bg-primaryDark text-textDark"
+    : "bg-primaryLight text-textLight border-gray-300";
+
+  const textstyle = darkMode
+    ? "bg-backgroundDark text-textDark"
+    : "bg-backgroundLight text-textLight";
 
   const handleFormatChange = (format: SetStateAction<number>) => {
     setSelectedFormat(format);
   };
   const formats = [
-    { id: 1, name: "Short Content" },
-    { id: 30023, name: "Long Content" },
+    { id: 1, name: "Short Textnote" },
+    { id: 30023, name: "Long Blog Post" },
   ];
   const publish = usePublish();
 
   const handleSend = async () => {
-    // add longform title etc?
     // add tags?
-    //add relays?
-    //add image?
-    // add Ai dmv?
+    // add Handle Title and Images add tags!! default Tags...?
     const baseEvent = {
       kind: selectedFormat,
       content: input,
@@ -49,11 +51,13 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
 
   return (
     <>
-      <div className="w-full ">
+      <div className="w-full">
         <div className="my-3 text-left ">
           <Menu as="div" className="inline-block text-left ">
             <div>
-              <Menu.Button className="inline-flex w-full bg-gray-50 hover:shadow-md border-2 rounded-[70px] px-2 shadow-sm transiton duration-100 py-1 text-sm font-medium hover:bg-opacity-60">
+              <Menu.Button
+                className={`inline-flex w-full ${button} border rounded-[70px] px-2 shadow-sm py-1 text-sm font-medium hover:bg-opacity-50`}
+              >
                 Choose Format
               </Menu.Button>
             </div>
@@ -66,7 +70,9 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg w-fit ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items
+                className={`absolute mt-2 origin-top-right divide-y divide-gray-100 rounded-md shadow-lg w-fit ring-1 bg-white ring-black ring-opacity-5 focus:outline-none`}
+              >
                 <div className="px-1 py-1 ">
                   {formats.map((format) => (
                     <Menu.Item key={format.id}>
@@ -75,8 +81,8 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
                           onClick={() => handleFormatChange(format.id)}
                           className={`${
                             active
-                              ? "bg-gray-200 text-gray-900"
-                              : "text-gray-900"
+                              ? `bg-primaryLight text-textLight`
+                              : "text-textLight"
                           } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                         >
                           {selectedFormat === format.id ? (
@@ -95,24 +101,51 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
             </Transition>
           </Menu>
         </div>
+        {selectedFormat === 1 ? (
+          <>
+            {" "}
+            <div className="mb-2">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className={`w-full min-h-[120px]  h-full  p-2  rounded-2xl focus:outline-none ${textstyle}`}
+                placeholder="Dynamic Questions will be renderd here"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <div className="mb-2">
+              <input
+                type="text"
+                placeholder="Blog Title"
+                className={`w-full h-full p-2 mb-2 rounded-2xl focus:outline-none ${textstyle}`}
+              />
+              <input
+                type="text"
+                placeholder="Image Url"
+                className={`w-full h-full p-2 mb-2 rounded-2xl focus:outline-none ${textstyle}`}
+              />
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className={`w-full min-h-[120px]  h-full  p-2  rounded-2xl focus:outline-none ${textstyle}`}
+                placeholder="What's your story today?"
+              />
+            </div>
+          </>
+        )}
 
-        <div className="mb-2">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="w-full h-32 p-2 border border-gray-300 rounded-2xl focus:outline-none focus:ring focus:border-blue-400"
-            placeholder="Dynamic Questions will be renderd here"
-          />
-        </div>
-        <div className="flex justify-between">
+        <div className="flex justify-end">
           <div className="flex">
-            <ActionButton title="Upload an Image" svg={image} style={"mr-2"} />
-            <ActionButton title="Edit Relays" svg={server} />
-          </div>
-          <div className="flex">
-            <ActionButton titleVisible={"Cancel"} style={"mr-2  px-2"} />
             <button
-              className="bg-gray-50 hover:shadow-md border-2 rounded-[70px] p-1 shadow-sm transiton duration-100 text-sm"
+              className={`border rounded-[70px] p-1 px-2 mr-2 shadow-sm  text-sm ${button}`}
+            >
+              Save Draft
+            </button>{" "}
+            <button
+              className={`border rounded-[70px] p-1 px-2 shadow-sm  text-sm ${button}`}
               onClick={handleSend}
             >
               Publish
