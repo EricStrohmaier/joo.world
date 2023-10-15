@@ -10,7 +10,7 @@ type TimeContextType = {
 };
 
 const ThemeContext = createContext<ThemeContextType>({
-  darkMode: false,
+  darkMode: true,
   toggleDarkMode: () => {},
 });
 const TimeContext = createContext<TimeContextType | null>(null);
