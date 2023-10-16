@@ -10,7 +10,7 @@ type TimeContextType = {
 };
 
 const ThemeContext = createContext<ThemeContextType>({
-  darkMode: true,
+  darkMode: false,
   toggleDarkMode: () => {},
 });
 const TimeContext = createContext<TimeContextType | null>(null);
@@ -24,15 +24,17 @@ export const useTime = () => {
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [darkMode, setDarkMode] = useState(() => {
-    // Initialize the darkMode state from localStorage or default to false
-    return localStorage.getItem("darkMode") === "false";
+    // Initialize the darkMode state from localStorage or default to true (light mode)
+    return localStorage.getItem("darkMode") === "true" ? false : true;
   });
+  
 
   const toggleDarkMode = () => {
     setDarkMode((prevDarkMode) => {
       const newDarkMode = !prevDarkMode;
       // Store the new state in localStorage
       localStorage.setItem("darkMode", newDarkMode.toString());
+      // console.log("New darkMode state:", newDarkMode); // Log the new state
       return newDarkMode;
     });
   };
@@ -40,6 +42,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const handleStorageChange = () => {
       setDarkMode(localStorage.getItem("darkMode") === "false");
+      // console.log("Updated darkMode state from localStorage:", darkMode); // Log the updated state
     };
     window.addEventListener("storage", handleStorageChange);
     return () => {
@@ -53,6 +56,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     </ThemeContext.Provider>
   );
 };
+
 
 
 type TimeProviderProps = {
