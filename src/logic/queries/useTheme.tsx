@@ -25,7 +25,7 @@ export const useTime = () => {
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [darkMode, setDarkMode] = useState(() => {
     // Initialize the darkMode state from localStorage or default to true (light mode)
-    return localStorage.getItem("darkMode") === "true" ? true : false;
+    return localStorage.getItem("darkMode") === "false" ? true : false;
   });
   
 
