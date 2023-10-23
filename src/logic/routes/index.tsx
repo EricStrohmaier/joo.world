@@ -6,6 +6,7 @@ import { Logout } from "../../pages/Logout";
 import { Login } from "../../pages/Login";
 import Workflow from "../../pages/Workflow/Workflow";
 import ErrorPage from "../../pages/404Error/ErrorPage";
+import { CreateUser } from "../../pages/CreateUser";
 
 export const AppRouter = () => {
   return (
@@ -13,6 +14,7 @@ export const AppRouter = () => {
       <Route path="/" element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="logout" element={<Logout />} />
+      <Route path="new" element={<CreateUser/>} />
       <Route path="p/:npub" element={<ProfileLogic />} />
       <Route path="about" element={<About />} />
       <Route path="workflows" element={<Workflow />} />

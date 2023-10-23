@@ -11,9 +11,9 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
   const { darkMode } = useTheme(); // Access darkMode using the useTheme hook
 
   const layoutStyles = darkMode
-    ? "bg-backgroundDark text-textDark"
+    ? "bg-backgroundDark text-textDark "
     : "bg-backgroundLight text-textLight ";
-  const darkStyle = darkMode ? "bg-primaryDark" : "bg-primaryLight";
+  const darkStyle = darkMode ? "bg-primaryDark border-textDark" : "border-textLight bg-primaryLight";
 
   return (
     <div
@@ -25,11 +25,11 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
         <div
           className={`flex mx-3 my-6 max-w-7xl h-full w-full rounded-[40px] overflow-hidden ${darkStyle}`}
         >
-          <div className="border-r-2 lg:w-1/5">
+          <div className={`border-r-[1px] lg:w-1/5 ${darkStyle}`}>
             <div className="flex flex-col items-center justify-center h-full mx-1 lg:mx-0 lg:w-full">
               <NavList />
             </div>
-            <div className="border-[0.5px] w-full relative bottom-11"></div>
+            <div className={`border-[0.5px] w-full relative bottom-11 ${darkStyle}`}></div>
           </div>
           <div className="flex-col w-full">{children}</div>{" "}
         </div>

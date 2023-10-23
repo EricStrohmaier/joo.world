@@ -7,9 +7,11 @@ export default {
         backgroundDark: "#1E1E1E",
         primaryDark: "#575758",
         secondaryDark: "#4E4E4E",
-        backgroundLight: "#FBFBFB",
-        primaryLight: "#F3F4F6",
-        secondaryLight: "#EAEAEA",
+
+        backgroundLight: "#F8F8F8",
+        primaryLight: "#ECECEC",
+        secondaryLight: "#E4E4E4",
+
         textDark: "#E5E5E5",
         textLight: "#333333",
       },

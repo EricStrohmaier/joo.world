@@ -1,15 +1,14 @@
-import { FC, useState } from "react";
-import { usePublish } from "../../../logic/mutations";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, SVGProps, SetStateAction } from "react";
+import { FC, SVGProps, useState } from "react";
+import { RadioGroup } from "@headlessui/react";
+import { SetStateAction } from "react";
 import { useTheme } from "../../../logic/queries/useTheme";
+import { usePublish } from "../../../logic/mutations";
 
 interface CreateTextNoteProps {}
 
 const CreateTextNote: FC<CreateTextNoteProps> = () => {
   const [input, setInput] = useState<string>("");
-  //shortForm is the kind of event
-  const [selectedFormat, setSelectedFormat] = useState(1); // Default to Short Form
+  const [selectedFormat, setSelectedFormat] = useState("short"); // Default to Short Form
   const { darkMode } = useTheme();
   const button = darkMode
     ? "bg-primaryDark text-textDark"
@@ -19,20 +18,17 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
     ? "bg-backgroundDark text-textDark"
     : "bg-backgroundLight text-textLight";
 
-  const handleFormatChange = (format: SetStateAction<number>) => {
+  const handleFormatChange = (format: SetStateAction<string>) => {
     setSelectedFormat(format);
   };
-  const formats = [
-    { id: 1, name: "Short Textnote" },
-    { id: 30023, name: "Long Blog Post" },
-  ];
+
   const publish = usePublish();
 
   const handleSend = async () => {
     // add tags?
     // add Handle Title and Images add tags!! default Tags...?
     const baseEvent = {
-      kind: selectedFormat,
+      kind: selectedFormat === "short" ? 1 : 30023, // Short or Long Form
       content: input,
     };
     try {
@@ -50,111 +46,86 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
   };
 
   return (
-    <>
-      <div className="w-full">
-        <div className="my-3 text-left ">
-          <Menu as="div" className="inline-block text-left ">
-            <div>
-              <Menu.Button
-                className={`inline-flex w-full ${button} border rounded-[70px] px-2 shadow-sm py-1 text-sm font-medium hover:bg-opacity-50`}
-              >
-                Choose Format
-              </Menu.Button>
-            </div>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items
-                className={`absolute mt-2 origin-top-right divide-y divide-gray-100 rounded-md shadow-lg w-fit ring-1 bg-white ring-black ring-opacity-5 focus:outline-none`}
-              >
-                <div className="px-1 py-1 ">
-                  {formats.map((format) => (
-                    <Menu.Item key={format.id}>
-                      {({ active }) => (
-                        <button
-                          onClick={() => handleFormatChange(format.id)}
-                          className={`${
-                            active
-                              ? `bg-primaryLight text-textLight`
-                              : "text-textLight"
-                          } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                        >
-                          {selectedFormat === format.id ? (
-                            <CheckIcon
-                              className="w-5 h-5 mr-2"
-                              aria-hidden="true"
-                            />
-                          ) : null}
-                          {format.name}
-                        </button>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-        </div>
-        {selectedFormat === 1 ? (
-          <>
-            {" "}
-            <div className="mb-2">
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className={`w-full min-h-[120px]  h-full  p-2  rounded-2xl focus:outline-none ${textstyle}`}
-                placeholder="Dynamic Questions will be renderd here"
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            {" "}
-            <div className="mb-2">
-              <input
-                type="text"
-                placeholder="Blog Title"
-                className={`w-full h-full p-2 mb-2 rounded-2xl focus:outline-none ${textstyle}`}
-              />
-              <input
-                type="text"
-                placeholder="Image Url"
-                className={`w-full h-full p-2 mb-2 rounded-2xl focus:outline-none ${textstyle}`}
-              />
-              <textarea
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                className={`w-full min-h-[120px]  h-full  p-2  rounded-2xl focus:outline-none ${textstyle}`}
-                placeholder="What's your story today?"
-              />
-            </div>
-          </>
-        )}
-
-        <div className="flex justify-end">
-          <div className="flex">
-            <button
-              className={`border rounded-[70px] p-1 px-2 mr-2 shadow-sm  text-sm ${button}`}
-            >
-              Save Draft
-            </button>{" "}
-            <button
-              className={`border rounded-[70px] p-1 px-2 shadow-sm  text-sm ${button}`}
-              onClick={handleSend}
-            >
-              Publish
-            </button>
-            {/* <ActionButton titleVisible={"Publish"} style={"mr-2 px-2"} /> */}
+    <div className="w-full">
+      <RadioGroup value={selectedFormat} onChange={handleFormatChange}>
+        <div className="my-3 text-left">
+          <div className={`inline-flex w-full ${button} border rounded-[70px] px-2 shadow-sm py-1 text-sm font-medium hover:bg-opacity-50`}>
+            Choose Format
+          </div>
+          <div className="mt-2">
+            <RadioGroup.Option value="short">
+              {({ active }) => (
+                <button
+                  onClick={() => handleFormatChange("short")}
+                  className={`${
+                    active ? "bg-primaryLight text-textLight" : "text-textLight"
+                  } group flex  items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  {selectedFormat === "short" ? (
+                    <CheckIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                  ) : null}
+                  Short Textnote
+                </button>
+              )}
+            </RadioGroup.Option>
+            <RadioGroup.Option value="long">
+              {({ active }) => (
+                <button
+                  onClick={() => handleFormatChange("long")}
+                  className={`${
+                    active ? "bg-primaryLight text-textLight" : "text-textLight"
+                  } group flex max-w-[150px] w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  {selectedFormat === "long" ? (
+                    <CheckIcon className="w-5 h-5 mr-2" aria-hidden="true" />
+                  ) : null}
+                  Long Blog Post
+                </button>
+              )}
+            </RadioGroup.Option>
           </div>
         </div>
+      </RadioGroup>
+      {selectedFormat === "short" ? (
+        <div className="mb-2">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className={`w-full min-h-[120px] h-full p-2 rounded-2xl focus:outline-none ${textstyle}`}
+            placeholder="Dynamic Questions will be rendered here"
+          />
+        </div>
+      ) : (
+        <div className="mb-2">
+          <input
+            type="text"
+            placeholder="Blog Title"
+            className={`w-full h-full p-2 mb-2 rounded-2xl focus:outline-none ${textstyle}`}
+          />
+          <input
+            type="text"
+            placeholder="Image Url"
+            className={`w-full h-full p-2 mb-2 rounded-2xl focus:outline-none ${textstyle}`}
+          />
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className={`w-full min-h-[120px] h-full p-2 rounded-2xl focus:outline-none ${textstyle}`}
+            placeholder="What's your story today?"
+          />
+        </div>
+      )}
+      <div className="flex justify-end">
+        <div className="flex">
+          <button className={`border rounded-[70px] p-1 px-2 mr-2 shadow-sm text-sm ${button}`}>
+            Save Draft
+          </button>
+          <button className={`border rounded-[70px] p-1 px-2 shadow-sm text-sm ${button}`} onClick={handleSend}>
+            Publish
+          </button>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

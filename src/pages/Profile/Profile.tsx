@@ -27,6 +27,9 @@ export const ProfileLogic: FC<ProfileProps> = () => {
   // const relays = useRelays();
   const metadata = useProfileMetadata(hex);
   console.log("metadata", metadata);
+
+
+  
   if (status == "loading") {
     return (
       <LayoutPage>

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 interface NavListProps {}
 
 const NavList: FC<NavListProps> = () => {
+   
   const navstyle = "p-1 px-2 hover:opacity-75";
   const { pubkey, metadata } = useUser();
   const npub = pubkey ? nip19.npubEncode(pubkey) : "#";
@@ -18,20 +19,12 @@ const NavList: FC<NavListProps> = () => {
     <>
       <div className="min-h-[80vh] h-full flex flex-col justify-between my-12">
         <div className="flex flex-col items-start space-y-5">
-          <Button imgUrl={home} title="Home" href={"/"} style={navstyle} />
+          <Button imgUrl={home} title="Home" href={"/"} style={`${navstyle} `} />
           <Button
             imgUrl={stack}
             title="Workflows"
             href={"/workflows"}
-            style={navstyle}
-          />
-          {/* <Button
-            imgUrl={stack}
-            title="Create"
-            href={"/workflows/create"}
-            style={navstyle}
-          /> */}
-          {/* <Button imgUrl={box} title="Focus" href={"/"} style={navstyle} /> */}
+            style={`${navstyle} `}/>
           <Button
             imgUrl={globe}
             title="What is this?"

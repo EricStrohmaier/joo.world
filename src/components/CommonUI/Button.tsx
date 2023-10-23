@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import { useTheme } from "../../logic/queries/useTheme";
 
 interface ButtonProps {
@@ -17,13 +17,21 @@ const Button: React.FC<ButtonProps> = ({
   style,
   imgStyles,
 }) => {
+
   const { darkMode } = useTheme();
 
+const activeUrl = window.location.pathname;
+const activeLink = activeUrl === href 
+if(activeLink){
+  style = darkMode ? "p-1 px-2 bg-backgroundDark bg-opacity-75" : "p-1 px-2 bg-backgroundLight bg-opacity-90"
+}
+
   return (
-    <div className="w-full">
-      <Link to={href || ""} className="">
+    <div className={`${activeLink} w-full`}>
+      <Link to={href || ""}    
+      > 
         <div
-          className={`flex justify-start items-center rounded-[10px] transition duration-100  ${style}`}
+          className={`flex justify-start items-center  rounded-[10px]  ${style}`}
         >
           {imgUrl && (
             <div className="w-[34px] h-[34px] lg:mr-2 rounded-[10px] flex justify-center items-center">
