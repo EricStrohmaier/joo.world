@@ -1,8 +1,7 @@
 import { FC, SVGProps, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { SetStateAction } from "react";
-import { useTheme } from "../../../logic/queries/useTheme";
-import { usePublish } from "../../../logic/mutations";
+import { useTheme } from "../../../logic/theme/useTheme";
 
 interface CreateTextNoteProps {}
 
@@ -22,28 +21,28 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
     setSelectedFormat(format);
   };
 
-  const publish = usePublish();
+  // const publish = usePublish();
 
-  const handleSend = async () => {
-    // add tags?
-    // add Handle Title and Images add tags!! default Tags...?
-    const baseEvent = {
-      kind: selectedFormat === "short" ? 1 : 30023, // Short or Long Form
-      content: input,
-    };
-    try {
-      const content = await publish(baseEvent);
-      console.log(content);
+  // const handleSend = async () => {
+  //   // add tags?
+  //   // add Handle Title and Images add tags!! default Tags...?
+  //   const baseEvent = {
+  //     kind: selectedFormat === "short" ? 1 : 30023, // Short or Long Form
+  //     content: input,
+  //   };
+  //   try {
+  //     const content = await publish(baseEvent);
+  //     console.log(content);
 
-      // Display a success message to the user
-      alert("Event published successfully!");
-    } catch (error) {
-      console.error(error);
+  //     // Display a success message to the user
+  //     alert("Event published successfully!");
+  //   } catch (error) {
+  //     console.error(error);
 
-      // Display an error message to the user
-      alert("An error occurred while publishing the event. Please try again.");
-    }
-  };
+  //     // Display an error message to the user
+  //     alert("An error occurred while publishing the event. Please try again.");
+  //   }
+  // };
 
   return (
     <div className="w-full">
@@ -120,7 +119,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
           <button className={`border rounded-[70px] p-1 px-2 mr-2 shadow-sm text-sm ${button}`}>
             Save Draft
           </button>
-          <button className={`border rounded-[70px] p-1 px-2 shadow-sm text-sm ${button}`} onClick={handleSend}>
+          <button className={`border rounded-[70px] p-1 px-2 shadow-sm text-sm ${button}`} >
             Publish
           </button>
         </div>

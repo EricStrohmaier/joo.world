@@ -4,14 +4,15 @@ import LayoutPage from "../../components/LayoutPage";
 import FeedNavbar from "./components/FeedNavbar";
 import LayoutCard from "../../components/LayoutCard";
 import { Link } from "react-router-dom";
-import { useUser } from "../../logic/queries";
 import DisplayFeed from "./components/DisplayFeed";
+import { useUser } from "../../logic/store/UserContext";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = () => {
-  const { pubkey } = useUser();
+ 
+ const { userData} = useUser();
 
-  if (pubkey === "") {
+  if (userData?.npub === "") {
     return (
       <LayoutPage>
         <FeedNavbar />

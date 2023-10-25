@@ -1,30 +1,36 @@
 import { FC } from "react";
 
 import Button from "./CommonUI/Button";
-import { globe, home, login, logout, stack } from "../public";
-import { useUser } from "../logic/queries";
-import { nip19 } from "nostr-tools";
-import { loader } from "../logic/utils";
+import { globe, home, login, logout, stack } from "../icons";
+import { useUser } from "../logic/store/UserContext";
 import { Link } from "react-router-dom";
-
+import { useNDK } from "@nostr-dev-kit/ndk-react";
+import { loader } from "../logic/utils/loader";
 interface NavListProps {}
 
 const NavList: FC<NavListProps> = () => {
-   
   const navstyle = "p-1 px-2 hover:opacity-75";
-  const { pubkey, metadata } = useUser();
-  const npub = pubkey ? nip19.npubEncode(pubkey) : "#";
+
+  const { userData } = useUser();
+  const { getProfile } = useNDK();
+  const metadata = getProfile(userData?.npub || '');
 
   return (
     <>
       <div className="min-h-[80vh] h-full flex flex-col justify-between my-12">
         <div className="flex flex-col items-start space-y-5">
-          <Button imgUrl={home} title="Home" href={"/"} style={`${navstyle} `} />
+          <Button
+            imgUrl={home}
+            title="Home"
+            href={"/"}
+            style={`${navstyle} `}
+          />
           <Button
             imgUrl={stack}
             title="Workflows"
             href={"/workflows"}
-            style={`${navstyle} `}/>
+            style={`${navstyle} `}
+          />
           <Button
             imgUrl={globe}
             title="What is this?"
@@ -34,7 +40,7 @@ const NavList: FC<NavListProps> = () => {
         </div>
         <div className="flex flex-col items-start space-y-1">
           {" "}
-          {!pubkey ? (
+          {userData === null ? (
             <Button
               imgUrl={login}
               title="Login"
@@ -44,7 +50,7 @@ const NavList: FC<NavListProps> = () => {
           ) : (
             <>
               <div className="w-full">
-                <Link to={`/p/${npub}`} className="">
+                <Link to={`/p/${userData?.npub}`} className="">
                   <div
                     className={`flex justify-start items-center rounded-[10px] transition duration-100 hover:opacity-75 p-1`}
                   >
@@ -52,12 +58,13 @@ const NavList: FC<NavListProps> = () => {
                       {" "}
                       <img
                         src={
-                          metadata?.picture
-                            ? loader(metadata?.picture, {
-                                w: 96,
-                                h: 96,
-                              })
-                            : ""
+                      
+                        metadata?.image
+                          ? loader(metadata?.image, {
+                              w: 96,
+                              h: 96,
+                            })
+                          : ""
                         }
                         className={`w-full h-full overflow-hidden rounded-[8px] z-0 `}
                       />

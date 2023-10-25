@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import NavList from "./NavList";
-import { useTheme } from "../logic/queries/useTheme";
+import { useTheme } from "../logic/theme/useTheme";
 
 interface LayoutProps {
   children: React.ReactNode;

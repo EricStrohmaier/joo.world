@@ -1,35 +1,28 @@
-import { QueryClient } from "@tanstack/react-query";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import { createIDBPersister } from "./logic/utils";
 import { AppRouter } from "./logic/routes";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "./logic/queries/useTheme";
-
-const persister = createIDBPersister();
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      // cacheTime: 1000 * 60 * 60 * 48, // 48 hours
-      // staleTime: 1000 * 60 * 1, // 1 minute
-      cacheTime: Infinity,
-      staleTime: Infinity,
-      // refetchOnWindowFocus: false,
-    },
-  },
-});
+import { ThemeProvider } from "./logic/theme/useTheme";
+import { UserProvider } from "./logic/store/UserContext";
+import { NDKProvider } from "@nostr-dev-kit/ndk-react";
 
 export const App = () => {
   return (
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{ persister }}
-    >
-      <BrowserRouter>
-        {" "}
-        <ThemeProvider>
+    <BrowserRouter>
+      <NDKProvider
+        relayUrls={[
+          "wss://nos.lol",
+          "wss://nostr-pub.wellorder.net",
+          "wss://relay.damus.io",
+          "wss://relay.snort.social",
+          "wss://nostr.wine/",
+        ]}
+      >
+      <ThemeProvider>
+        <UserProvider>
+          {" "}
           <AppRouter />
-        </ThemeProvider>
-      </BrowserRouter>
-    </PersistQueryClientProvider>
+        </UserProvider>
+      </ThemeProvider>
+      </NDKProvider>
+    </BrowserRouter>
   );
 };

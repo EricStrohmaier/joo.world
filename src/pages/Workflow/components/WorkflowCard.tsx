@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { useTheme } from "../../../logic/queries/useTheme";
+import { useTheme } from "../../../logic/theme/useTheme";
 
 interface WorkflowCardProps {
   children: React.ReactNode;

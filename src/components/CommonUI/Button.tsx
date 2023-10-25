@@ -1,6 +1,6 @@
 import React from "react";
 import {  Link } from "react-router-dom";
-import { useTheme } from "../../logic/queries/useTheme";
+import { useTheme } from "../../logic/theme/useTheme";
 
 interface ButtonProps {
   title?: string;

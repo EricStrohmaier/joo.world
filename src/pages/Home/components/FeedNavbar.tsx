@@ -1,20 +1,19 @@
 import { FC, useState } from "react";
 import ActionButton from "../../../components/CommonUI/ActionButton";
-import { watch, server, sun, moon } from "../../../public";
-import { useTheme, useTime } from "../../../logic/queries/useTheme";
-import { useRelays } from "../../../logic/queries/useRelays";
 import { Dialog, Transition } from "@headlessui/react";
 import ShowRelays from "../../../components/CommonUI/ShowRelays";
+import { useTheme, useTime } from "../../../logic/theme/useTheme";
+import { moon, server, sun, watch } from "../../../icons";
 
 interface FeedNavbarProps {}
 
 const FeedNavbar: FC<FeedNavbarProps> = () => {
   const { darkMode, toggleDarkMode } = useTheme();
   const { currentTime } = useTime() || {};
-  const relays = useRelays();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
+ 
+ 
+const openModal = () => {
     setIsModalOpen(true);
   };
 
@@ -22,7 +21,8 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
     setIsModalOpen(false);
   };
 
-  const relay = ShowRelays(relays);
+  //dynamic relay list???
+  const relay = <ShowRelays/>;
 
   return (
     <div
@@ -62,11 +62,11 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
 
       <Transition show={isModalOpen}>
         <Dialog onClose={closeModal}>
-          <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
 
-            <div className="max-w-md lg:w-full w-4/5  p-6 bg-gray-100 rounded-lg shadow-xl z-50">
-              <Dialog.Title className="text-lg font-medium mb-4">
+            <div className="z-50 w-4/5 max-w-md p-6 bg-gray-100 rounded-lg shadow-xl lg:w-full">
+              <Dialog.Title className="mb-4 text-lg font-medium">
                 Connected to Relay's
               </Dialog.Title>
 

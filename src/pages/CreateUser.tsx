@@ -1,10 +1,8 @@
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../logic/queries";
 import LayoutPage from "../components/LayoutPage";
 
 export const CreateUser = () => {
-  const { pubkey } = useUser();
+ 
   const navigate = useNavigate();
 
   /// In your React app
@@ -35,11 +33,7 @@ window.addEventListener('message', (event) => {
 });
 
 
-  useEffect(() => {
-    if (pubkey) {
-      navigate(`/`, { replace: true });
-    }
-  }, [pubkey, navigate]);
+  
 
   return (
     <LayoutPage>

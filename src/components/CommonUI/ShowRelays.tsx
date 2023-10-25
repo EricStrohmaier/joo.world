@@ -1,14 +1,18 @@
 import { FC } from "react";
-import { useRelays } from "../../logic/queries/useRelays";
 
 interface ShowRelaysProps {}
 
 const ShowRelays: FC<ShowRelaysProps> = () => {
-  const { relays } = useRelays();
-  //   console.log("ShowRelays", relays);
+  const relays = [
+    "wss://nos.lol",
+    "wss://nostr-pub.wellorder.net",
+    "wss://relay.damus.io",
+    "wss://relay.snort.social",
+    "wss://nostr.wine/",
+  ];
 
   return (
-    <div className="my-2 mx-2 md:px-4 md:mx-0">
+    <div className="mx-2 my-2 md:px-4 md:mx-0">
       {relays.map((relay, index) => (
         <div key={index}>
           <h3 className="inline-flex">{relay}</h3>

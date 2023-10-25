@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "icons"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

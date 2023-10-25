@@ -1,19 +1,12 @@
 import { FC, useEffect, useState } from "react";
-
-import { useUser } from "../../../logic/queries/useUser";
 import { DailyTracking } from "../../../logic/types/DailyTracking";
-import {
-  getAllTrackings,
-  resetTodayLocalStorage,
-  useTrackingStorage,
-} from "../../../logic/utils/TrackingStorage";
-// import SetTimerCard from "../../../components/CommonUI/SetTimerCard";
+import { getAllTrackings, resetTodayLocalStorage, useTrackingStorage } from "../../../logic/utils/TrackingStorage";
+
 
 interface TimeProps {}
 
 const Timer: FC<TimeProps> = () => {
-  const user = useUser();
-  console.log(user);
+  
   const timer = 1000; // 1 second
   const [now, setDateState] = useState(new Date());
   useEffect(() => {
@@ -52,7 +45,7 @@ const Timer: FC<TimeProps> = () => {
     localStorage.removeItem("customStart");
   }
   const getallTracking = getAllTrackings();
-  console.log("getAlltracking", getallTracking);
+  // console.log("getAlltracking", getallTracking);
 
   const trackingDuration = tracking.end - tracking.start;
 
@@ -63,18 +56,18 @@ const Timer: FC<TimeProps> = () => {
   return (
     <>
       <div className="w-full ">
-        <div className="flex items-center flex-col h-full">
+        <div className="flex flex-col items-center h-full">
           <div className="text-lg font-semibold"> Your session duration:</div>
-          <div className="text-xl md:text-2xl font-extrabold ">
+          <div className="text-xl font-extrabold md:text-2xl ">
             {new Date(trackingDuration).toISOString().substr(11, 8)}
           </div>
           <div
-            className="bg-gray-300 p-1 px-3 rounded-xl cursor-pointer mt-4 text-lg font-semibold "
+            className="p-1 px-3 mt-4 text-lg font-semibold bg-gray-300 cursor-pointer rounded-xl "
             onClick={handleResetToday}
           >
             Reset
           </div>
-          {/* <div className="w-full h-52  mt-3 flex justify-center">
+          {/* <div className="flex justify-center w-full mt-3 h-52">
             <SetTimerCard title={"Set custom timer"} />
           </div> */}
         </div>
@@ -86,11 +79,11 @@ const Timer: FC<TimeProps> = () => {
 export default Timer;
 
 {
-  /* <div className="text-2xl  md:text-4xl font-extrabold my-12 flex  items-center text-center">
+  /* <div className="flex items-center my-12 text-2xl font-extrabold text-center md:text-4xl">
 <div className="">
   {" "}
   Time is the only{" "}
-  <span className="text-3xl md:text-5xl uppercase">
+  <span className="text-3xl uppercase md:text-5xl">
     currency
   </span>{" "}
   we have.

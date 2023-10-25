@@ -1,33 +1,37 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../logic/queries";
-import { useMutateUser } from "../logic/mutations";
 import LayoutPage from "../components/LayoutPage";
+ import { useUser } from "../logic/store/UserContext";
+import { useNDK } from "@nostr-dev-kit/ndk-react";
 
 export const Login = () => {
-  const { pubkey } = useUser();
-  const { loginWithExtension } = useMutateUser();
-
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const { loginWithNip07 } = useNDK();
+  const { setUser } = useUser();
 
-  useEffect(() => {
-    if (pubkey) {
-      navigate(`/`, { replace: true });
-      // navigate(`/profile/${pubkey}`, { replace: true });
+  async function initializeNDK() {
+    setIsLoading(true);
+    const user = await loginWithNip07();
+
+    if (user) {
+      setUser({ npub: user.npub });
     }
-  }, [pubkey, navigate]);
+    setIsLoading(false);
+    navigate("/");
+  }
 
   return (
     <LayoutPage>
       <div className="flex justify-center min-h-full">
-        <div className="flex flex-col items-center flex-1 px-4 my-12 md:justify-center sm:px-6 lg:px-20 xl:px-24 ">
-          <div className="w-full max-w-md mx-auto ">
+        <div className="flex flex-col items-center flex-1 px-4 my-12 md:justify-center sm:px-6 lg:px-20 xl:px-24">
+          <div className="w-full max-w-md mx-auto">
             <div>
               <h2 className="text-xl font-bold leading-9 tracking-tight md:text-3xl">
                 Login to your NOSTR account
               </h2>
               <p className="mt-2 text-sm font-light leading-6 text-opacity-80 md:text-lg">
-                My <span className="font-bold">WHAT</span> account? learn more
+                My <span className="font-bold">WHAT</span> account? Learn more
                 at{" "}
                 <a
                   href="https://nostr.com"
@@ -43,11 +47,12 @@ export const Login = () => {
                 <div className="">
                   <button
                     type="button"
-                    onClick={() => loginWithExtension.mutate()}
+                    onClick={() => initializeNDK()}
                     className="flex w-full items-center justify-center gap-3 rounded-xl bg-purple-800 px-3 py-1.5 text-white"
+                    disabled={isLoading}
                   >
                     <span className="text-sm font-semibold leading-6 md:text-lg">
-                      Browser Extension
+                      {isLoading ? "Loading..." : "Browser Extension"}
                     </span>
                   </button>
                 </div>
@@ -72,3 +77,5 @@ export const Login = () => {
     </LayoutPage>
   );
 };
+
+export default Login;
