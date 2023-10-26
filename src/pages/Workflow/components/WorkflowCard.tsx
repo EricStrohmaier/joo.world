@@ -13,12 +13,12 @@ const WorkflowCard: FC<WorkflowCardProps> = ({ children, style }) => {
 
   return (
     <div
-      className={`lg:h-[50%] w-full h-full flex justify-center items-center mx-5 ${style}}`}
+      className={`lg:h-[50%] md:w-[98%] w-full  h-full flex justify-center items-center  ${style}}`}
     >
       <div
         className={`${cardStyling} flex items-center justify-center w-full h-full p-3   rounded-2xl shadow-lg `}
       >
-        <div className="flex items-center justify-center w-full h-full lg:w-2/3">
+        <div className="flex items-center justify-center w-full h-full ">
           <div className="w-full ">{children}</div>
         </div>
       </div>{" "}

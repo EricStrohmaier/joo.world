@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import Button from "./CommonUI/Button";
 import { globe, home, login, logout, stack } from "../icons";
-import { useUser } from "../logic/store/UserContext";
+import { useUser } from "../logic/contextStore/UserContext";
 import { Link } from "react-router-dom";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { loader } from "../logic/utils/loader";
@@ -12,9 +12,17 @@ const NavList: FC<NavListProps> = () => {
   const navstyle = "p-1 px-2 hover:opacity-75";
 
   const { userData } = useUser();
+  
+  // if (!userData) {
+  //   return (
+  //     <></>
+  //   ); 
+  // }
   const { getProfile } = useNDK();
   const metadata = getProfile(userData?.npub || '');
 
+
+ 
   return (
     <>
       <div className="min-h-[80vh] h-full flex flex-col justify-between my-12">

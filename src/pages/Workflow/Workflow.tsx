@@ -13,7 +13,7 @@ const Workflow: FC<WorkflowProps> = () => {
       <FeedNavbar />
       <LayoutCard>
         <div className="w-full h-fit">
-          <div className="m-5">
+         
             <div className="flex items-center justify-center w-full mb-6 min-h-[33%]">
               <WorkflowCard>
                 <CreateTextNote />
@@ -21,9 +21,9 @@ const Workflow: FC<WorkflowProps> = () => {
             </div>
 
             <div className="w-full lg:h-2/3 h-1/3 lg:flex">
-              <div className="flex items-center justify-center mb-4 w-full h-full lg:w-3/5">
+              <div className="flex items-center justify-center w-full h-full mb-4 lg:w-3/5">
                 <WorkflowCard>
-                  <div className="w-full h-40 flex items-center justify-center">
+                  <div className="flex items-center justify-center w-full h-40">
                     comming soon <br />
                     Post's:
                     <br />
@@ -32,10 +32,10 @@ const Workflow: FC<WorkflowProps> = () => {
                   </div>
                 </WorkflowCard>{" "}
               </div>
-              <div className="flex items-center justify-center  w-full h-full lg:w-2/5 ">
+              <div className="flex items-center justify-center w-full h-full lg:w-2/5 ">
                 <WorkflowCard>
                   {" "}
-                  <div className="w-full h-40 flex items-center justify-center">
+                  <div className="flex items-center justify-center w-full h-40">
                     comming soon <br />
                     LISTS:
                     <br />
@@ -44,7 +44,6 @@ const Workflow: FC<WorkflowProps> = () => {
                 </WorkflowCard>{" "}
               </div>
             </div>
-          </div>
         </div>
       </LayoutCard>
     </LayoutPage>

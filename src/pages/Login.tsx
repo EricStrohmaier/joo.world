@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LayoutPage from "../components/LayoutPage";
- import { useUser } from "../logic/store/UserContext";
+ import { useUser } from "../logic/contextStore/UserContext";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 
 export const Login = () => {

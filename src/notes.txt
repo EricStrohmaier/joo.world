@@ -1,0 +1,2 @@
+//convert to hex from npub
+const hex = npub ? nip19.decode(npub).data.toString() : undefined;

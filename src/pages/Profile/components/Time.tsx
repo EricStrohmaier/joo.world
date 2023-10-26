@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { DailyTracking } from "../../../logic/types/DailyTracking";
-import { getAllTrackings, resetTodayLocalStorage, useTrackingStorage } from "../../../logic/utils/TrackingStorage";
+import { resetTodayLocalStorage, useTrackingStorage } from "../../../logic/utils/TrackingStorage";
 
 
 interface TimeProps {}
@@ -61,9 +61,7 @@ const Timer: FC<TimeProps> = () => {
           <div className="text-lg font-semibold"> Your session duration:</div>
           <div className="text-xl font-extrabold md:text-2xl ">
             {new Date(trackingDuration).toISOString().substr(11, 8)}
-            {getAllTrackings().map((tracking) => (
-              <p aria-hidden="true" key={tracking.day.getTime()}>{tracking.day.toLocaleDateString()}</p>
-            ))}
+            
           </div>
           <div
             className="p-1 px-3 mt-4 text-lg font-semibold bg-gray-300 cursor-pointer rounded-xl "

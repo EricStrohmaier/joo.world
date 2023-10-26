@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import ShowRelays from "../../../components/CommonUI/ShowRelays";
 import { useTheme, useTime } from "../../../logic/theme/useTheme";
 import { moon, server, sun, watch } from "../../../icons";
+import { useUser } from "../../../logic/contextStore/UserContext";
 
 interface FeedNavbarProps {}
 
@@ -11,9 +12,9 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
   const { darkMode, toggleDarkMode } = useTheme();
   const { currentTime } = useTime() || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
- 
- 
-const openModal = () => {
+  const { userData } = useUser();
+
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
@@ -22,7 +23,7 @@ const openModal = () => {
   };
 
   //dynamic relay list???
-  const relay = <ShowRelays/>;
+  const relay = <ShowRelays />;
 
   return (
     <div
@@ -67,7 +68,9 @@ const openModal = () => {
 
             <div className="z-50 w-4/5 max-w-md p-6 bg-gray-100 rounded-lg shadow-xl lg:w-full">
               <Dialog.Title className="mb-4 text-lg font-medium">
-                Connected to Relay's
+                {userData
+                  ? "You are connected with these relays"
+                  : "Connected to Relay's"}
               </Dialog.Title>
 
               <div className="text-sm text-gray-500">{relay}</div>

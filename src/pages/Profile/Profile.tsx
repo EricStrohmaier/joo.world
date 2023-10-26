@@ -1,26 +1,33 @@
 import { FC } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import { useParams } from "react-router-dom";
-import { nip19 } from "nostr-tools";
 import AboutProfile from "./components/AboutProfile";
 import Timer from "./components/Time";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { message } from "../../icons";
+import { useTheme } from "../../logic/theme/useTheme";
+// import { usePersonalFeed } from "../../logic/contextStore/PersonalFeedContext";
+import PersonalFeed from "./components/PersonalFeed";
+import LayoutCard from "../../components/LayoutCard";
 
 interface ProfileProps {}
 
 export const ProfileLogic: FC<ProfileProps> = () => {
-  const { npub } = useParams();
+  const { darkMode } = useTheme();
+  const styleing = darkMode ? "border-textDark " : "border-textLight";
 
-  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
+  const { npub } = useParams();
   const { getProfile } = useNDK();
-  const metadata = getProfile(hex || '');
+  const metadata = getProfile(npub || "");
+  // const { personalFeedData } = usePersonalFeed();
+
+// console.log("personalfeed?",personalFeedData);
 
   return (
     <LayoutPage>
-      <div className="max-w-full h-fit ">
+      <div className="w-full h-fit ">
         {" "}
-        <div className="w-full h-full border-black">
+        <div className="w-full h-full">
           <img
             className="object-cover w-full h-32 mb-4"
             src={metadata.banner}
@@ -37,11 +44,12 @@ export const ProfileLogic: FC<ProfileProps> = () => {
             nip05={metadata.nip05}
             website={metadata.website}
           />
-          <div className="border-[0.5px]"></div>
+          <div className={`border-[0.5px] ${styleing}`}></div>
         </div>
-        <div className="flex flex-col justify-end ">
+        <LayoutCard>
           <Timer />
-        </div>
+          <PersonalFeed />
+        </LayoutCard>
       </div>
     </LayoutPage>
   );

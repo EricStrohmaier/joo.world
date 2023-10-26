@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../logic/store/UserContext";
+import { useUser } from "../logic/contextStore/UserContext";
 
 export const Logout = () => {
   const { logout } = useUser();
