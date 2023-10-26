@@ -44,7 +44,8 @@ const Timer: FC<TimeProps> = () => {
     tracking.start = parseInt(localStorage.getItem("customStart") || "");
     localStorage.removeItem("customStart");
   }
-  const getallTracking = getAllTrackings();
+  // const getallTracking = getAllTrackings();
+  
   // console.log("getAlltracking", getallTracking);
 
   const trackingDuration = tracking.end - tracking.start;
@@ -60,6 +61,9 @@ const Timer: FC<TimeProps> = () => {
           <div className="text-lg font-semibold"> Your session duration:</div>
           <div className="text-xl font-extrabold md:text-2xl ">
             {new Date(trackingDuration).toISOString().substr(11, 8)}
+            {getAllTrackings().map((tracking) => (
+              <p aria-hidden="true" key={tracking.day.getTime()}>{tracking.day.toLocaleDateString()}</p>
+            ))}
           </div>
           <div
             className="p-1 px-3 mt-4 text-lg font-semibold bg-gray-300 cursor-pointer rounded-xl "
