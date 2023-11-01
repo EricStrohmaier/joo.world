@@ -29,7 +29,7 @@ const ProfileCard: FC<ProfileCardProps> = ({
         </div>
 
         {/* Post Content */}
-        <div className="my-2 mb-3 w-fit">{postContent}</div>
+        <div className="my-2 mb-3 w-96">{postContent}</div>
         
           {/* Featured Post */}
 

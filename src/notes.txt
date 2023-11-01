@@ -1,2 +1,34 @@
 //convert to hex from npub
 const hex = npub ? nip19.decode(npub).data.toString() : undefined;
+
+
+
+You can do it here bro ! you can do it i belive you just need to do it!!
+
+- focus on bare min function then 
+
+- adding all the features later!
+
+
+Todo:
+
+- Homepage OneTask! thats it explain plus questions   homeepage without sigin is a video explaiing or screenshoots
+
+- workflows will be creating or setting preverances for ai workflows ?
+
+- put profile page logic to profile page! 
+
+- white colors slight changing to better white theme more pleasent...
+
+- fix profile fetch data + right rendering of data
+- 
+
+
+
+
+
+
+
+
+ToDo-Feature:
+- ai tweets poster

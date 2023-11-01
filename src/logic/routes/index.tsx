@@ -10,7 +10,8 @@ import ErrorPage from "../../pages/404Error/ErrorPage";
 export const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* <Route path="/" element={<LandingPage/>} /> */}
+      <Route path="/" element={<Home/>} />
       <Route path="login" element={<Login />} />
       <Route path="logout" element={<Logout />} />
       <Route path="p/:npub" element={<ProfileLogic />} />

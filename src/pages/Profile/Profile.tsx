@@ -8,7 +8,6 @@ import { message } from "../../icons";
 import { useTheme } from "../../logic/theme/useTheme";
 // import { usePersonalFeed } from "../../logic/contextStore/PersonalFeedContext";
 import PersonalFeed from "./components/PersonalFeed";
-import LayoutCard from "../../components/LayoutCard";
 
 interface ProfileProps {}
 
@@ -21,20 +20,20 @@ export const ProfileLogic: FC<ProfileProps> = () => {
   const metadata = getProfile(npub || "");
   // const { personalFeedData } = usePersonalFeed();
 
-// console.log("personalfeed?",personalFeedData);
+  // console.log("personalfeed?",personalFeedData);
 
   return (
     <LayoutPage>
       <div className="w-full h-fit ">
-        {" "}
-        <div className="w-full h-full">
-          <img
-            className="object-cover w-full h-32 mb-4"
-            src={metadata.banner}
-            alt={`${metadata.displayName}'s banner`}
-          />
-        </div>
-        <div>
+        <div className="-m-6">
+          <div className="w-full h-full">
+            <img
+              className="object-cover w-full h-32 mb-4"
+              src={metadata.banner}
+              alt={`${metadata.displayName}'s banner`}
+            />
+          </div>
+
           <AboutProfile
             displayName={metadata.displayName}
             picture={metadata.image}
@@ -46,11 +45,14 @@ export const ProfileLogic: FC<ProfileProps> = () => {
           />
           <div className={`border-[0.5px] ${styleing}`}></div>
         </div>
-        <LayoutCard>
+    
+        <>
           <Timer />
           <PersonalFeed />
-        </LayoutCard>
+        </>
+    
       </div>
+     
     </LayoutPage>
   );
 };

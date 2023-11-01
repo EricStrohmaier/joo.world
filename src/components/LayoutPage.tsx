@@ -15,8 +15,9 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
   const { darkMode } = useTheme(); // Access darkMode using the useTheme hook
 
   const { fetchEvents } = useNDK();
-  const { personalFeedData, setPersonalFeedData } = usePersonalFeed();
+  const { setPersonalFeedData } = usePersonalFeed();
   const { userData } = useUser();
+
   const npub = userData?.npub;
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
 
@@ -49,7 +50,7 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
         }));
 
         // console.log("Fetched data:", personalFeed);
-
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         setPersonalFeedData(personalFeed);
       } catch (err) {
@@ -58,15 +59,20 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
     }
   };
   useEffect(() => {
-    if (!personalFeedData || personalFeedData.length === 0) {
+    fetchPersonalFeedData(hex);
+
+    // Set up a periodic data refresh using setInterval
+    const refreshInterval = 60000; // Refresh every 60 seconds (adjust as needed)
+    const intervalId = setInterval(() => {
       fetchPersonalFeedData(hex);
-     }
-    // else {
-    //   console.log("fetch");
-      
-    //   // fetchPersonalFeedData(hex);
-    // }
-  }, [hex, personalFeedData, setPersonalFeedData]);
+    }, refreshInterval);
+
+    // Clean up the interval when the component unmounts
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [hex]);
+
 
   return (
     <div
@@ -86,7 +92,11 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
               className={`border-[0.5px] w-full relative bottom-11 ${darkStyle}`}
             ></div>
           </div>
-          <div className="flex-col w-full">{children}</div>{" "}
+          <div className="flex-col w-full">
+            <div className="flex justify-center w-full h-full">
+              <div className="w-full h-full m-6 ">{children}</div>
+            </div>
+          </div>{" "}
         </div>
       </div>
     </div>
