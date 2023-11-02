@@ -3,15 +3,12 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./logic/theme/useTheme";
 import { UserProvider } from "./logic/contextStore/UserContext";
 import { NDKProvider } from "@nostr-dev-kit/ndk-react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { PersonalFeedProvider } from "./logic/contextStore/PersonalFeedContext";
 
 export const App = () => {
-  const queryClient = new QueryClient();
 
   return (
     <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
        <PersonalFeedProvider>
         <NDKProvider
           relayUrls={[
@@ -30,7 +27,7 @@ export const App = () => {
           </ThemeProvider>
         </NDKProvider>
         </PersonalFeedProvider>
-      </QueryClientProvider>
+     
     </BrowserRouter>
   );
 };

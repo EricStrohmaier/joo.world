@@ -1,10 +1,10 @@
 import { FC } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import FeedNavbar from "./components/FeedNavbar";
-import { Link } from "react-router-dom";
 import { useUser } from "../../logic/contextStore/UserContext";
 import WorkflowCard from "../Workflow/components/WorkflowCard";
 import OneTask from "./components/OneTask";
+import Login from "../Login/components/Login";
 // import { useNDK } from "@nostr-dev-kit/ndk-react";
 
 interface HomeProps {}
@@ -33,9 +33,7 @@ const Home: FC<HomeProps> = () => {
                 Here you'll find less distraction, more focus on productivity
                 and creativity.
               </div>
-              <div className="flex justify-center mt-16 text-blue-500 underline underline-offset-1">
-                <Link to={"/login"}> Login to get started!</Link>{" "}
-              </div>
+              <Login />
             </div>
           </div>
         </div>

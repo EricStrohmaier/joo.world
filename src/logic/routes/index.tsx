@@ -3,7 +3,7 @@ import Home from "../../pages/Home/Home";
 import { About } from "../../pages/About";
 import { ProfileLogic } from "../../pages/Profile/Profile";
 import { Logout } from "../../pages/Logout";
-import { Login } from "../../pages/Login";
+import LoginPage from "../../pages/Login/LoginPage";
 import Workflow from "../../pages/Workflow/Workflow";
 import ErrorPage from "../../pages/404Error/ErrorPage";
 
@@ -12,7 +12,7 @@ export const AppRouter = () => {
     <Routes>
       {/* <Route path="/" element={<LandingPage/>} /> */}
       <Route path="/" element={<Home/>} />
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<LoginPage />} />
       <Route path="logout" element={<Logout />} />
       <Route path="p/:npub" element={<ProfileLogic />} />
       <Route path="about" element={<About />} />

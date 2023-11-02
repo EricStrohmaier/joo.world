@@ -12,15 +12,12 @@
     "dependencies": {
         "@headlessui/react": "^1.7.17",
         "@nostr-dev-kit/ndk": "^2.0.3",
+        "@nostr-dev-kit/ndk-cache-dexie": "^2.0.3",
         "@nostr-dev-kit/ndk-react": "^0.1.1",
-        "@nostrband/ndk": "^0.8.19-3",
-        "@nostrband/nostr-tools": "^1.14.6",
         "nostr-tools": "^1.16.0",
         "react": "^18.2.0",
         "react-copy-to-clipboard": "^5.1.0",
         "react-dom": "^18.2.0",
-        "react-query": "^3.39.3",
-        "react-redux": "^8.1.2",
         "react-router-dom": "^6.16.0",
         "react-toastify": "^9.1.3"
     },

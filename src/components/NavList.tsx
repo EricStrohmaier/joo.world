@@ -6,23 +6,38 @@ import { useUser } from "../logic/contextStore/UserContext";
 import { Link } from "react-router-dom";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { loader } from "../logic/utils/loader";
+// import { dexieAdapter } from "../logic/contextStore/NdkStore";
+// import { nip19 } from "nostr-tools";
+
 interface NavListProps {}
 
 const NavList: FC<NavListProps> = () => {
   const navstyle = "p-1 px-2 hover:opacity-75";
 
   const { userData } = useUser();
+  //  const hex = userData?.npub ? nip19.decode(userData?.npub).data.toString() : undefined;
   
-  // if (!userData) {
-  //   return (
-  //     <></>
-  //   ); 
-  // }
   const { getProfile } = useNDK();
-  const metadata = getProfile(userData?.npub || '');
+  const metadata = getProfile(userData?.npub || "");
+  
+  // dexieAdapter
+  
+  // if (ndkInstance.cacheAdapter) {
+  //   const cacheAdapter = ndkInstance.cacheAdapter;
 
+  //   try {
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     //@ts-ignore
+  //     cacheAdapter.fetchProfile(hex).then((profile) => {
+  //       console.log("Profile fetched from cache:", profile);
+  //     });
+  //   } catch (error) {
+  //     console.error("Error storing user metadata:", error);
+  //   }
+  // } else {
+  //   console.error("ndkInstance.cacheAdapter is undefined");
+  // }
 
- 
   return (
     <>
       <div className="min-h-[80vh] h-full flex flex-col justify-between my-12">
@@ -66,13 +81,12 @@ const NavList: FC<NavListProps> = () => {
                       {" "}
                       <img
                         src={
-                      
-                        metadata?.image
-                          ? loader(metadata?.image, {
-                              w: 96,
-                              h: 96,
-                            })
-                          : ""
+                          metadata?.image
+                            ? loader(metadata?.image, {
+                                w: 96,
+                                h: 96,
+                              })
+                            : ""
                         }
                         className={`w-full h-full overflow-hidden rounded-[8px] z-0 `}
                       />
