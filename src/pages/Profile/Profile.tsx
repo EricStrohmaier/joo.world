@@ -1,13 +1,15 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import { useParams } from "react-router-dom";
 import AboutProfile from "./components/AboutProfile";
 import Timer from "./components/Time";
-import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { message } from "../../icons";
 import { useTheme } from "../../logic/theme/useTheme";
 // import { usePersonalFeed } from "../../logic/contextStore/PersonalFeedContext";
 import PersonalFeed from "./components/PersonalFeed";
+import { nip19 } from "nostr-tools";
+import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/metadataService";
+import { Metadata } from "../../logic/types/nostr";
 
 interface ProfileProps {}
 
@@ -16,12 +18,28 @@ export const ProfileLogic: FC<ProfileProps> = () => {
   const styleing = darkMode ? "border-textDark " : "border-textLight";
 
   const { npub } = useParams();
-  const { getProfile } = useNDK();
-  const metadata = getProfile(npub || "");
-  // const { personalFeedData } = usePersonalFeed();
 
-  // console.log("personalfeed?",personalFeedData);
+  const [metadata, setMetadata] = useState<Metadata>({}); // Initialize as null
+  
+  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
 
+  const saveUserMetadataPromise = useSaveUserMetadata(npub || "");
+
+  useEffect(() => {
+    const fetchAndSaveMetadata = async () => {
+      try {
+        const saveUserMetadata = await saveUserMetadataPromise;
+        await saveUserMetadata(hex || "");
+        const fetched = await readUserProfile(hex || "");
+        setMetadata(fetched as Metadata); 
+      } catch (error) {
+        console.error("Error fetching user metadata:", error);
+      }
+    };
+
+    fetchAndSaveMetadata();
+  }, [hex, saveUserMetadataPromise]);
+ 
   return (
     <LayoutPage>
       <div className="w-full h-fit ">
@@ -29,19 +47,19 @@ export const ProfileLogic: FC<ProfileProps> = () => {
           <div className="w-full h-full">
             <img
               className="object-cover w-full h-32 mb-4"
-              src={metadata.banner}
-              alt={`${metadata.displayName}'s banner`}
+              src={metadata?.banner}
+              alt={`${metadata?.displayName}'s banner`}
             />
           </div>
 
           <AboutProfile
-            displayName={metadata.displayName}
-            picture={metadata.image}
-            about={metadata.about}
+            displayName={metadata?.displayName}
+            picture={metadata?.image}
+            about={metadata?.about}
             message={message}
-            lud16={metadata.lud16}
-            nip05={metadata.nip05}
-            website={metadata.website}
+            lud16={metadata?.lud16}
+            nip05={metadata?.nip05}
+            website={metadata?.website}
           />
           <div className={`border-[0.5px] ${styleing}`}></div>
         </div>

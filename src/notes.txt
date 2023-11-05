@@ -2,8 +2,7 @@
 const hex = npub ? nip19.decode(npub).data.toString() : undefined;
 
 
-
-You can do it here bro ! you can do it i belive you just need to do it!!
+just do it!!
 
 - focus on bare min function then 
 
@@ -11,9 +10,15 @@ You can do it here bro ! you can do it i belive you just need to do it!!
 
 
 Todo:
+- fetching data in dexie storeage? metadata + pubkey works? === is in localstore too 
+-? what else to put in dixie store
+    - personal feed! followers?
+    - events you post long and short, pictures, lists
+
+- Working feed page explicid add someone to the list(not mute list) having some lists to switch? only at this client?
 
 - Homepage OneTask! thats it explain plus questions   
-homeepage without sigin is a video explaiing or screenshoots
+  homeepage without sigin is a video explaiing or screenshoots
 
 - workflows will be creating or setting preverances for ai workflows ?
 

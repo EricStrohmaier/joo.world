@@ -1,10 +1,11 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import NavList from "./NavList";
 import { useTheme } from "../logic/theme/useTheme";
-import { useNDK } from "@nostr-dev-kit/ndk-react";
-import { usePersonalFeed } from "../logic/contextStore/PersonalFeedContext";
-import { useUser } from "../logic/contextStore/UserContext";
-import { nip19 } from "nostr-tools";
+// import { usePersonalFeed } from "../logic/contextStore/PersonalFeedContext";
+// import { useLocalUser } from "../logic/contextStore/UserContext";
+// import { nip19 } from "nostr-tools";
+// import { useSaveUserMetadata } from "../logic/contextStore/metadataService";
+
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -13,14 +14,6 @@ interface LayoutProps {
 
 const LayoutPage: FC<LayoutProps> = ({ children }) => {
   const { darkMode } = useTheme(); // Access darkMode using the useTheme hook
-
-  const { fetchEvents } = useNDK();
-  const { setPersonalFeedData } = usePersonalFeed();
-  const { userData } = useUser();
-
-  const npub = userData?.npub;
-  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-
   const layoutStyles = darkMode
     ? "bg-backgroundDark text-textDark "
     : "bg-backgroundLight text-textLight ";
@@ -28,51 +21,68 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
     ? "bg-primaryDark border-textDark"
     : "border-textLight bg-primaryLight";
 
-  const fetchPersonalFeedData = async (hex: string | undefined) => {
-    if (hex) {
-      const filter = {
-        kinds: [1],
-        authors: [hex],
-        limit: 20,
-      };
+  // const { userData } = useLocalUser();
+  // const npub = userData?.npub;
+  // const hex = npub ? nip19.decode(npub).data.toString() : undefined;
 
-      try {
-        const events = await fetchEvents(filter);
-        const eventArray = [...events];
-        //console.log("eventArray", events);
-        const personalFeed = eventArray.map((entry) => ({
-          content: entry.content,
-          tags: entry.tags,
-          createdAt: entry.created_at,
-          id: entry.id,
-          pubkey: entry.pubkey,
-          url: entry.relay?.url,
-        }));
+  // const saveUserMetadataPromise = useSaveUserMetadata(npub || "");
 
-        // console.log("Fetched data:", personalFeed);
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        setPersonalFeedData(personalFeed);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
-    }
-  };
-  useEffect(() => {
-    fetchPersonalFeedData(hex);
+  // useEffect(() => {
+  //   // Use 'await' to call the !!promise-returning function!!
+  //   const saveUserMetadata = async () => {
+  //     const saveMetadataFunction = await saveUserMetadataPromise;
+  //     await saveMetadataFunction(hex || "");
+  //   };
 
-    // Set up a periodic data refresh using setInterval
-    const refreshInterval = 60000; // Refresh every 60 seconds (adjust as needed)
-    const intervalId = setInterval(() => {
-      fetchPersonalFeedData(hex);
-    }, refreshInterval);
+  //   saveUserMetadata(); 
+  // },); 
 
-    // Clean up the interval when the component unmounts
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [hex]);
+  // const fetchPersonalFeedData = async (hex: string | undefined) => {
+  //   if (hex) {
+  //     const filter = {
+  //       kinds: [1],
+  //       authors: [hex],
+  //       limit: 20,
+  //     };
 
+  //     try {
+  //       const events = await fetchEvents(filter);
+  //       const eventArray = [...events];
+  //       //console.log("eventArray", events);
+  //       const personalFeed = eventArray.map((entry) => ({
+  //         content: entry.content,
+  //         tags: entry.tags,
+  //         createdAt: entry.created_at,
+  //         id: entry.id,
+  //         pubkey: entry.pubkey,
+  //         url: entry.relay?.url,
+  //       }));
+
+  //       // console.log("Fetched data:", personalFeed);
+  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //       //@ts-ignore
+  //       setPersonalFeedData(personalFeed);
+  //     } catch (err) {
+  //       console.error("Error fetching data:", err);
+  //     }
+  //   }
+  // };
+
+  //  useEffect(() => {
+
+  //   // fetchPersonalFeedData(hex);
+
+  //   // Set up a periodic data refresh using setInterval
+  //   // const refreshInterval = 60000; // Refresh every 60 seconds (adjust as needed)
+  //   // const intervalId = setInterval(() => {
+  //   //   fetchPersonalFeedData(hex);
+  //   // }, refreshInterval);
+
+  //   // Clean up the interval when the component unmounts
+  //   // return () => {
+  //   //   clearInterval(intervalId);
+  //   // };
+  // }, [hex]);
 
   return (
     <div

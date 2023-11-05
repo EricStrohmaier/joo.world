@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
-import { useUser } from "../../../logic/contextStore/UserContext";
+import { useLocalUser } from "../../../logic/contextStore/UserContext";
 
 export const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { loginWithNip07 } = useNDK();
-  const { setUser } = useUser();
+  const { loginWithNip07 , getProfile} = useNDK();
+  const { setLocalUser , setMetadata} = useLocalUser();
 
 
   async function initializeNDK() {
@@ -15,11 +16,14 @@ export const Login = () => {
     const user = await loginWithNip07();
 
     if (user) {
-      setUser({ npub: user.npub });
+      setLocalUser({ npub: user.npub });
+      const metadata = getProfile(user.npub || "");
+      setMetadata(metadata)
     }
     setIsLoading(false);
     navigate("/");
   }
+
 
   return (
     <>

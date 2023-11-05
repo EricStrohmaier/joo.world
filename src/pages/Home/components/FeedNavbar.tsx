@@ -4,7 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import ShowRelays from "../../../components/CommonUI/ShowRelays";
 import { useTheme, useTime } from "../../../logic/theme/useTheme";
 import { moon, server, sun, watch } from "../../../icons";
-import { useUser } from "../../../logic/contextStore/UserContext";
+import { useLocalUser } from "../../../logic/contextStore/UserContext";
 
 interface FeedNavbarProps {}
 
@@ -12,7 +12,7 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
   const { darkMode, toggleDarkMode } = useTheme();
   const { currentTime } = useTime() || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { userData } = useUser();
+  const { userData } = useLocalUser();
 
   const openModal = () => {
     setIsModalOpen(true);

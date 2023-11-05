@@ -1,18 +1,15 @@
 import { FC } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import FeedNavbar from "./components/FeedNavbar";
-import { useUser } from "../../logic/contextStore/UserContext";
+import { useLocalUser } from "../../logic/contextStore/UserContext";
 import WorkflowCard from "../Workflow/components/WorkflowCard";
 import OneTask from "./components/OneTask";
 import Login from "../Login/components/Login";
-// import { useNDK } from "@nostr-dev-kit/ndk-react";
 
 interface HomeProps {}
 const Home: FC<HomeProps> = () => {
-   const { userData } = useUser();
-  // const { getProfile } = useNDK();
-  // const metadata = getProfile(userData?.npub || "");
-
+   const { userData } = useLocalUser();
+  
   if (userData === null) {
     return (
       <LayoutPage>

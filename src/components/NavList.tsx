@@ -1,42 +1,24 @@
 import { FC } from "react";
-
 import Button from "./CommonUI/Button";
 import { globe, home, login, logout, stack } from "../icons";
-import { useUser } from "../logic/contextStore/UserContext";
+import { useLocalUser } from "../logic/contextStore/UserContext";
 import { Link } from "react-router-dom";
-import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { loader } from "../logic/utils/loader";
-// import { dexieAdapter } from "../logic/contextStore/NdkStore";
-// import { nip19 } from "nostr-tools";
+import { useNDK } from "@nostr-dev-kit/ndk-react";
+import { nip19 } from "nostr-tools";
 
 interface NavListProps {}
 
 const NavList: FC<NavListProps> = () => {
   const navstyle = "p-1 px-2 hover:opacity-75";
 
-  const { userData } = useUser();
-  //  const hex = userData?.npub ? nip19.decode(userData?.npub).data.toString() : undefined;
-  
-  const { getProfile } = useNDK();
-  const metadata = getProfile(userData?.npub || "");
-  
-  // dexieAdapter
-  
-  // if (ndkInstance.cacheAdapter) {
-  //   const cacheAdapter = ndkInstance.cacheAdapter;
+  const { userData } = useLocalUser();  
+   const hex = userData?.npub ? nip19.decode(userData?.npub).data.toString() : undefined;
 
-  //   try {
-  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //     //@ts-ignore
-  //     cacheAdapter.fetchProfile(hex).then((profile) => {
-  //       console.log("Profile fetched from cache:", profile);
-  //     });
-  //   } catch (error) {
-  //     console.error("Error storing user metadata:", error);
-  //   }
-  // } else {
-  //   console.error("ndkInstance.cacheAdapter is undefined");
-  // }
+  const { getProfile } = useNDK();
+  const metadata = getProfile(hex|| "");
+    
+
 
   return (
     <>
