@@ -14,6 +14,8 @@
         "@nostr-dev-kit/ndk": "^2.0.3",
         "@nostr-dev-kit/ndk-cache-dexie": "^2.0.3",
         "@nostr-dev-kit/ndk-react": "^0.1.1",
+        "dexie": "^3.2.4",
+        "dexie-react-hooks": "^1.1.7",
         "lodash": "^4.17.21",
         "nostr-tools": "^1.16.0",
         "react": "^18.2.0",

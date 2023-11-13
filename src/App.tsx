@@ -3,13 +3,11 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./logic/theme/useTheme";
 import { UserProvider } from "./logic/contextStore/UserContext";
 import { NDKProvider } from "@nostr-dev-kit/ndk-react";
-import { PersonalFeedProvider } from "./logic/contextStore/PersonalFeedContext";
 
 export const App = () => {
 
   return (
     <BrowserRouter>
-       <PersonalFeedProvider>
         <NDKProvider
           relayUrls={[
             "wss://nos.lol",
@@ -25,9 +23,7 @@ export const App = () => {
               <AppRouter />
             </UserProvider>
           </ThemeProvider>
-        </NDKProvider>
-        </PersonalFeedProvider>
-     
+        </NDKProvider>     
     </BrowserRouter>
   );
 };

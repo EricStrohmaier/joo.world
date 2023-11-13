@@ -1,6 +1,6 @@
 import { FC } from "react";
 import LayoutPage from "../../components/LayoutPage";
-import FeedNavbar from "../Home/components/FeedNavbar";
+import FeedNavbar from "../../components/FeedNavbar";
 import CreateTextNote from "./components/CreateTextNote";
 import WorkflowCard from "./components/WorkflowCard";
 

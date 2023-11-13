@@ -1,11 +1,6 @@
 import React, { FC } from "react";
 import NavList from "./NavList";
 import { useTheme } from "../logic/theme/useTheme";
-// import { usePersonalFeed } from "../logic/contextStore/PersonalFeedContext";
-// import { useLocalUser } from "../logic/contextStore/UserContext";
-// import { nip19 } from "nostr-tools";
-// import { useSaveUserMetadata } from "../logic/contextStore/metadataService";
-
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -20,69 +15,6 @@ const LayoutPage: FC<LayoutProps> = ({ children }) => {
   const darkStyle = darkMode
     ? "bg-primaryDark border-textDark"
     : "border-textLight bg-primaryLight";
-
-  // const { userData } = useLocalUser();
-  // const npub = userData?.npub;
-  // const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-
-  // const saveUserMetadataPromise = useSaveUserMetadata(npub || "");
-
-  // useEffect(() => {
-  //   // Use 'await' to call the !!promise-returning function!!
-  //   const saveUserMetadata = async () => {
-  //     const saveMetadataFunction = await saveUserMetadataPromise;
-  //     await saveMetadataFunction(hex || "");
-  //   };
-
-  //   saveUserMetadata(); 
-  // },); 
-
-  // const fetchPersonalFeedData = async (hex: string | undefined) => {
-  //   if (hex) {
-  //     const filter = {
-  //       kinds: [1],
-  //       authors: [hex],
-  //       limit: 20,
-  //     };
-
-  //     try {
-  //       const events = await fetchEvents(filter);
-  //       const eventArray = [...events];
-  //       //console.log("eventArray", events);
-  //       const personalFeed = eventArray.map((entry) => ({
-  //         content: entry.content,
-  //         tags: entry.tags,
-  //         createdAt: entry.created_at,
-  //         id: entry.id,
-  //         pubkey: entry.pubkey,
-  //         url: entry.relay?.url,
-  //       }));
-
-  //       // console.log("Fetched data:", personalFeed);
-  //       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //       //@ts-ignore
-  //       setPersonalFeedData(personalFeed);
-  //     } catch (err) {
-  //       console.error("Error fetching data:", err);
-  //     }
-  //   }
-  // };
-
-  //  useEffect(() => {
-
-  //   // fetchPersonalFeedData(hex);
-
-  //   // Set up a periodic data refresh using setInterval
-  //   // const refreshInterval = 60000; // Refresh every 60 seconds (adjust as needed)
-  //   // const intervalId = setInterval(() => {
-  //   //   fetchPersonalFeedData(hex);
-  //   // }, refreshInterval);
-
-  //   // Clean up the interval when the component unmounts
-  //   // return () => {
-  //   //   clearInterval(intervalId);
-  //   // };
-  // }, [hex]);
 
   return (
     <div

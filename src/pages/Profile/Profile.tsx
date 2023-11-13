@@ -5,40 +5,39 @@ import AboutProfile from "./components/AboutProfile";
 import Timer from "./components/Time";
 import { message } from "../../icons";
 import { useTheme } from "../../logic/theme/useTheme";
-// import { usePersonalFeed } from "../../logic/contextStore/PersonalFeedContext";
 import PersonalFeed from "./components/PersonalFeed";
 import { nip19 } from "nostr-tools";
-import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/metadataService";
 import { Metadata } from "../../logic/types/nostr";
+import { usePersonalFeedDixie } from "../../logic/contextStore/PersonalFeedService";
+import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/MetadataService";
 
 interface ProfileProps {}
 
 export const ProfileLogic: FC<ProfileProps> = () => {
   const { darkMode } = useTheme();
   const styleing = darkMode ? "border-textDark " : "border-textLight";
-
   const { npub } = useParams();
-
-  const [metadata, setMetadata] = useState<Metadata>({}); // Initialize as null
-  
+  const [metadata, setMetadata] = useState<Metadata>({});
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-
-  const saveUserMetadataPromise = useSaveUserMetadata(npub || "");
-
+  const promise = useSaveUserMetadata(npub || "");
+// store data in IndexedDB
   useEffect(() => {
     const fetchAndSaveMetadata = async () => {
       try {
-        const saveUserMetadata = await saveUserMetadataPromise;
+        
+        const saveUserMetadata = await promise;
         await saveUserMetadata(hex || "");
-        const fetched = await readUserProfile(hex || "");
-        setMetadata(fetched as Metadata); 
+        const fetchedProfile = await readUserProfile(hex || "");
+        setMetadata(fetchedProfile as Metadata); 
+
       } catch (error) {
         console.error("Error fetching user metadata:", error);
       }
     };
-
     fetchAndSaveMetadata();
-  }, [hex, saveUserMetadataPromise]);
+  }, [hex, promise]);
+  
+  usePersonalFeedDixie(hex||"")
  
   return (
     <LayoutPage>
@@ -64,10 +63,10 @@ export const ProfileLogic: FC<ProfileProps> = () => {
           <div className={`border-[0.5px] ${styleing}`}></div>
         </div>
     
-        <>
+        <div className="border-2 border-black">
           <Timer />
           <PersonalFeed />
-        </>
+        </div>
     
       </div>
      

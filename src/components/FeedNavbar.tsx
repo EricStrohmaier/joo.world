@@ -1,14 +1,16 @@
 import { FC, useState } from "react";
-import ActionButton from "../../../components/CommonUI/ActionButton";
+import ActionButton from "./CommonUI/ActionButton";
 import { Dialog, Transition } from "@headlessui/react";
-import ShowRelays from "../../../components/CommonUI/ShowRelays";
-import { useTheme, useTime } from "../../../logic/theme/useTheme";
-import { moon, server, sun, watch } from "../../../icons";
-import { useLocalUser } from "../../../logic/contextStore/UserContext";
+import ShowRelays from "./CommonUI/ShowRelays";
+import { useTheme, useTime } from "../logic/theme/useTheme";
+import { moon, server, sun, watch } from "../icons";
+import { useLocalUser } from "../logic/contextStore/UserContext";
 
-interface FeedNavbarProps {}
+interface FeedNavbarProps {
+  children?: React.ReactNode;
+}
 
-const FeedNavbar: FC<FeedNavbarProps> = () => {
+const FeedNavbar: FC<FeedNavbarProps> = ({children}) => {
   const { darkMode, toggleDarkMode } = useTheme();
   const { currentTime } = useTime() || {};
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,11 +29,11 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
 
   return (
     <div
-      className="w-[90%] mx-auto my-5 mt-7"
+      className="w-full px-2 my-5 mt-7"
       style={{
         position: "sticky", // Make the nav sticky to the top
         top: 0,
-        zIndex: 40,
+        zIndex: 20,
       }}
     >
       <div className="flex justify-between w-full ">
@@ -48,6 +50,9 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
         </div>
 
         <div className="flex space-x-1 lg:space-x-3">
+        <div>
+          {children}
+        </div>
           <ActionButton
             title={`Show connected relay's`}
             svg={server}
@@ -64,9 +69,9 @@ const FeedNavbar: FC<FeedNavbarProps> = () => {
       <Transition show={isModalOpen}>
         <Dialog onClose={closeModal}>
           <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-70" />
 
-            <div className="z-50 w-4/5 max-w-md p-6 bg-gray-100 rounded-lg shadow-xl lg:w-full">
+            <div className="z-50 w-4/5 max-w-md p-6 bg-gray-100 rounded-[40px]  shadow-xl lg:w-full">
               <Dialog.Title className="mb-4 text-lg font-medium">
                 {userData
                   ? "You are connected with these relays"

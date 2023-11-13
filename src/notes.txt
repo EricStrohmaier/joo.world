@@ -2,6 +2,12 @@
 const hex = npub ? nip19.decode(npub).data.toString() : undefined;
 
 
+
+  result?.followingHexKeys?.forEach(async (entry) => {
+            const result = await GetCustomFeed(entry, fetchEvents);
+            // console.log(`${entry} feed result`, result);
+          });
+
 just do it!!
 
 - focus on bare min function then 
@@ -10,30 +16,55 @@ just do it!!
 
 
 Todo:
-- fetching data in dexie storeage? metadata + pubkey works? === is in localstore too 
--? what else to put in dixie store
-    - personal feed! followers?
-    - events you post long and short, pictures, lists
 
-- Working feed page explicid add someone to the list(not mute list) having some lists to switch? only at this client?
+- creating workflows is the most importend now!
+    step one  fix long and short fromat content ... publish event with right way of tags (event etc copy others)
+    step two adding schleude to posts
+    step three adding ai DVM to create workflows 
+
+    working feed => get lists[done] or 
+
+    create lists!
+    [TODO:]
+
+    ??Edit dixie component from github ? add title and description   remove d tags? 
+        - create text where it says to choose a list or create one
+        - fetch lists and display them for choosing then instant see feed....
+        - create new k:30000 list with the category people? 
+            - popup window ui => fetch list of current followers
+            - simply select the ones you want at new list/feed 
+            - give it a name and description then publish 
+            - see feed instant..
+        - create dixie store for list events? refetching if there is a page change... especially for the feed...
+
+    
+    and then see people or not 
+
+
+    make nostr onetask questions => 
+
+
+
+- Working feed page explicid add someone to the list(not mute list) !! 
+    having some lists to switch? only at this client? yes...
 
 - Homepage OneTask! thats it explain plus questions   
   homeepage without sigin is a video explaiing or screenshoots
 
 - workflows will be creating or setting preverances for ai workflows ?
 
-- put profile page logic to profile page! 
-
 - white colors slight changing to better white theme more pleasent...
 
-- fix profile fetch data + right rendering of data
-- 
+- right rendering of data
+
+-? what else to put in dixie store
+    - followers?
+    - events you post long and short, pictures, lists
 
 
 
 
-
-
+--ask for help with displaying feed content???
 
 
 ToDo-Feature:

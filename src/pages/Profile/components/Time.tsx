@@ -56,7 +56,7 @@ const Timer: FC<TimeProps> = () => {
 
   return (
     <>
-      <div className="w-full ">
+      <div className="w-full">
         <div className="flex flex-col items-center h-full">
           <div className="text-lg font-semibold"> Your session duration:</div>
           <div className="text-xl font-extrabold md:text-2xl ">
@@ -64,7 +64,7 @@ const Timer: FC<TimeProps> = () => {
             
           </div>
           <div
-            className="p-1 px-3 mt-4 text-lg font-semibold bg-gray-300 cursor-pointer rounded-xl "
+            className="p-1 px-3 mt-4 text-lg font-semibold cursor-pointer rounded-xl "
             onClick={handleResetToday}
           >
             Reset
