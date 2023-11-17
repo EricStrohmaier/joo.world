@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { NDKKind } from "@nostr-dev-kit/ndk";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
-import { saveEventsInDexie } from "./saveEventInDexie";
+import { saveEventsInDexie, saveFollowing } from "./saveEventInDexie";
 
 export async function useCustomLists(hex: string) {
   const { fetchEvents } = useNDK();
@@ -42,17 +42,20 @@ export async function useCustomLists(hex: string) {
         return followingHexKeys;
       });
 
+      //maybe just keep in state some users have too many followers?
+      await saveFollowing(followingHexKeys)
 
       const peopleLists = listEvents.filter(
         (entry) =>
           //additional filter here pls
-          //  entry.tags.some((tag) => tag.includes("People"))
           (entry.tags.some((tag) => tag[0] === "name") ||
-            entry.tags.some((tag) => tag[0] === "title")) &&
-          entry.tags.some((tag) => tag[0] === "description")
-      );
+          entry.tags.some((tag) => tag[0] === "title") ||
+          entry.tags.some((tag) => tag[0] === "description") ||
+          entry.tags.some((tag) => tag[1] === "People")
+          ));
 
-      const filterdListEvents: { [key: string]: string[] }[] = [];
+      const filteredListEvents: { [key: string]: string[] }[] = [];
+      const eventsToSaveInDexie: { [key: string]: string[] }[] = [];
 
       peopleLists.forEach((entry) => {
         const customListHexKeys: { [key: string]: string | string[] } = {};
@@ -78,22 +81,19 @@ export async function useCustomLists(hex: string) {
 
         customListHexKeys["p"] = pTags;
 
-        //save data here
         if (Object.keys(customListHexKeys).length > 0) {
-          //@ts-ignore
-          filterdListEvents.push(customListHexKeys);
+                    //@ts-ignore
+          filteredListEvents.push(customListHexKeys);
+                    //@ts-ignore
+          eventsToSaveInDexie.push(entry);
         }
-        eventArray.forEach((event) => {
-          //@ts-ignore
-          return saveEventsInDexie(event, filter);
-        });
       });
-
-      return { followingHexKeys, filterdListEvents };
+      // Save accumulated events in Dexie
+      await saveEventsInDexie(eventsToSaveInDexie);
+    
+      return { followingHexKeys, filteredListEvents };
     } catch (error) {
       console.error("Error fetching LISTS", error);
     }
   }
 }
-
-

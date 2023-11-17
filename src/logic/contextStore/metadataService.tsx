@@ -23,7 +23,7 @@ export async function useSaveUserMetadata(npub : string) {
         try {
           //@ts-ignore
           cacheAdapter.saveProfile(hex, metadata);
-          console.log("Metadata stored in indexedDB :",hex);
+          console.log("Metadata stored for:",hex);
         } catch (error) {
           console.error("Error storing user metadata:", error);
         }

@@ -69,3 +69,58 @@ Todo:
 
 ToDo-Feature:
 - ai tweets poster
+
+
+
+
+
+
+useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await promise;
+
+        const userDataPromises = result?.followingHexKeys?.map(
+          async (entry) => {
+            const user = getUser(entry);
+            return user?.profile;
+          }
+        );
+        if (userDataPromises) {
+          const userData = await Promise.all(userDataPromises);
+
+          //@ts-ignore
+          setFollowing(userData);
+        }
+
+        const customLists = result?.filterdListEvents;
+
+        if (customLists) {
+          //@ts-ignore
+          setCustomListsState(customLists);
+        }
+        // console.log("customLists", customListsState);
+
+        
+        // result?.filterdListEvents?.forEach(async (entry) => {
+        //   const result = await GetCustomFeed(entry?.p, fetchEvents);
+        //   console.log(`${entry?.title} feed result`, result);
+        // });
+        
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+    fetchData();
+  }, [customListsState, fetchEvents, getUser, promise, userData]);
+
+
+
+
+
+
+
+ // const hex = nip19.decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc").data.toString();
+  // const hex = userData?.npub
+  //   ? nip19.decode(userData?.npub).data.toString()
+  //   : undefined;

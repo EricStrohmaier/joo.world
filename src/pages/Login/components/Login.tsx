@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { useLocalUser } from "../../../logic/contextStore/UserContext";
+import { nip19 } from "nostr-tools";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -17,7 +18,9 @@ export const Login = () => {
 
     if (user) {
       setLocalUser({ npub: user.npub });
-      const metadata = getProfile(user.npub || "");
+      const hex = user.npub ? nip19.decode(user.npub).data.toString() : undefined;
+
+      const metadata = getProfile(hex || "");
       setMetadata(metadata)
     }
     setIsLoading(false);

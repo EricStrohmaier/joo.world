@@ -1,24 +1,46 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import db from "./Dexie";
 
-import {  NDKFilter, NDKKind } from "@nostr-dev-kit/ndk";
-import { ndkInstance } from "./NdkStore";
+export async function saveEventsInDexie(events: { [key: string]: string[]; }[]) {
+  try {
+    const existingKeys = await db.listEvents.toArray();
+
+    const newEvents = events.filter((event) => {
+      return !existingKeys.some((existingEvent) => existingEvent.id === event.id);
+    });
+    await db.listEvents.bulkAdd(newEvents);
+
+  } catch (error) {
+    console.error("Error saving List Event Data ", error);
+  }
+}
 
 
-export async function saveEventsInDexie(event: { [key: string]: string[]; }[], filter: NDKFilter<NDKKind> ) {
+export async function saveFollowing(followingPubkeys: string[]) {
+  try {
+    await db.transaction('rw', db.following, async () => {
+      await db.following.clear();
+      await db.following.put({ followingPubkeys });
+    });
 
+  } catch (error) {
+    console.error("Error saving Following Data ", error);
+  }
+}
 
-    if (ndkInstance.cacheAdapter) {
-      const cacheAdapter = ndkInstance.cacheAdapter;
-      try {
-        //@ts-ignore
-        cacheAdapter.setEvent(event, filter);
-        console.log("Events stored in indexedDB :",event,filter);
-      } catch (error) {
-        console.error("Error saving Data ", error);
-      }
-    } else {
-      console.error("ndkInstance.cacheAdapter is undefined", ndkInstance.cacheAdapter);
-      return null; // Return a default value or handle the case where cacheAdapter is undefined.
-    }
+export async function readListEvents() {
+  try {
+    const allListEvents = await db.listEvents.toArray();
+    return allListEvents;
+  } catch (error) {
+    console.error("Error reading List Event Data", error);
+  }
+}
 
-  } 
+export async function readFollowing() {
+  try {
+    const followingData = await db.following.toArray();
+    return followingData.length > 0 ? followingData[0].followingPubkeys : [];
+  } catch (error) {
+    console.error("Error reading Following Data", error);
+  }
+}
