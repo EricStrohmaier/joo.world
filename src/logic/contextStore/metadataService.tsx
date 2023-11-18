@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import _ from 'lodash';
 import { ndkInstance } from './NdkStore';
 import { useNDK } from '@nostr-dev-kit/ndk-react';

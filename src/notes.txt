@@ -27,9 +27,16 @@ Todo:
     create lists!
     [TODO:]
 
-    ??Edit dixie component from github ? add title and description   remove d tags? 
+     
         - create text where it says to choose a list or create one
         - fetch lists and display them for choosing then instant see feed....
+
+    [todo:] 
+
+    create selected list in store => fetch feed data from the p tags of selected list  set in store 
+    fix type never errors
+    style layout create functions for new list plus ui... 
+
         - create new k:30000 list with the category people? 
             - popup window ui => fetch list of current followers
             - simply select the ones you want at new list/feed 

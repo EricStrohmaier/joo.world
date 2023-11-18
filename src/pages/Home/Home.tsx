@@ -30,19 +30,21 @@ const Home: FC<HomeProps> = () => {
   const [userProfiles, setUserProfiles] = useState([]);
   const [selectedList, setSelectedList] = useState();
 
-  console.log("User Profiles:", userProfiles);
-  console.log("Lists State:", listsState);
-  console.log("List Name:", listName);
   const { userData } = useLocalUser();
   const { getUser } = useNDK();
-  // const hex = nip19.decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc").data.toString();
+  // const hex = nip19
+  //   .decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc")
+  //   .data.toString();
   const hex = userData?.npub
     ? nip19.decode(userData?.npub).data.toString()
     : "";
   //get all the lists from the user
   useCustomLists(hex);
 
-  const openModal = () => {
+  const openModal = async () => {
+    const resolvedUserProfiles = await getUserProfiles(following);
+    //@ts-ignore
+    setUserProfiles(resolvedUserProfiles);
     setIsModalOpen(true);
   };
   const closeModal = () => {
@@ -58,7 +60,7 @@ const Home: FC<HomeProps> = () => {
   //@ts-ignore
   async function getUserProfiles(following) {
     try {
-       //@ts-ignore
+      //@ts-ignore
       const userDataPromises = following?.map((entry) => {
         const user = getUser(entry);
         return user?.profile;
@@ -75,31 +77,6 @@ const Home: FC<HomeProps> = () => {
     }
   }
 
-  //@ts-ignore
-  async function getListsState(allListEvents) {
-    //@ts-ignore
-    const subArrays = allListEvents.map((event) => event.tags);
-    //@ts-ignore
-    setListsState(subArrays);
-    //@ts-ignore
-    const filteredData = subArrays.map((subArray) => {
-      if (Array.isArray(subArray)) {
-        return subArray
-          .filter(
-            ([tag]) => tag === "title" || tag === "description" || tag === "l"
-          )
-          .reduce((obj, [tag, value]) => {
-            obj[tag as keyof typeof obj] = value;
-            return obj;
-          }, {} as Record<string, string>);
-      } else {
-        return {};
-      }
-    });
-    //@ts-ignore
-    setListName(filteredData);
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -107,7 +84,8 @@ const Home: FC<HomeProps> = () => {
         setFollowing(followingData);
 
         const allListEvents = await readListEvents();
-
+        //@ts-ignore
+        setListName(allListEvents);
         // Assuming getUserProfiles returns a Promise
         if (followingData) {
           const resolvedUserProfiles = await getUserProfiles(followingData);
@@ -115,16 +93,16 @@ const Home: FC<HomeProps> = () => {
           setUserProfiles(resolvedUserProfiles);
         }
 
-        if (allListEvents) {
-          await getListsState(allListEvents);
-        }
+        //   if (allListEvents) {
+        //     await getListsState(allListEvents);
+        //   }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData(); // Call the async function on page load
-  },[]); // Empty dependency array ensures that useEffect runs only once when the component mounts
+  }, []); // Empty dependency array ensures that useEffect runs only once when the component mounts
 
   // if (userData === null) {
   return (
@@ -149,40 +127,66 @@ const Home: FC<HomeProps> = () => {
             <Dialog.Overlay className="fixed inset-0 bg-black opacity-70" />
 
             <div
-              className={`${backgroundstyle} z-50 m-5 p-6 rounded-[40px] shadow-xl lg:max-w-[55%] w-full min-h-[60%] h-fit`}
+              className={`${backgroundstyle} z-50 m-5 p-6 rounded-[40px] shadow-xl lg:max-w-[55%] w-full min-h-[60%] h-[95%] overflow-y-auto`}
             >
               <div className="w-full">
                 <div className="flex justify-center mb-4 text-lg font-medium lg:text-2xl">
                   Choose one of your contact lists to set your feed or create a
                   new list
                 </div>
+                <div>Create New People list from your followers</div>
+                <div>Current selected Feed</div>
                 <div className="text-md">
                   {following ? (
-                    <div className="flex flex-col w-full h-full gap-2 ">
+                    <div className="flex flex-col w-full gap-2 ">
                       <div className="flex h-full">
-                        <div className="p-3 w-[35%] min-h-full h-full">
+                        <div className="p-3 w-[100%] min-h-full h-full overflow-y-auto">
                           <div className="flex flex-col gap-2 border-2 border-red-900">
-                            {listName?.map((entry, index) => (
-                              <div
-                                key={index}
-                                className={`flex items-center gap-2 ${
-                                  selectedList === entry
-                                    ? "border-2 border-blue-500"
-                                    : ""
-                                }`}
-                                onClick={() => handleListClick(entry)}
-                              >
-                                <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-                                <div>
-                                  <p>Title: {entry.title}</p>
-                                  <p>Description: {entry.description}</p>
-                                  {entry.l ? <p>Category: {entry.l}</p> : null}
-                                </div>
-                              </div>
-                            ))}
+                            {listName?.map((entry, index) => {
+                              // Check if the entry has the 'tags' property
+                              if (entry.tags) {
+                                // Find the title, description, and category tags in the 'tags' array
+                                const title = entry.tags.find(
+                                  (tag) => tag[0] === "title"
+                                );
+                                const name = entry.tags.find(
+                                  (tag) => tag[0] === "name"
+                                );
+                                const description = entry.tags.find(
+                                  (tag) => tag[0] === "description"
+                                );
+                                const category = entry.tags.find(
+                                  (tag) => tag[0] === "l"
+                                );
+
+                              
+
+                                return (
+                                  <div
+                                    key={index}
+                                    className={`flex items-center gap-2 ${
+                                      selectedList === entry
+                                        ? "border-2 border-blue-500"
+                                        : ""
+                                    }`}
+                                    onClick={() => handleListClick(entry)}
+                                  >
+                                    <div className="p-2 bg-gray-400 rounded-2xl">
+                                      {title ? <p>List Title: {title[1]}</p>  : null}
+                                      {name ? <p>List Title: {name[1]}</p>  : null}
+                                        {description? <p>Description: {description[1]}</p>  : null}
+                                      {category ? <p>Category: {category[1]}</p> : null}
+                                    </div>
+                                  </div>
+                                );
+                              }
+
+                              return null; // Render nothing if 'tags' property is not present
+                            })}
                           </div>
                         </div>
-                        <div className="w-full h-full border-2 border-red-900">
+
+                        {/* <div className="w-full h-full overflow-y-auto border-2 border-red-900">
                           <div className="p-3">
                             {userProfiles.map((user, index) => (
                               <div
@@ -194,7 +198,7 @@ const Home: FC<HomeProps> = () => {
                               </div>
                             ))}
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   ) : (
