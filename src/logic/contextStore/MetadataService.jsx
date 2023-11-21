@@ -1,34 +1,26 @@
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import _ from 'lodash';
 import { ndkInstance } from './NdkStore';
 import { useNDK } from '@nostr-dev-kit/ndk-react';
+// MetadataService.jsx
+export async function useSaveUserMetadata(npub) {
+  const { getProfile } = useNDK();
+  const metadata = getProfile(npub || "");
 
-export async function useSaveUserMetadata(npub : string) {
-    const { getProfile } = useNDK();
-
-    const metadata = getProfile(npub || "");
-
-    //get existing data from cache and check if there was a change? if so update!
-    async function saveUserMetadata(hex: string) {
-    try {
-
+  try {
     if (ndkInstance.cacheAdapter) {
       const cacheAdapter = ndkInstance.cacheAdapter;
-
-        //@ts-ignore 
-      const existingMetadata = await cacheAdapter.fetchProfile(hex);
+      const existingMetadata = await cacheAdapter.fetchProfile(npub);
 
       if (!_.isEmpty(metadata) && (!existingMetadata || !_.isEqual(existingMetadata, metadata))) {
         try {
-          //@ts-ignore
-          cacheAdapter.saveProfile(hex, metadata);
-          console.log("Metadata stored for:",hex);
+          await cacheAdapter.saveProfile(npub, metadata);
+          console.log("Metadata stored for:", npub);
         } catch (error) {
           console.error("Error storing user metadata:", error);
         }
       } else {
-        // console.log("Metadata is up to date in the cache");
+        // Metadata is up to date in the cache
       }
     } else {
       console.error("ndkInstance.cacheAdapter is undefined", ndkInstance.cacheAdapter);
@@ -37,18 +29,21 @@ export async function useSaveUserMetadata(npub : string) {
     console.error("Error getting metadata", error);
   }
 }
-return saveUserMetadata;
-
-}
 
 
-export async function readUserProfile(hex: string) {
+/**
+ * @param {string} hex
+ * @returns {Promise<NDKUserProfile | null>}
+ */
+export async function readUserProfile(hex) {
 
   try {
     if (ndkInstance.cacheAdapter) {
       const cacheAdapter = ndkInstance.cacheAdapter;
-      //@ts-ignore
-      return await cacheAdapter.fetchProfile(hex);
+     
+      const existingMetadata = await cacheAdapter?.fetchProfile(hex);
+
+      return existingMetadata ?? null;
     } else {
       console.error("ndkInstance.cacheAdapter is undefined", ndkInstance.cacheAdapter);
       return null; // Return a default value or handle the case where cacheAdapter is undefined.

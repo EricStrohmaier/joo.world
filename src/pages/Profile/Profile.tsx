@@ -9,7 +9,8 @@ import PersonalFeed from "./components/PersonalFeed";
 import { nip19 } from "nostr-tools";
 import { Metadata } from "../../logic/types/nostr";
 import { usePersonalFeedDixie } from "../../logic/contextStore/PersonalFeedService";
-import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/MetadataService.tsx";
+import { readUserProfile, useSaveUserMetadata } from "../../logic/types/MetadataService";
+// import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/MetadataService";
 
 interface ProfileProps {}
 
@@ -27,6 +28,8 @@ export const ProfileLogic: FC<ProfileProps> = () => {
       try {
         
         const saveUserMetadata = await promise;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
         await saveUserMetadata(hex || "");
         const fetchedProfile = await readUserProfile(hex || "");
         setMetadata(fetchedProfile as Metadata); 
