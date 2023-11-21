@@ -139,7 +139,6 @@ const Home: FC<HomeProps> = () => {
                           <div className="flex flex-col gap-2 border-2 border-red-900">
                             {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             {listName?.map((entry: { tags?: Array<[string, any]> }, index) => {
-                              // Check if the entry has the 'tags' property
                               if (entry.tags) {
                                 // Find the title, description, and category tags in the 'tags' array
                                 const title = entry.tags.find(

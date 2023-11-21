@@ -9,7 +9,7 @@ import PersonalFeed from "./components/PersonalFeed";
 import { nip19 } from "nostr-tools";
 import { Metadata } from "../../logic/types/nostr";
 import { usePersonalFeedDixie } from "../../logic/contextStore/PersonalFeedService";
-import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/MetadataService";
+import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/MetadataService.tsx";
 
 interface ProfileProps {}
 
@@ -20,6 +20,7 @@ export const ProfileLogic: FC<ProfileProps> = () => {
   const [metadata, setMetadata] = useState<Metadata>({});
   const hex = npub ? nip19.decode(npub).data.toString() : undefined;
   const promise = useSaveUserMetadata(npub || "");
+  
 // store data in IndexedDB
   useEffect(() => {
     const fetchAndSaveMetadata = async () => {
