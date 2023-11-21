@@ -7,8 +7,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -20,6 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "icons", "src/logic/contextStore/.ts"],
+  "include": ["src", "icons"],
+  "exclude": ["node_modules", "build", "dist", "coverage", ".next"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
