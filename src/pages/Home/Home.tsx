@@ -25,23 +25,25 @@ const Home: FC<HomeProps> = () => {
     : "bg-primaryLight text-textLight";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [following, setFollowing] = useState<string[] | undefined>(undefined);
-  const [listsState, setListsState] = useState<string[] | undefined>(undefined);
+  // const [listsState, setListsState] = useState<string[] | undefined>(undefined);
   const [listName, setListName] = useState([]);
   const [userProfiles, setUserProfiles] = useState([]);
   const [selectedList, setSelectedList] = useState();
-
+  console.log(userProfiles);
+  
   const { userData } = useLocalUser();
   const { getUser } = useNDK();
-  // const hex = nip19
-  //   .decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc")
-  //   .data.toString();
   const hex = userData?.npub
     ? nip19.decode(userData?.npub).data.toString()
-    : "";
+    : '';
+    // : nip19.decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc").data.toString();
   //get all the lists from the user
   useCustomLists(hex);
 
   const openModal = async () => {
+    const allListEvents = await readListEvents();
+    //@ts-ignore
+    setListName(allListEvents);
     const resolvedUserProfiles = await getUserProfiles(following);
     //@ts-ignore
     setUserProfiles(resolvedUserProfiles);
@@ -55,6 +57,7 @@ const Home: FC<HomeProps> = () => {
   const handleListClick = (list) => {
     console.log("List:", list);
     setSelectedList(list);
+    //return p tags within the list and get feed from that .... and set int state to render feed 
   };
 
   //@ts-ignore
@@ -82,28 +85,20 @@ const Home: FC<HomeProps> = () => {
       try {
         const followingData = await readFollowing();
         setFollowing(followingData);
-
-        const allListEvents = await readListEvents();
-        //@ts-ignore
-        setListName(allListEvents);
         // Assuming getUserProfiles returns a Promise
         if (followingData) {
           const resolvedUserProfiles = await getUserProfiles(followingData);
           //@ts-ignore
           setUserProfiles(resolvedUserProfiles);
         }
-
-        //   if (allListEvents) {
-        //     await getListsState(allListEvents);
-        //   }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchData(); // Call the async function on page load
-  }, []); // Empty dependency array ensures that useEffect runs only once when the component mounts
-
+    fetchData();
+  }, []); 
+  
   // if (userData === null) {
   return (
     <LayoutPage>
@@ -142,7 +137,8 @@ const Home: FC<HomeProps> = () => {
                       <div className="flex h-full">
                         <div className="p-3 w-[100%] min-h-full h-full overflow-y-auto">
                           <div className="flex flex-col gap-2 border-2 border-red-900">
-                            {listName?.map((entry, index) => {
+                            {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {listName?.map((entry: { tags?: Array<[string, any]> }, index) => {
                               // Check if the entry has the 'tags' property
                               if (entry.tags) {
                                 // Find the title, description, and category tags in the 'tags' array
