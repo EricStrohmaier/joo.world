@@ -1,48 +1,35 @@
 import { FC, useEffect, useState } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import { useParams } from "react-router-dom";
-import AboutProfile from "./components/AboutProfile";
+import { nip19 } from "nostr-tools";
 import Timer from "./components/Time";
+import { getMyProfile } from "../../logic/contextStore/Nostr";
+import { Metadata } from "../../logic/types/nostr";
+import AboutProfile from "./components/AboutProfile";
 import { message } from "../../icons";
 import { useTheme } from "../../logic/theme/useTheme";
 import PersonalFeed from "./components/PersonalFeed";
-import { nip19 } from "nostr-tools";
-import { Metadata } from "../../logic/types/nostr";
-import { usePersonalFeedDixie } from "../../logic/contextStore/PersonalFeedService";
-import { readUserProfile, useSaveUserMetadata } from "../../logic/types/MetadataService";
-// import { readUserProfile, useSaveUserMetadata } from "../../logic/contextStore/MetadataService";
 
 interface ProfileProps {}
 
 export const ProfileLogic: FC<ProfileProps> = () => {
-  const { darkMode } = useTheme();
-  const styleing = darkMode ? "border-textDark " : "border-textLight";
   const { npub } = useParams();
   const [metadata, setMetadata] = useState<Metadata>({});
-  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
-  const promise = useSaveUserMetadata(npub || "");
-  
-// store data in IndexedDB
-  useEffect(() => {
-    const fetchAndSaveMetadata = async () => {
-      try {
-        
-        const saveUserMetadata = await promise;
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        await saveUserMetadata(hex || "");
-        const fetchedProfile = await readUserProfile(hex || "");
-        setMetadata(fetchedProfile as Metadata); 
+  const { darkMode } = useTheme();
+    const styleing = darkMode ? "border-textDark " : "border-textLight";
 
-      } catch (error) {
-        console.error("Error fetching user metadata:", error);
-      }
-    };
-    fetchAndSaveMetadata();
-  }, [hex, promise]);
+  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
+
+  useEffect(() => {
+    const getUserProfile = async () => {
+      // getting users metadata potential later more stuff like reviews, list of places etc
+      const loadedProfile = await getMyProfile(hex as string)
+      setMetadata(loadedProfile)
+    }
+    getUserProfile()
+  }, [hex])
   
-  usePersonalFeedDixie(hex||"")
- 
+  
   return (
     <LayoutPage>
       <div className="w-full h-fit ">
@@ -57,7 +44,7 @@ export const ProfileLogic: FC<ProfileProps> = () => {
 
           <AboutProfile
             displayName={metadata?.displayName}
-            picture={metadata?.image}
+            picture={metadata?.picture}
             about={metadata?.about}
             message={message}
             lud16={metadata?.lud16}

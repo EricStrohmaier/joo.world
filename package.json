@@ -17,6 +17,7 @@
         "dexie": "^3.2.4",
         "dexie-react-hooks": "^1.1.7",
         "lodash": "^4.17.21",
+        "nostr-hooks": "^1.8.1",
         "nostr-tools": "^1.16.0",
         "react": "^18.2.0",
         "react-copy-to-clipboard": "^5.1.0",

@@ -4,7 +4,7 @@ export interface Metadata {
     name?: string;
     displayName?: string;
     about?: string;
-    image?: string;
+    picture?: string;
     nip05?: string;
     lud16?: string;
     banner?: string;

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getCurrentTimeIn24HourFormat } from "../helperFunctions";
+import { getCurrentTimeIn24HourFormat } from "../utils/helperFunctions";
 
 type ThemeContextType = {
   darkMode: boolean;
