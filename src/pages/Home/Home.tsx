@@ -15,6 +15,7 @@ import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { useCustomLists } from "../../logic/contextStore/getLists";
 import { nip19 } from "nostr-tools";
 import { useLocalUser } from "../../logic/contextStore/UserContext";
+import CreateNewList from "./components/CreateNewList";
 
 interface HomeProps {}
 
@@ -25,10 +26,10 @@ const Home: FC<HomeProps> = () => {
     : "bg-primaryLight text-textLight";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [following, setFollowing] = useState<string[] | undefined>(undefined);
-  // const [listsState, setListsState] = useState<string[] | undefined>(undefined);
   const [listName, setListName] = useState([]);
   const [userProfiles, setUserProfiles] = useState([]);
   const [selectedList, setSelectedList] = useState();
+  const [doNewList, setNewList] = useState(false);
   console.log(userProfiles);
   
   const { userData } = useLocalUser();
@@ -36,7 +37,7 @@ const Home: FC<HomeProps> = () => {
   const hex = userData?.npub
     ? nip19.decode(userData?.npub).data.toString()
     : '';
-    // : nip19.decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc").data.toString();
+
   //get all the lists from the user
   useCustomLists(hex);
 
@@ -51,6 +52,7 @@ const Home: FC<HomeProps> = () => {
   };
   const closeModal = () => {
     setIsModalOpen(false);
+    setNewList(false)
   };
 
   //@ts-ignore
@@ -60,6 +62,9 @@ const Home: FC<HomeProps> = () => {
     //return p tags within the list and get feed from that .... and set int state to render feed 
   };
 
+  const newList = () => {
+    setNewList(!doNewList)
+  }
   //@ts-ignore
   async function getUserProfiles(following) {
     try {
@@ -109,7 +114,7 @@ const Home: FC<HomeProps> = () => {
         <LayoutCardComponent>
           <div className="flex justify-center w-full h-96">
             <div className="my-5 text-2xl font-extrabold">
-              Focusing leads to Success
+              Focus leads to Success
             </div>
           </div>
         </LayoutCardComponent>{" "}
@@ -126,10 +131,10 @@ const Home: FC<HomeProps> = () => {
             >
               <div className="w-full">
                 <div className="flex justify-center mb-4 text-lg font-medium lg:text-2xl">
-                  Choose one of your contact lists to set your feed or create a
-                  new list
+                 {!userData ? "Please Login to view your feed" : " Choose one of your contact lists to set your feed or create a new list" }
                 </div>
-                <div>Create New People list from your followers</div>
+                {/* handle proper login statements */}
+                <div onClick={newList}>Create New People list from your followers</div>
                 <div>Current selected Feed</div>
                 <div className="text-md">
                   {following ? (
@@ -137,6 +142,15 @@ const Home: FC<HomeProps> = () => {
                       <div className="flex h-full">
                         <div className="p-3 w-[100%] min-h-full h-full overflow-y-auto">
                           <div className="flex flex-col gap-2 border-2 border-red-900">
+                          {doNewList ? <>
+                                    <div>
+                                      <p>Enter a name for your new list</p>
+                                      <input type="text" />
+                                      <p>Enter Description</p>
+                                      <input type="text" />
+                                      <button onClick={newList} >Cancel Edit</button>
+                                    </div>
+                                  </> : null}
                             {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             {listName?.map((entry: { tags?: Array<[string, any]> }, index) => {
                               if (entry.tags) {
@@ -157,6 +171,8 @@ const Home: FC<HomeProps> = () => {
                               
 
                                 return (
+                                  <>
+                                  
                                   <div
                                     key={index}
                                     className={`flex items-center gap-2 ${
@@ -173,6 +189,7 @@ const Home: FC<HomeProps> = () => {
                                       {category ? <p>Category: {category[1]}</p> : null}
                                     </div>
                                   </div>
+                                  </>
                                 );
                               }
 
@@ -180,20 +197,7 @@ const Home: FC<HomeProps> = () => {
                             })}
                           </div>
                         </div>
-
-                        {/* <div className="w-full h-full overflow-y-auto border-2 border-red-900">
-                          <div className="p-3">
-                            {userProfiles.map((user, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center gap-2"
-                              >
-                                <div className="w-4 h-4 bg-gray-400 rounded-full"></div>
-                                <div>{user?.name}</div>
-                              </div>
-                            ))}
-                          </div>
-                        </div> */}
+                        {userProfiles && doNewList ? <CreateNewList userProfiles={userProfiles} /> : null}
                       </div>
                     </div>
                   ) : (
