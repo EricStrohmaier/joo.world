@@ -17,6 +17,7 @@ import { nip19 } from "nostr-tools";
 import { useLocalUser } from "../../logic/contextStore/UserContext";
 import CreateNewList from "./components/CreateNewList";
 import { getAllFeedSinceYesterday } from "../../logic/contextStore/Nostr";
+import MyEvent from "../../components/Event";
 
 interface HomeProps {}
 
@@ -118,26 +119,30 @@ const Home: FC<HomeProps> = () => {
       </FeedNavbar>
       <div className="flex flex-col items-center w-full">
         <LayoutCardComponent>
-          <div className="flex justify-center w-full h-fit">
+          <div className="flex flex-col justify-center max-w-[270px] sm:max-w-[700px] lg:max-w-[970px]">
             <div className="my-5 text-2xl font-extrabold">
               Focus leads to Success
             </div>
-            
-          </div>
-        </LayoutCardComponent>{" "}
-        <div className="flex">
+            <div className="">
               {selectedFeed &&
               selectedFeed.all &&
               selectedFeed.all.length > 0 ? (
                 <div>
                   {selectedFeed.all.map((event, index) => (
-                    <div className="overflow-x-auto w-fit" key={index}>{event.content}</div>
+                    <div
+                      className="overflow-hidden  whitespace-nowrap"
+                      key={index}
+                    >
+                    <MyEvent event={event} />
+                    </div>
                   ))}
                 </div>
               ) : (
-                <div>No events found.</div>
+                <div>no feed select a list.</div>
               )}
             </div>
+          </div>
+        </LayoutCardComponent>{" "}
       </div>
 
       {/* popup module  */}
