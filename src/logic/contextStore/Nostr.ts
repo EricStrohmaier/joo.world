@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SimplePool, Filter, Sub, Event } from "nostr-tools"
 import { RelayList, RelayObject, RelayReadWrite, FilterReadWrite } from "../types/NostrRelay"
 import { ContactObject } from "../types/NostrContact"
@@ -31,8 +32,9 @@ export const defaultContacts: ContactObject = {}
 export const pool = new SimplePool()
 
 type EventsByKind = {
-  [key: number]: Event[]
-}
+  all?: Event[];
+  [key: number]: Event[];
+};
 
 // write a properly typed getTag function to pass into the find method that takes a tag string and returns the value for that key
 type FindTag = (tag: string[], i: number, o: string[][]) => boolean;
@@ -76,6 +78,59 @@ export const getAll = async (pubkey: string[] | undefined, kinds: number[], rela
   })
   return all
 }
+
+export const getAllFeed = async (pubkeys: string[], relays: RelayObject = defaultRelays) => {
+  const filter: Filter<number> = { kinds: [1], authors: pubkeys };
+  const relayList: RelayList = getRelayList(relays, ['read']);
+  const sub: Sub = pool.sub(relayList, [filter]);
+  const events: EventsByKind = { all: [] }; // Initialize with an array for all events
+
+  sub.on('event', (event) => {
+    console.log('event', event);
+
+   if(events.all){
+    events.all.push(event);
+   }
+  });
+
+  console.log('all events', events);
+  const all = await new Promise<EventsByKind>((resolve) => {
+    sub.on('eose', () => {
+      resolve(events);
+    });
+  });
+
+  return all;
+};
+
+export const getAllFeedSinceYesterday = async (pubkeys: string[], relays = defaultRelays) => {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayTimestamp = Math.floor(yesterday.getTime() / 1000);
+
+  const filter = { kinds: [1], authors: pubkeys, since: yesterdayTimestamp };
+  const relayList = getRelayList(relays, ['read']);
+  const sub = pool.sub(relayList, [filter]);
+  const events: EventsByKind = { all: [] }; // Initialize with an array for all events
+
+  sub.on('event', (event) => {
+
+    // todo : Update lastSeenTimestamp with the latest timestamp
+    if(events.all){
+      events.all.push(event);
+     }
+  });
+
+  const all = await new Promise((resolve) => {
+    sub.on('eose', () => {
+      resolve(events);
+    });
+  });
+
+  return all;
+};
+
+
 
 export const getMostRecent = async (pubkey: string, kinds: number[], relays: RelayObject = defaultRelays): Promise<Event | null> => {
   if (kinds.length > 1) console.warn('getMostRecent will only return the single most recent event of all supplied kinds.')
