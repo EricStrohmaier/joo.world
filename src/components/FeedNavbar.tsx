@@ -36,7 +36,7 @@ const FeedNavbar: FC<FeedNavbarProps> = ({children}) => {
         zIndex: 20,
       }}
     >
-      <div className="flex justify-between w-full ">
+      <div className="flex items-center justify-between w-full">
         <div
           className={`flex justify-center px-2 items-center text-md font-semibold hover:shadow-md border-2 rounded-[70px] w-fit p-1 shadow-md transition duration-0 `}
         >
@@ -49,7 +49,7 @@ const FeedNavbar: FC<FeedNavbarProps> = ({children}) => {
           <p className={`text-sm ml-[5px]`}> {`${currentTime}`}</p>
         </div>
 
-        <div className="flex space-x-1 lg:space-x-3">
+        <div className="flex items-center space-x-1 lg:space-x-3">
         <div>
           {children}
         </div>

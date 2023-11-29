@@ -3,8 +3,6 @@ import { FC, useEffect, useState } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import FeedNavbar from "../../components/FeedNavbar";
 import LayoutCardComponent from "../../components/LayoutCard";
-import ActionButton from "../../components/CommonUI/ActionButton";
-import { globe } from "../../icons";
 import { Dialog, Transition } from "@headlessui/react";
 import { useTheme } from "../../logic/theme/useTheme";
 import {
@@ -13,11 +11,11 @@ import {
 } from "../../logic/contextStore/saveEventInDexie";
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { useCustomLists } from "../../logic/contextStore/getLists";
-import { nip19 } from "nostr-tools";
+import { Event, nip19 } from "nostr-tools";
 import { useLocalUser } from "../../logic/contextStore/UserContext";
-import CreateNewList from "./components/CreateNewList";
 import { getAllFeedSinceYesterday } from "../../logic/contextStore/Nostr";
 import MyEvent from "../../components/Event";
+import ListOfFollowers from "./components/ListOfFollowers";
 
 interface HomeProps {}
 
@@ -30,7 +28,7 @@ const Home: FC<HomeProps> = () => {
   const [following, setFollowing] = useState<string[] | undefined>(undefined);
   const [listName, setListName] = useState([]);
   const [userProfiles, setUserProfiles] = useState([]);
-  const [selectedList, setSelectedList] = useState();
+  const [selectedList, setSelectedList] = useState<Event>();
   const [selectedFeed, setSelectedFeed] = useState<{ all: [] }>({ all: [] });
   const [doNewList, setNewList] = useState(false);
   console.log(userProfiles);
@@ -47,8 +45,8 @@ const Home: FC<HomeProps> = () => {
 
   const openModal = async () => {
     const allListEvents = await readListEvents();
-    //@ts-ignore
-    setListName(allListEvents);
+
+    setListName(allListEvents as []);
     const resolvedUserProfiles = await getUserProfiles(following);
     //@ts-ignore
     setUserProfiles(resolvedUserProfiles);
@@ -62,11 +60,13 @@ const Home: FC<HomeProps> = () => {
   //@ts-ignore
   const handleListClick = async (list) => {
     setSelectedList(list);
+    console.log("list", list);
+
     const pTags = list.tags.filter((tag: string[]) => tag[0] === "p");
     const pTagValues = pTags.map((tag: string[]) => tag[1]);
     getAllFeedSinceYesterday(pTagValues as string[]).then((feedEvents) => {
       console.log("feedEvents", feedEvents);
-      setSelectedFeed(feedEvents as { all: [] } );
+      setSelectedFeed(feedEvents as { all: [] });
     });
   };
   const newList = () => {
@@ -115,14 +115,30 @@ const Home: FC<HomeProps> = () => {
   return (
     <LayoutPage>
       <FeedNavbar>
-        <ActionButton title={`Edit feed`} svg={globe} onClick={openModal} />
+        <div className="flex items-center justify-between">
+          <div className="flex flex-row px-3 py-1 mr-2 border-2 rounded-3xl">
+            {/* make local store selected list state and use for components */}
+            {selectedList ? (
+              <div className="cursor-pointer" onClick={openModal}>
+                Current Selected Feed Name:{" "}
+                {
+                  selectedList?.tags?.find(
+                    (tag: string[]) => tag[0] === "title"
+                  )?.[1]
+                }
+              </div>
+            ) : (
+              <div className="cursor-pointer" onClick={openModal}>
+                No Personal Selected Feed Please Select One Here!
+              </div>
+            )}
+          </div>
+          {/* <ActionButton title={`Edit feed`} svg={settings} onClick={openModal} /> */}
+        </div>
       </FeedNavbar>
       <div className="flex flex-col items-center w-full">
         <LayoutCardComponent>
           <div className="flex flex-col justify-center max-w-[270px] sm:max-w-[700px] lg:max-w-[970px]">
-            <div className="my-5 text-2xl font-extrabold">
-              Focus leads to Success
-            </div>
             <div className="">
               {selectedFeed &&
               selectedFeed.all &&
@@ -133,12 +149,12 @@ const Home: FC<HomeProps> = () => {
                       className="overflow-hidden whitespace-nowrap"
                       key={index}
                     >
-                    <MyEvent event={event} />
+                      <MyEvent event={event} />
                     </div>
                   ))}
                 </div>
               ) : (
-                <div>no feed select a list.</div>
+                <div>Public feed.</div>
               )}
             </div>
           </div>
@@ -182,7 +198,6 @@ const Home: FC<HomeProps> = () => {
                                 </div>
                               </>
                             ) : null}
-                            {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             {listName?.map(
                               (
                                 entry: { tags?: Array<[string, string]> },
@@ -208,6 +223,7 @@ const Home: FC<HomeProps> = () => {
                                       <div
                                         key={index}
                                         className={`flex items-center gap-2 ${
+                                          //@ts-ignore
                                           selectedList === entry
                                             ? "border-2 border-blue-500"
                                             : ""
@@ -239,7 +255,7 @@ const Home: FC<HomeProps> = () => {
                           </div>
                         </div>
                         {userProfiles && doNewList ? (
-                          <CreateNewList userProfiles={userProfiles} />
+                          <ListOfFollowers userProfiles={userProfiles} />
                         ) : null}
                       </div>
                     </div>
