@@ -186,7 +186,7 @@ const Home: FC<HomeProps> = () => {
                     <div className="flex flex-col w-full gap-2 ">
                       <div className="flex h-full">
                         <div className="p-3 w-[100%] min-h-full h-full overflow-y-auto">
-                          <div className="flex flex-col gap-2 border-2 border-red-900">
+                          <div className="flex flex-col gap-2">
                             {doNewList ? (
                               <>
                                 <div>
@@ -225,12 +225,12 @@ const Home: FC<HomeProps> = () => {
                                         className={`flex items-center gap-2 ${
                                           //@ts-ignore
                                           selectedList === entry
-                                            ? "border-2 border-blue-500"
+                                            ? "border-4 border-blue-600 w-fit rounded-2xl"
                                             : ""
                                         }`}
                                         onClick={() => handleListClick(entry)}
                                       >
-                                        <div className="p-2 bg-gray-400 rounded-2xl">
+                                        <div className="p-2 bg-gray-400 rounded-xl">
                                           {title ? (
                                             <p>List Title: {title[1]}</p>
                                           ) : null}
