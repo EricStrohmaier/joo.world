@@ -66,7 +66,7 @@ const Home: FC<HomeProps> = () => {
     const pTagValues = pTags.map((tag: string[]) => tag[1]);
     getAllFeedSinceYesterday(pTagValues as string[]).then((feedEvents) => {
       console.log("feedEvents", feedEvents);
-      setSelectedFeed(feedEvents as []);
+      setSelectedFeed(feedEvents as { all: [] } );
     });
   };
   const newList = () => {
@@ -130,7 +130,7 @@ const Home: FC<HomeProps> = () => {
                 <div>
                   {selectedFeed.all.map((event, index) => (
                     <div
-                      className="overflow-hidden  whitespace-nowrap"
+                      className="overflow-hidden whitespace-nowrap"
                       key={index}
                     >
                     <MyEvent event={event} />
@@ -185,7 +185,7 @@ const Home: FC<HomeProps> = () => {
                             {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             {listName?.map(
                               (
-                                entry: { tags?: Array<[string, any]> },
+                                entry: { tags?: Array<[string, string]> },
                                 index
                               ) => {
                                 if (entry.tags) {
