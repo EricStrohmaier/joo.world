@@ -1,56 +1,66 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import { useParams } from "react-router-dom";
-import AboutProfile from "./components/AboutProfile";
+import { nip19 } from "nostr-tools";
 import Timer from "./components/Time";
-import { useNDK } from "@nostr-dev-kit/ndk-react";
+import { getMyProfile } from "../../logic/contextStore/Nostr";
+import { Metadata } from "../../logic/types/nostr";
+import AboutProfile from "./components/AboutProfile";
 import { message } from "../../icons";
 import { useTheme } from "../../logic/theme/useTheme";
-// import { usePersonalFeed } from "../../logic/contextStore/PersonalFeedContext";
 import PersonalFeed from "./components/PersonalFeed";
-import LayoutCard from "../../components/LayoutCard";
 
 interface ProfileProps {}
 
 export const ProfileLogic: FC<ProfileProps> = () => {
-  const { darkMode } = useTheme();
-  const styleing = darkMode ? "border-textDark " : "border-textLight";
-
   const { npub } = useParams();
-  const { getProfile } = useNDK();
-  const metadata = getProfile(npub || "");
-  // const { personalFeedData } = usePersonalFeed();
+  const [metadata, setMetadata] = useState<Metadata>({});
+  const { darkMode } = useTheme();
+    const styleing = darkMode ? "border-textDark " : "border-textLight";
 
-// console.log("personalfeed?",personalFeedData);
+  const hex = npub ? nip19.decode(npub).data.toString() : undefined;
 
+  useEffect(() => {
+    const getUserProfile = async () => {
+      // getting users metadata potential later more stuff like reviews, list of places etc
+      const loadedProfile = await getMyProfile(hex as string)
+      setMetadata(loadedProfile)
+    }
+    getUserProfile()
+  }, [hex])
+  
+  
   return (
     <LayoutPage>
       <div className="w-full h-fit ">
-        {" "}
-        <div className="w-full h-full">
-          <img
-            className="object-cover w-full h-32 mb-4"
-            src={metadata.banner}
-            alt={`${metadata.displayName}'s banner`}
-          />
-        </div>
-        <div>
+        <div className="-m-6">
+          <div className="w-full h-full">
+            <img
+              className="object-cover w-full h-32 mb-4"
+              src={metadata?.banner}
+              alt={`${metadata?.displayName}'s banner`}
+            />
+          </div>
+
           <AboutProfile
-            displayName={metadata.displayName}
-            picture={metadata.image}
-            about={metadata.about}
+            displayName={metadata?.displayName}
+            picture={metadata?.picture}
+            about={metadata?.about}
             message={message}
-            lud16={metadata.lud16}
-            nip05={metadata.nip05}
-            website={metadata.website}
+            lud16={metadata?.lud16}
+            nip05={metadata?.nip05}
+            website={metadata?.website}
           />
           <div className={`border-[0.5px] ${styleing}`}></div>
         </div>
-        <LayoutCard>
+    
+        <div className="border-2 border-black">
           <Timer />
           <PersonalFeed />
-        </LayoutCard>
+        </div>
+    
       </div>
+     
     </LayoutPage>
   );
 };

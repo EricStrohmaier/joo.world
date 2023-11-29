@@ -1,6 +1,6 @@
 import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { FC, useEffect, useState } from "react";
-import { useUser } from "../../logic/contextStore/UserContext";
+import { useLocalUser } from "../../logic/contextStore/UserContext";
 
 interface ShowRelaysProps {}
 
@@ -12,7 +12,7 @@ const ShowRelays: FC<ShowRelaysProps> = () => {
     "wss://relay.snort.social",
     "wss://nostr.wine/",
   ];
-  const { userData} = useUser();
+  const { userData} = useLocalUser();
   const { getUser } = useNDK();
 
   const [relays, setRelays] = useState([]); // Initialize with an empty array
@@ -38,6 +38,7 @@ const ShowRelays: FC<ShowRelaysProps> = () => {
 
               
               const wssValues = tagsArray.map((tagArray) => tagArray[1]);
+               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                //@ts-ignore
               setRelays(wssValues);
 

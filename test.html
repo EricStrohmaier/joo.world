@@ -1,0 +1,400 @@
+<!-- // //works on the test testdome
+
+// import React, {useState} from 'react';
+// import { createRoot } from 'react-dom/client';
+
+// const ImageGallery = ({ links }) => {
+  
+//   const [linksArray, setLinks] = useState(links)
+    
+//   const onRemove = (index) => {
+//     const updatedItems = [...linksArray.slice(0, index), ...linksArray.slice(index + 1)];
+//     setLinks(updatedItems);
+//   }
+  
+ //   return (
+//     <div>
+//       {linksArray.map((link, index) => (
+//         <div key={index}>
+//           <div className="image">
+//             <img src={link} />
+//             <button onClick={() => onRemove(index)} className="remove">
+//               X
+//             </button>
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// } 
+
+// document.body.innerHTML = "<div id='root'> </div>";
+  
+// // const rootElement = document.getElementById("root");
+// // const links = ["https://bit.ly/3lmYVna", "https://bit.ly/3flyaMj"];
+// // const root = createRoot(rootElement);
+// // root.render(<ImageGallery links={ links } />);
+
+// // setTimeout(() => {
+// //   document.querySelectorAll('.remove')[0]?.click();
+// //   setTimeout(() => {
+// //     console.log(rootElement?.innerHTML);
+// //   });
+// // });
+
+
+
+
+// //todo list challenge
+// import React from 'react';
+// import { createRoot } from 'react-dom/client';
+
+// const TodoItem = (props) => <li onClick={props.onClick}>{props.item.text}</li>
+
+// const TodoList = ({ items, onListClick, onItemClick }) => {
+
+//   const handleItemClick = (item, event) => {
+//     if ( item.done === true ) {
+//       event.stopPropagation();
+//          return;
+//     }
+//     onItemClick(item, event);
+//   };
+
+//   return (
+//     <ul onClick={onListClick}>
+//       {items.map((item, index) => 
+//         <TodoItem item={item} key={index} onClick={(event) => handleItemClick(item, event)}/>)}
+//     </ul>
+//   );
+// }
+
+// const items = [ { text: 'Buy grocery', done: true },
+//   { text: 'Play guitar', done: false },
+//   { text: 'Romantic dinner', done: false }
+// ];
+
+// const App = (props) => <TodoList
+//   items={props.items}
+//   onListClick={(event) => console.log("List clicked!")}
+//   onItemClick={(item, event) => { console.log(item, event) }}
+// />;
+
+// document.body.innerHTML = "<div id='root'></div>";
+// const root = createRoot(document.getElementById("root"));
+
+// root.render(<App items={items}/>);
+
+
+// doToggle challange 
+// import React, {useState} from 'react';
+// import { createRoot } from 'react-dom/client';
+
+// const Message = () => { 
+  
+//   const [show, setShow] = useState(false)
+  
+//   return (
+//     <React.Fragment>
+//       <a onClick={(event) =>  setShow(true)} href="#">Want to buy a new car?</a>
+//       {show ? <p>Call +11 22 33 44 now!</p> : null }
+//     </React.Fragment>
+//   );
+// }
+
+// document.body.innerHTML = "<div id='root'></div>";
+// const root = createRoot(document.getElementById("root"));
+
+// root.render(<Message />);
+// const rootElement = document.getElementById("root");
+// setTimeout(() => {
+//   console.log("Before click: " + rootElement.innerHTML);
+
+//   document.querySelector("a").click();
+//   setTimeout(() => {
+//     console.log("After click: " + rootElement.innerHTML);
+//   });
+// });
+
+//gives right answer but error on testdome ...
+
+// /import React, { useState, useRef } from 'react';
+// import { createRoot } from 'react-dom/client';
+
+// class Username extends React.Component {
+//   state = { value: "" };
+
+//   changeValue(value) {
+//     this.setState({ value });
+//   }
+
+//   render() {
+//     const { value } = this.state;
+//     return <h1>{value}</h1>;
+//   }
+// }
+
+// function App() {
+//   const [username, setUsername] = useState("");
+//   const usernameRef = useRef(null);
+
+//   function clickHandler() {
+//     const inputElement = document.querySelector("input");
+//     setUsername(inputElement.value);
+//     usernameRef.current.changeValue(inputElement.value);
+//   }
+
+//   return (
+//     <div>
+//       <button onClick={clickHandler}>Change Username</button>
+//       <input type="text" />
+//       <Username ref={usernameRef} />
+//     </div>
+//   );
+// }
+
+// document.body.innerHTML = "<div id='root'></div>";
+// const root = createRoot(document.getElementById("root"));
+// root.render(<App />);
+
+// setTimeout(() => {
+//   document.querySelector("input").value = "John Doe";
+//   document.querySelector("button").click();
+
+//   setTimeout(() => {
+//     console.log(document.getElementById("root").innerHTML);
+//   }, 300);
+// }, 300);
+
+// the focus test
+// import React from 'react';
+// import { createRoot } from 'react-dom/client';
+
+// const FocusableInput = (props) => {
+
+
+//   return <input autoFocus={props.shouldFocus}  />;
+// };
+
+
+// document.body.innerHTML = "<div id='root'></div>";
+// const root = createRoot(document.getElementById("root"));
+// root.render(<FocusableInput shouldFocus={true} />);
+// setTimeout(() => console.log(document.getElementById("root").innerHTML), 300);
+
+
+// also focus
+// import React from 'react';
+// import { createRoot } from 'react-dom/client';
+
+// class Input extends React.PureComponent {
+//   render() {
+//     let {forwardedRef, ...otherProps} = this.props; 
+//     return <input {...otherProps} ref={forwardedRef} />;
+//   }
+// }
+
+// const TextInput = React.forwardRef((props, ref) => {
+//   return <Input {...props} forwardedRef={ref} />
+// });
+
+// class FocusableInput extends React.Component {
+  
+//   ref = React.createRef()
+
+//   render() {
+//     return <TextInput ref={this.ref} />;
+//   }
+
+//   // When the focused prop is changed from false to true, 
+//   // and the input is not focused, it should receive focus.
+//   // If focused prop is true, the input should receive the focus.
+//   // Implement your solution below:
+//   componentDidUpdate(prevProps) {
+//     if (prevProps.focused === false && this.props.focused === true) {
+//       this.ref.current.focus();
+//     }
+//   }
+  
+//   componentDidMount() {
+//     if (this.props.focused === true) {
+//       this.ref.current.focus();
+//     }
+//   }
+// }
+
+// FocusableInput.defaultProps = {
+//   focused: false
+// };
+
+// const App = (props) => <FocusableInput focused={props.focused} />;
+
+// document.body.innerHTML = "<div id='root'></div>";
+// const root = createRoot(document.getElementById("root"));
+// root.render(<App />);
+
+
+// //permission test ts 
+// enum Permission {
+//   Read = 1,
+//   Write = 2,
+//   Execute = 4,
+// }
+
+// function getPermissionList(permission: Permission): string[] {
+//   let result: string[] = [];
+//   if (permission & Permission.Read) {
+//       result.push("Read");
+//   }
+//   if (permission & Permission.Write) {
+//       result.push("Write");
+//   }
+//   if (permission & Permission.Execute) {
+//       result.push("Execute");
+//   }
+//   return result;
+// }
+
+// // Call the function with individual permissions
+// console.log(getPermissionList(Permission.Read)); // Outputs: ["Read"]
+// console.log(getPermissionList(Permission.Write)); // Outputs: ["Write"]
+
+// // Call the function with a combination of permissions
+// console.log(getPermissionList(Permission.Read | Permission.Write)); // Outputs: ["Read", "Write"]
+
+// // Call the function with a combination of all permissions
+// console.log(getPermissionList(Permission.Read | Permission.Write | Permission.Execute)); // Outputs: ["Read", "Write", "Execute"]
+
+
+//single digit 
+
+// function createCheckDigit(membershipId: string): number {
+//   let sum = 0;
+//   for (let i = 0; i < membershipId.length; i++) {
+//     sum += parseInt(membershipId[i]);
+    
+//   }
+//      if (sum > 9) {
+//         // If not, recursively call the function with the sum
+//         return createCheckDigit(sum.toString());
+//     }
+//   return sum;
+// }
+
+// console.log(createCheckDigit("55555"));
+
+
+//ts calsses and constructors
+// class GameObject {
+//   constructor(public x: number, public y: number) {}
+// }
+
+// class Circle extends GameObject {
+//   // Add a new public field 'radius'
+//   constructor(x: number, y: number, public radius: number) {
+//       // Call the constructor of the base class (GameObject) to set 'x' and 'y'
+//       super(x, y);
+//   }
+// }
+
+// // Create an instance of the Circle class
+// let circle = new Circle(10, 50, 8);
+
+// // Output the values
+// console.log(circle.x, circle.y, circle.radius);  // should print "10 50 8"
+
+//
+// function simulate(entries: number[]): number[] {
+//   const result = [...entries];
+//   const pattern = ['Tl', '-', '-', 'X', '-', '-', '-', 'Tr'];
+
+//   for (let i = 3; i < entries.length - 3; i++) {
+//     if (
+//       (result[i - 3] >= result[i] || result[i + 3] >= result[i]) &&
+//       i - 3 >= 0 &&
+//       i + 3 < result.length
+//     ) {
+//       result[i] = 0;
+//     }
+//   }
+
+//   return result;
+// }
+
+// // Example usage:
+// const records: number[] = [1, 2, 0, 5, 0, 2, 4, 3, 3, 3];
+// console.log(simulate(records));
+
+
+// //sum of two numbers
+// /**
+//  * @param {number[]} numbers The array of numbers.
+//  * @param {number} sum The required target sum.
+//  * @return {number[]} An array of 2 indices. The indices of the two elements whose sum is equal to sum.
+//  */
+// function findTwoSum(numbers, sum) {
+//   const map = new Map();
+//   for (let i = 0; i < numbers.length; i++) {
+//     const complement = sum - numbers[i];
+//     if (map.has(complement)) {
+//       return [ map.get(complement), i ];
+//     }
+//     map.set(numbers[i], i);
+//   }
+//   return null;
+  
+  
+
+// }
+
+// const indices = findTwoSum([ 3, 1, 5, 7, 5, 9 ], 10);
+// console.log(indices);
+
+
+//date jsut constructing a date
+// function formatDate(userDate) {
+//   // format from M/D/YYYY to YYYYMMDD
+//   const parts = userDate.split("/");
+//   const year = parts[2];
+//   const month = parts[0].length === 1 ? "0" + parts[0] : parts[0];
+//   const day = parts[1].length === 1 ? "0" + parts[1] : parts[1];
+//   return year + month + day;
+// }
+
+// console.log(formatDate("12/31/2014")); 
+
+
+
+// // //song repeating test
+// class Song {
+//   name;
+//   nextSong;
+  
+//   constructor(name) {
+//     this.name = name;
+//   }
+  
+//   /**
+//    * @return {boolean} true if the playlist is repeating, false if not.
+//    */
+//   isInRepeatingPlaylist() {
+//     const songs = new Set();
+//     let currentSong = this;
+//     while (currentSong.nextSong) {
+//       if (songs.has(currentSong.nextSong.name)) {
+//         return true;
+//       }
+//       songs.add(currentSong.name);
+//       currentSong = currentSong.nextSong;
+//     }
+//     return false;
+//   }
+// }
+
+// let first = new Song("Hello");
+// let second = new Song("Eye of the tiger");
+
+// first.nextSong = second;
+// second.nextSong = first;
+
+// console.log(first.isInRepeatingPlaylist()) -->

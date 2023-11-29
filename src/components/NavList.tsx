@@ -1,28 +1,25 @@
 import { FC } from "react";
-
 import Button from "./CommonUI/Button";
 import { globe, home, login, logout, stack } from "../icons";
-import { useUser } from "../logic/contextStore/UserContext";
+import { useLocalUser } from "../logic/contextStore/UserContext";
 import { Link } from "react-router-dom";
-import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { loader } from "../logic/utils/loader";
+import { useNDK } from "@nostr-dev-kit/ndk-react";
+import { nip19 } from "nostr-tools";
+
 interface NavListProps {}
 
 const NavList: FC<NavListProps> = () => {
   const navstyle = "p-1 px-2 hover:opacity-75";
 
-  const { userData } = useUser();
-  
-  // if (!userData) {
-  //   return (
-  //     <></>
-  //   ); 
-  // }
+  const { userData } = useLocalUser();  
+   const hex = userData?.npub ? nip19.decode(userData?.npub).data.toString() : undefined;
+
   const { getProfile } = useNDK();
-  const metadata = getProfile(userData?.npub || '');
+  const metadata = getProfile(hex|| "");
+    
 
 
- 
   return (
     <>
       <div className="min-h-[80vh] h-full flex flex-col justify-between my-12">
@@ -66,13 +63,12 @@ const NavList: FC<NavListProps> = () => {
                       {" "}
                       <img
                         src={
-                      
-                        metadata?.image
-                          ? loader(metadata?.image, {
-                              w: 96,
-                              h: 96,
-                            })
-                          : ""
+                          metadata?.image
+                            ? loader(metadata?.image, {
+                                w: 96,
+                                h: 96,
+                              })
+                            : ""
                         }
                         className={`w-full h-full overflow-hidden rounded-[8px] z-0 `}
                       />

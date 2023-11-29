@@ -1,3 +1,5 @@
+import { NDKTag } from "@nostr-dev-kit/ndk";
+
 export interface Metadata {
     name?: string;
     displayName?: string;
@@ -8,19 +10,26 @@ export interface Metadata {
     banner?: string;
     nip05verified?: boolean;
     website?: string;
+    npub?: string;
+    pubkey?: string
   }
   
-  export type NostrProfile = {
-    pubkey: string;
-    name: string;
-    displayName?: string;
-    image: string;
-    about: string | null;
-    npub: string;
-    nip05?: string | null;
-    lightning_address?: string | null;
-    boltfun_id?: number;
-    banner?: string ;
-    website?: string | null;
-  };
   
+export interface PersonalFeedItem {
+  content: string;
+  tags: string[];
+  createdAt: string;
+  id: string;
+  pubkey: string;
+  url: string | null;
+}
+
+export interface EventData {
+  content: string;
+  tags: NDKTag[];
+  createdAt: number | undefined;
+  id: string;
+  kind: number | undefined;
+  pubkey: string;
+  url: string | undefined;
+}

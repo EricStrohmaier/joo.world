@@ -1,2 +1,133 @@
 //convert to hex from npub
 const hex = npub ? nip19.decode(npub).data.toString() : undefined;
+
+
+
+  result?.followingHexKeys?.forEach(async (entry) => {
+            const result = await GetCustomFeed(entry, fetchEvents);
+            // console.log(`${entry} feed result`, result);
+          });
+
+just do it!!
+
+- focus on bare min function then 
+
+- adding all the features later!
+
+
+Todo:
+
+- creating workflows is the most importend now!
+    step one  fix long and short fromat content ... publish event with right way of tags (event etc copy others)
+    step two adding schleude to posts
+    step three adding ai DVM to create workflows 
+
+    working feed => get lists[done] or 
+
+    create lists!
+    [TODO:]
+
+     
+        - create text where it says to choose a list or create one
+        - fetch lists and display them for choosing then instant see feed....
+
+    [todo:] 
+
+    create selected list in store => fetch feed data from the p tags of selected list  set in store 
+    fix type never errors
+    style layout create functions for new list plus ui... 
+
+        - create new k:30000 list with the category people? 
+            - popup window ui => fetch list of current followers
+            - simply select the ones you want at new list/feed 
+            - give it a name and description then publish 
+            - see feed instant..
+        - create dixie store for list events? refetching if there is a page change... especially for the feed...
+
+    
+    and then see people or not 
+
+
+    make nostr onetask questions => 
+
+
+
+- Working feed page explicid add someone to the list(not mute list) !! 
+    having some lists to switch? only at this client? yes...
+
+- Homepage OneTask! thats it explain plus questions   
+  homeepage without sigin is a video explaiing or screenshoots
+
+- workflows will be creating or setting preverances for ai workflows ?
+
+- white colors slight changing to better white theme more pleasent...
+
+- right rendering of data
+
+-? what else to put in dixie store
+    - followers?
+    - events you post long and short, pictures, lists
+
+
+
+
+--ask for help with displaying feed content???
+
+
+ToDo-Feature:
+- ai tweets poster
+
+
+
+
+
+
+useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await promise;
+
+        const userDataPromises = result?.followingHexKeys?.map(
+          async (entry) => {
+            const user = getUser(entry);
+            return user?.profile;
+          }
+        );
+        if (userDataPromises) {
+          const userData = await Promise.all(userDataPromises);
+
+          //@ts-ignore
+          setFollowing(userData);
+        }
+
+        const customLists = result?.filterdListEvents;
+
+        if (customLists) {
+          //@ts-ignore
+          setCustomListsState(customLists);
+        }
+        // console.log("customLists", customListsState);
+
+        
+        // result?.filterdListEvents?.forEach(async (entry) => {
+        //   const result = await GetCustomFeed(entry?.p, fetchEvents);
+        //   console.log(`${entry?.title} feed result`, result);
+        // });
+        
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
+    fetchData();
+  }, [customListsState, fetchEvents, getUser, promise, userData]);
+
+
+
+
+
+
+
+ // const hex = nip19.decode("npub1zuuajd7u3sx8xu92yav9jwxpr839cs0kc3q6t56vd5u9q033xmhsk6c2uc").data.toString();
+  // const hex = userData?.npub
+  //   ? nip19.decode(userData?.npub).data.toString()
+  //   : undefined;

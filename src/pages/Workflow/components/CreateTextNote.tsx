@@ -1,5 +1,5 @@
-import { FC, SVGProps, useState } from "react";
-import { RadioGroup } from "@headlessui/react";
+import { FC, useState } from "react";
+import { Switch } from "@headlessui/react";
 import { SetStateAction } from "react";
 import { useTheme } from "../../../logic/theme/useTheme";
 
@@ -10,8 +10,8 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
   const [selectedFormat, setSelectedFormat] = useState("short"); // Default to Short Form
   const { darkMode } = useTheme();
   const button = darkMode
-    ? "bg-primaryDark text-textDark"
-    : "bg-primaryLight text-textLight border-gray-300";
+    ? "bg-primaryLight text-textLight border-gray-300"
+    : "bg-primaryDark text-textDark";
 
   const textstyle = darkMode
     ? "bg-backgroundDark text-textDark"
@@ -46,45 +46,34 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
 
   return (
     <div className="w-full">
-      <RadioGroup value={selectedFormat} onChange={handleFormatChange}>
-        <div className="my-3 text-left">
-          <div className={`inline-flex w-full ${button} border rounded-[70px] px-2 shadow-sm py-1 text-sm font-medium hover:bg-opacity-50`}>
-            Choose Format
+      <div className="mb-5">
+        <Switch.Group>
+          <div className="flex items-center">
+            <Switch.Label className="mr-4">Switch Content Type</Switch.Label>
+            <Switch
+              checked={selectedFormat === "long"}
+              onChange={() =>
+                handleFormatChange(
+                  selectedFormat === "short" ? "long" : "short"
+                )
+              }
+              className={`${
+                selectedFormat === "long" ? "bg-purple-600" : `${button}`
+              } relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none `}
+            >
+              <span
+                className={`${
+                  selectedFormat === "long" ? "translate-x-6" : "translate-x-1"
+                } inline-block h-4 w-4 transform rounded-full bg-white transition-transform`}
+              />
+            </Switch>
+            <div className="ml-3 text-sm font-semibold">
+              {selectedFormat === "long" ? "Long Format" : "Short Format"}
+            </div>
           </div>
-          <div className="mt-2">
-            <RadioGroup.Option value="short">
-              {({ active }) => (
-                <button
-                  onClick={() => handleFormatChange("short")}
-                  className={`${
-                    active ? "bg-primaryLight text-textLight" : "text-textLight"
-                  } group flex  items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  {selectedFormat === "short" ? (
-                    <CheckIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                  ) : null}
-                  Short Textnote
-                </button>
-              )}
-            </RadioGroup.Option>
-            <RadioGroup.Option value="long">
-              {({ active }) => (
-                <button
-                  onClick={() => handleFormatChange("long")}
-                  className={`${
-                    active ? "bg-primaryLight text-textLight" : "text-textLight"
-                  } group flex max-w-[150px] w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  {selectedFormat === "long" ? (
-                    <CheckIcon className="w-5 h-5 mr-2" aria-hidden="true" />
-                  ) : null}
-                  Long Blog Post
-                </button>
-              )}
-            </RadioGroup.Option>
-          </div>
-        </div>
-      </RadioGroup>
+        </Switch.Group>
+      </div>
+
       {selectedFormat === "short" ? (
         <div className="mb-2">
           <textarea
@@ -116,10 +105,14 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
       )}
       <div className="flex justify-end">
         <div className="flex">
-          <button className={`border rounded-[70px] p-1 px-2 mr-2 shadow-sm text-sm ${button}`}>
+          <button
+            className={`border rounded-[70px] p-1 px-2 mr-2 shadow-sm text-sm ${button}`}
+          >
             Save Draft
           </button>
-          <button className={`border rounded-[70px] p-1 px-2 shadow-sm text-sm ${button}`} >
+          <button
+            className={`border rounded-[70px] p-1 px-2 shadow-sm text-sm ${button}`}
+          >
             Publish
           </button>
         </div>
@@ -129,22 +122,3 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
 };
 
 export default CreateTextNote;
-
-function CheckIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      className="w-6 h-6 check-circle"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M5 13l4 4L19 7"
-      />
-    </svg>
-  );
-}
