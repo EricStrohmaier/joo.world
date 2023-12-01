@@ -2,13 +2,13 @@ import { FC, useEffect, useState } from "react";
 import LayoutPage from "../../components/LayoutPage";
 import { useParams } from "react-router-dom";
 import { nip19 } from "nostr-tools";
-import Timer from "./components/Time";
+// import Timer from "./components/Time";
 import { getMyProfile } from "../../logic/contextStore/Nostr";
 import { Metadata } from "../../logic/types/nostr";
 import AboutProfile from "./components/AboutProfile";
 import { message } from "../../icons";
 import { useTheme } from "../../logic/theme/useTheme";
-import PersonalFeed from "./components/PersonalFeed";
+// import PersonalFeed from "./components/PersonalFeed";
 
 interface ProfileProps {}
 
@@ -55,8 +55,8 @@ export const ProfileLogic: FC<ProfileProps> = () => {
         </div>
     
         <div className="">
-          <Timer />
-          <PersonalFeed />
+          {/* <Timer />
+          <PersonalFeed /> */}
         </div>
     
       </div>

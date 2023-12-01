@@ -5,6 +5,7 @@ export interface Metadata {
     displayName?: string;
     about?: string;
     picture?: string;
+    image?: string;
     nip05?: string;
     lud16?: string;
     banner?: string;

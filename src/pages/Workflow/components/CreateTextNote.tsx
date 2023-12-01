@@ -2,6 +2,8 @@ import { FC, useState } from "react";
 import { Switch } from "@headlessui/react";
 import { SetStateAction } from "react";
 import { useTheme } from "../../../logic/theme/useTheme";
+import { usePublish } from "nostr-hooks";
+import { defaultRelays, getRelayList } from "../../../logic/contextStore/Nostr";
 
 interface CreateTextNoteProps {}
 
@@ -9,6 +11,9 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
   const [input, setInput] = useState<string>("");
   const [selectedFormat, setSelectedFormat] = useState("short"); // Default to Short Form
   const { darkMode } = useTheme();
+  const userRelays = getRelayList(defaultRelays);
+  const publish = usePublish(userRelays);
+
   const button = darkMode
     ? "bg-primaryLight text-textLight border-gray-300"
     : "bg-primaryDark text-textDark";
@@ -21,28 +26,27 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
     setSelectedFormat(format);
   };
 
-  // const publish = usePublish();
 
-  // const handleSend = async () => {
-  //   // add tags?
-  //   // add Handle Title and Images add tags!! default Tags...?
-  //   const baseEvent = {
-  //     kind: selectedFormat === "short" ? 1 : 30023, // Short or Long Form
-  //     content: input,
-  //   };
-  //   try {
-  //     const content = await publish(baseEvent);
-  //     console.log(content);
+  const handleSend = async () => {
+    // add tags?
+    // add Handle Title and Images add tags!! default Tags...?
+    const baseEvent = {
+      kind: selectedFormat === "short" ? 1 : 30023, 
+      content: input,
+    };
+    try {
+      const content = await publish(baseEvent);
+      console.log(content);
 
-  //     // Display a success message to the user
-  //     alert("Event published successfully!");
-  //   } catch (error) {
-  //     console.error(error);
+      // Display a success message to the user
+      alert("Event published successfully!");
+    } catch (error) {
+      console.error(error);
 
-  //     // Display an error message to the user
-  //     alert("An error occurred while publishing the event. Please try again.");
-  //   }
-  // };
+      // Display an error message to the user
+      alert("An error occurred while publishing the event. Please try again.");
+    }
+  };
 
   return (
     <div className="w-full">
@@ -111,6 +115,7 @@ const CreateTextNote: FC<CreateTextNoteProps> = () => {
             Save Draft
           </button>
           <button
+            onClick={handleSend}
             className={`border rounded-[70px] p-1 px-2 shadow-sm text-sm ${button}`}
           >
             Publish
