@@ -4,7 +4,7 @@ export type RelayReadWrite = {
 }
 
 export type RelayObject = {
-  [key: string] : []
+  [key: string]: RelayReadWrite
 }
 
 export type RelayList = string[]
