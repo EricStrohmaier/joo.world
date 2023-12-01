@@ -54,7 +54,7 @@ export const ProfileLogic: FC<ProfileProps> = () => {
           <div className={`border-[0.5px] ${styleing}`}></div>
         </div>
     
-        <div className="border-2 border-black">
+        <div className="">
           <Timer />
           <PersonalFeed />
         </div>

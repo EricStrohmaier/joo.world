@@ -14,8 +14,9 @@ export async function useCustomLists(hex: string) {
       ],
       authors: [hex],
     };
-    try {
+    try {      
       const events = await fetchEvents(filter);
+      //  console.log("events", events);
       const eventArray = [...events];
       const listEvents = eventArray.map((entry) => ({
         tags: entry.tags,
