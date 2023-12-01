@@ -24,6 +24,7 @@ const Home: FC<HomeProps> = () => {
   const backgroundstyle = darkMode
     ? "bg-primaryDark text-textDark"
     : "bg-primaryLight text-textLight";
+  const buttonStyle = darkMode ? "bg-secondaryLight text-textLight px-2 py-1 rounded-md" : "bg-secondaryDark text-textDark px-2 py-1 rounded-md";
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [following, setFollowing] = useState<string[] | undefined>(undefined);
   const [listName, setListName] = useState([]);
@@ -154,7 +155,9 @@ const Home: FC<HomeProps> = () => {
                   ))}
                 </div>
               ) : (
-                <div>Public feed.</div>
+                <div className="flex justify-center mt-5 text-3xl font-semibold">
+                  You are welcome, no public feed
+                </div>
               )}
             </div>
           </div>
@@ -177,27 +180,52 @@ const Home: FC<HomeProps> = () => {
                     : " Choose one of your contact lists to set your feed or create a new list"}
                 </div>
                 {/* handle proper login statements */}
-                <div onClick={newList}>
-                  Create New People list from your followers
+                <div
+                  className="px-3 py-1 mr-2 border-2 cursor-pointer rounded-3xl w-fit"
+                  onClick={newList}
+                >
+                  Create New Feed list from your followers here!
                 </div>
-                <div>Current selected Feed</div>
+                <div className="px-3 py-1 mt-2 mr-2 border-2 cursor-pointer rounded-3xl w-fit">
+                  Current selected Feed:{" "}
+                  {
+                    selectedList?.tags?.find(
+                      (tag: string[]) => tag[0] === "title"
+                    )?.[1]
+                  }
+                </div>
                 <div className="text-md">
                   {following ? (
                     <div className="flex flex-col w-full gap-2 ">
                       <div className="flex h-full">
                         <div className="p-3 w-[100%] min-h-full h-full overflow-y-auto">
-                          <div className="flex flex-col gap-2">
-                            {doNewList ? (
-                              <>
-                                <div>
-                                  <p>Enter a name for your new list</p>
-                                  <input type="text" />
-                                  <p>Enter Description</p>
-                                  <input type="text" />
-                                  <button onClick={newList}>Cancel Edit</button>
+                          {doNewList ? (
+                            <>
+                              <div className="w-full px-3 py-2 mb-3 space-y-1 border-2 cursor-pointer rounded-3xl">
+                                <p className="mt-1 text-lg font-semibold">
+                                  Enter a name for your new list
+                                </p>
+                                <input
+                                  className="w-full bg-transparent rounded-md grow "
+                                  type="text"
+                                  placeholder="e.g. 'Meme feed', 'Content Creators'"
+                                />
+                                <p className="mt-2 text-lg font-semibold">
+                                  Description
+                                </p>
+                                <input
+                                  className="w-full bg-transparent rounded-md grow "
+                                  type="text"
+                                  placeholder="An optional description..."
+                                />
+                                <div className="flex justify-end my-2">
+                                  <button className={`mx-2 ${buttonStyle}`} onClick={newList}>Cancel Edit</button>
+                                  <button className={`mx-2 ${buttonStyle}`}>Save</button>
                                 </div>
-                              </>
-                            ) : null}
+                              </div>
+                            </>
+                          ) : null}
+                          <div className="flex flex-col gap-2">
                             {listName?.map(
                               (
                                 entry: { tags?: Array<[string, string]> },

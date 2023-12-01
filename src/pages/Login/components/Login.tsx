@@ -5,6 +5,7 @@ import { useNDK } from "@nostr-dev-kit/ndk-react";
 import { useLocalUser } from "../../../logic/contextStore/UserContext";
 import { nip19 } from "nostr-tools";
 
+
 export const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +13,7 @@ export const Login = () => {
   const { setLocalUser , setMetadata} = useLocalUser();
 
 
-  async function initializeNDK() {
+ async function initializeNDK() {
     setIsLoading(true);
     const user = await loginWithNip07();
 
